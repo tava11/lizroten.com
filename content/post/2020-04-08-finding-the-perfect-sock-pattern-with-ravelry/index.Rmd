@@ -1,0 +1,416 @@
+---
+title: Finding the perfect sock pattern with `{ravelRy}`
+author: admin
+date: '2020-04-08'
+slug: finding-the-perfect-sock-pattern-with-ravelry
+categories:
+  - blog
+tags:
+  - tidyverse
+  - ggplot2
+  - ravelry
+subtitle: ''
+toc: true
+summary: "Using Ravelry's API to find just the right sock pattern"
+authors: []
+lastmod: '2020-10-30T17:47:26-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "#>",
+  dev = c("CairoPNG"),
+  dev.args = list(res = 300, 
+                  pointsize = 12)
+)
+
+# from https://community.rstudio.com/t/showing-only-the-first-few-lines-of-the-results-of-a-code-chunk/6963/2
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options)) # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines) == 1) { # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+```
+
+I am a knitter. Knitting is a calming, fulfilling practice that keep my hands busy and require *just* enough brain power to keep my mind from wandering too far. Over the past winter, I conquered my fear of making socks, and now I profess that I am a sock knitter. I made socks for Christmas gifts, and churned out four pairs during my evenings, bus commutes, long work meetings, lectures, coffee and tea shop visits (basically everywhere). I'm comfortable with the standard stockinette sock, and I even ventured out into other patterns from Ravelry (_the_ social medium for yarn folks), like [Hermione's Everyday Socks](https://www.ravelry.com/patterns/library/hermiones-everyday-socks) and the [Slip It Simple Socks](https://www.ravelry.com/patterns/library/slip-it-simple-sock).  
+
+But, even as the weather is warming here in Minnesota, working from home means that I don't have a commute and COVID-19 means that I have plenty of spare angst, so I've decided to make a new pair of socks, and work with a new pattern. 
+
+And, just when I was starting to glaze over scrolling through endless Ravelry pages and reviews, I found [ravelRy](https://github.com/walkerkq/ravelRy), an R package that interfaces seamlessly with Ravelry's [API](https://www.ravelry.com/api). And its even on CRAN!  
+
+Lets install, and get going!  
+
+```{r, eval = FALSE}
+install.packages("ravelRy")
+```
+
+```{r, message = FALSE}
+library(ravelRy)
+library(tidyverse)
+```
+
+
+## Authentication    
+
+As with most APIs, you need to authenticate somehow. I'll use my Ravelry account credentials (you'll need a [free, pro account](https://www.ravelry.com/pro/developer) to access the API).  
+
+```{r, eval = FALSE}
+ravelRy::ravelry_auth(key = "username")
+ravelRy::ravelry_auth(key = "password")
+```
+```{r, include=FALSE}
+Sys.setenv("RAVELRY_USERNAME" = paste(keyring::key_get("RAVELRY_USERNAME")))
+Sys.setenv("RAVELRY_PASSWORD" = paste(keyring::key_get("RAVELRY_PASSWORD")))
+```
+
+## Search for a sock pattern!  
+
+Lets start simple, and just look for the first 20 results for "sock" that are available as a Ravelry download.  
+
+```{r}
+search_result <- search_patterns(
+  query = "sock",
+  page_size = 20,
+  craft = "knitting", # knitting or crochet
+  fit = "adult", # adult, baby, etc.
+  ravelry_download = TRUE
+)
+
+head(search_result)
+```
+
+The fourth result is even my old friend, "Hermione's Everyday Socks!"
+
+```{r}
+search_result[4, ] # get the fourth row in the table
+```
+
+Lets take a look at the actual pattern from the search results using `get_patterns()`.  
+
+```{r}
+hermione <- get_patterns(ids = search_result[4, ]$id)
+str(hermione, max.level = 2)
+str(hermione$pattern_attributes)
+```
+
+I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?  
+
+```{r}
+hermione$difficulty_count # how many reviews rated a difficulty?
+hermione$difficulty_average # what is the average difficulty?
+```
+
+Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.
+
+```{r}
+slip_it_search <- search_patterns(query = "slip it simple sock")
+```
+
+Next, take the `id` column and feed it into  `get_patterns()`.  
+
+```{r}
+slip_it <- get_patterns(ids = slip_it_search$id)
+```
+
+What is our difficulty?  
+
+```{r}
+slip_it$difficulty_count
+slip_it$difficulty_average
+```
+There are fewer reviews, but the difficulty is super low.  
+
+## Refining our search  
+
+We can use the pattern table for `hermione` and `slip_it` to narrow our search further.   
+
+```{r, output.lines=1:8}
+head(search_patterns(
+  query = "sock",
+  page_size = 20,
+  craft = "knitting", # knitting or crochet
+  fit = "adult", # adult, baby, etc.
+  ravelry_download = TRUE,
+  pattern_needle_sizes = 1,
+  weight = "fingering", # yarn weight
+  type = "sock",
+  colors = 1
+))
+```
+
+Another trick is to go look at the URL when I am searching on Ravelry itself. This gives me an idea of what search terms I can add to `search_patterns()`.  
+
+```{r, eval = FALSE}
+refined_search <- search_patterns(
+  query = "socks",
+  pc = "mid-calf",
+  page_size = 100,
+  craft = "knitting", # knitting or crochet
+  # fit = "adult", # adult, baby, etc.
+  ravelry_download = TRUE,
+  pattern_needle_sizes = 1,
+  weight = "fingering", # yarn weight
+  type = "sock",
+  colors = 1,
+  diff = "3.5%7C8",
+  language = "en",
+  sort = "projects",
+  photo = "yes"
+)
+```
+```{r, include = FALSE}
+# saveRDS(refined_search, "refined_search.rds")
+refined_search <- readRDS("refined_search.rds")
+```
+
+## Review refined search results  
+
+Now that I've picked out 100 patterns to consider/make fun plots with, lets review them in more detail.  
+
+```{r, eval=FALSE}
+refined_patterns <- get_patterns(ids = refined_search$id) # this might take a while
+```
+```{r, include = FALSE}
+# saveRDS(refined_patterns, "refined_patterns.rds")
+refined_patterns <- readRDS("refined_patterns.rds")
+```
+
+To start plotting, I will import my theme and [`{dutchmasters}`](https://github.com/EdwinTh/dutchmasters).   
+
+```{r "comment_density"}
+source("my_sock_theme.R")
+library(dutchmasters)
+ggplot() +
+  geom_density(refined_patterns,
+    mapping = aes(
+      x = comments_count,
+      fill = free
+    ),
+    alpha = 0.7,
+    color = "gray"
+  ) +
+  dutchmasters::scale_fill_dutchmasters(palette = "pearl_earring") +
+  labs(
+    title = "Pattern Comment Density",
+    x = "Comment count",
+    y = "Density"
+  ) +
+  my_theme()
+```
+{{< chart data="line-chart" >}}
+
+Next, we'll make a density plot series comparing the average difficulty rating for each pattern attribute (check out [this example](https://github.com/walkerkq/ravelRy/blob/master/man/example_files/example_eda.md) for this plot's inspiration).   
+
+
+```{r, "plot_difficulty_by_attribute",  fig.width = 8, fig.height = 10}
+pattern_details_attributes <- refined_patterns %>%
+  unnest(cols = "pattern_attributes", names_sep = "_")
+
+
+top_attributes <- pattern_details_attributes %>%
+  filter(difficulty_count >= 20) %>%
+  count(pattern_attributes_permalink) %>%
+  filter(n >= 20)
+
+attributes_long <- pattern_details_attributes %>%
+  filter(pattern_attributes_permalink %in% top_attributes$pattern_attributes_permalink) %>%
+  select(id, pattern_attributes_permalink, difficulty_average, rating_average)
+
+attributes_long %>%
+  ggplot() +
+  geom_density(aes(x = difficulty_average),
+    fill = dutchmasters::dutchmasters$pearl_earring[4],
+    color = "gray",
+    outline.type = "full"
+  ) +
+  facet_grid(reorder(
+    pattern_attributes_permalink,
+    difficulty_average, median
+  ) ~ .,
+  switch = "y", scales = "free_y"
+  ) +
+  scale_x_continuous(limits = c(2, 7)) +
+  labs(
+    title = "Average difficulty rating by pattern attribute",
+    y = "", x = "Average difficulty"
+  ) +
+  my_theme() +
+  theme(
+    panel.spacing.y = unit(0, "lines"),
+    panel.grid = element_blank(),
+    panel.grid.major.y = element_blank(),
+    strip.text.y.left = element_text(angle = 0),
+    strip.background = element_rect(fill = NA, color = NA),
+    axis.text.y = element_blank()
+  )
+```
+
+## Narrow down results  
+
+I want to use a pattern with high ratings and a high number of projects. What do these distributions look like?  
+
+```{r}
+library(cowplot)
+
+project_count <- ggplot(data = refined_patterns) +
+  geom_density(
+    mapping = aes(x = projects_count),
+    fill = dutchmasters::dutchmasters$pearl_earring[2],
+    alpha = 0.8,
+    color = "gray"
+  ) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = "Project Count",
+    x = "Projects",
+    y = ""
+  ) +
+  my_theme()
+
+rating_count <- ggplot(data = refined_patterns) +
+  geom_density(
+    mapping = aes(x = rating_count),
+    fill = dutchmasters::dutchmasters$pearl_earring[3],
+    alpha = 0.8,
+    color = "gray"
+  ) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = "Rating Count",
+    x = "Ratings",
+    y = ""
+  ) +
+  my_theme()
+
+
+cowplot::plot_grid(project_count, rating_count)
+```
+
+It looks like there is a big drop-off around 1,000 project and 500 ratings.  
+
+```{r}
+project_rating_patterns <- refined_patterns %>%
+  filter(
+    projects_count >= 1000,
+    rating_count >= 500
+  )
+```
+
+That `filter()` took us from 100 patterns to 11. Progress!  
+
+Now, lets look at the ratings and difficulty. We will also separate these out by availability.
+
+```{r "average_rating_avg_difficulty"}
+ggplot(project_rating_patterns) +
+  geom_point(
+    mapping = aes(
+      x = difficulty_average,
+      y = rating_average,
+      color = free
+    ),
+    size = 4
+  ) +
+  dutchmasters::scale_color_dutchmasters(palette = "pearl_earring") +
+  labs(
+    title = "Average Rating and Average Difficulty",
+    x = "Average difficulty",
+    y = "Average Rating"
+  ) +
+  my_theme()
+```
+
+Nothing too informative here. What are the top pattern attributes?  
+
+```{r "top-pattern-attributes"}
+project_rating_patterns %>%
+  unnest(cols = "pattern_attributes", names_sep = "_") %>%
+  count(pattern_attributes_permalink) %>%
+  filter(n > 5) %>%
+  arrange(desc(n)) %>%
+  ggplot() +
+  geom_col(aes(
+    x = pattern_attributes_permalink,
+    y = n
+  ),
+  fill = dutchmasters::dutchmasters$pearl_earring[9]
+  ) +
+  labs(
+    title = "Top pattern attributes",
+    x = "Pattern attribute",
+    y = "Frequency"
+  ) +
+  my_theme()
+```
+
+
+Another thing that makes patterns easy to follow is if they are downloadable (as opposed to linked to another web page). Lets `filter()` for that, and have a difficulty at least above 4. 
+
+```{r, output.lines=1:8}
+filter(
+  project_rating_patterns, downloadable == TRUE,
+  difficulty_average >= 4
+) %>%
+  arrange(-rating_average)
+```
+
+## Fetch images  
+
+Now that we only have four left, lets fetch the images!  
+
+```{r}
+photo_links <- filter(
+  project_rating_patterns, downloadable == TRUE,
+  difficulty_average >= 4
+) %>%
+  unnest(cols = photos, names_sep = "_") %>%
+  filter(photos_sort_order == 4) %>%
+  select(id, name, photos_medium_url)
+```
+
+Next, we will use [`{imager}`](https://github.com/dahtah/imager) to fetch the data and plot it.  
+
+```{r, "images", message = FALSE, warning = FALSE}
+library(imager)
+photo_links$name
+
+map(photo_links$photos_medium_url, load.image) %>%
+  map(plot, axes = FALSE)
+```
+
+## And the winner is....  
+
+[Pomatomus](https://www.ravelry.com/patterns/library/pomatomus)! I mean, look at those gorgeous waves!
+
+![Pomatomus socks from the front](https://images4-f.ravelrycache.com/uploads/GoldenIris/304984815/webp/DSC_0135_medium2.webp#jpg)  
+
+I have a lovely merino/nylon blend by [Sun Valley Fibers](https://www.instagram.com/sunvalleyfibers/) waiting for me. I hope you enjoyed this little journey!   
+
+## Credits  
+
+I followed along [this example](https://github.com/walkerkq/ravelRy/blob/master/man/example_files/example_eda.md) by the ravelRy package author, [Kaylin Pavlik](https://www.kaylinpavlik.com/). I used colors from [Edwin Thoen](https://edwinth.github.io/)'s R package,  [dutchmasters](https://github.com/EdwinTh/dutchmasters).  

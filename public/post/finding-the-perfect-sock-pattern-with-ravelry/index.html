@@ -1,0 +1,1568 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  
+  
+  <meta name="generator" content="Wowchemy 4.8.0 for Hugo">
+  
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Liz Roten">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Using Ravelry&#39;s API to find just the right sock pattern">
+
+  
+  <link rel="alternate" hreflang="en-us" href="lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/">
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/lizroten.com/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" integrity="sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/lizroten.com/css/wowchemy.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/lizroten.com/index.webmanifest">
+  <link rel="icon" type="image/png" href="/lizroten.com/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/lizroten.com/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@LizRoten">
+  <meta property="twitter:creator" content="@LizRoten">
+  
+  <meta property="og:site_name" content="Liz Roten">
+  <meta property="og:url" content="lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/">
+  <meta property="og:title" content="Finding the perfect sock pattern with `{ravelRy}` | Liz Roten">
+  <meta property="og:description" content="Using Ravelry&#39;s API to find just the right sock pattern"><meta property="og:image" content="/lizroten.com/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="/lizroten.com/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-04-08T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-10-30T17:47:26-05:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/"
+  },
+  "headline": "Finding the perfect sock pattern with `{ravelRy}`",
+  
+  "datePublished": "2020-04-08T00:00:00Z",
+  "dateModified": "2020-10-30T17:47:26-05:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Liz Roten"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Liz Roten",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/lizroten.com/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Using Ravelry's API to find just the right sock pattern"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Finding the perfect sock pattern with `{ravelRy}` | Liz Roten</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class=" ">
+
+  
+  
+  
+    <script>window.wcDarkLightEnabled = true;</script>
+  
+  
+    <script>const isSiteThemeDark = false;</script>
+  
+  
+  <script src="/lizroten.com/js/load-theme.js"></script>
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/lizroten.com/">Liz Roten</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/lizroten.com/">Liz Roten</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lizroten.com/#hero"><span>Demo</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lizroten.com/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lizroten.com/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lizroten.com/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lizroten.com/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Finding the perfect sock pattern with `{ravelRy}`</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    2020-10-30
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    10 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="lizroten.com/category/blog/">blog</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+<link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="index_files/anchor-sections/anchor-sections.js"></script>
+
+
+<p>I am a knitter. Knitting is a calming, fulfilling practice that keep my hands busy and require <em>just</em> enough brain power to keep my mind from wandering too far. Over the past winter, I conquered my fear of making socks, and now I profess that I am a sock knitter. I made socks for Christmas gifts, and churned out four pairs during my evenings, bus commutes, long work meetings, lectures, coffee and tea shop visits (basically everywhere). I’m comfortable with the standard stockinette sock, and I even ventured out into other patterns from Ravelry (<em>the</em> social medium for yarn folks), like <a href="https://www.ravelry.com/patterns/library/hermiones-everyday-socks">Hermione’s Everyday Socks</a> and the <a href="https://www.ravelry.com/patterns/library/slip-it-simple-sock">Slip It Simple Socks</a>.</p>
+<p>But, even as the weather is warming here in Minnesota, working from home means that I don’t have a commute and COVID-19 means that I have plenty of spare angst, so I’ve decided to make a new pair of socks, and work with a new pattern.</p>
+<p>And, just when I was starting to glaze over scrolling through endless Ravelry pages and reviews, I found <a href="https://github.com/walkerkq/ravelRy">ravelRy</a>, an R package that interfaces seamlessly with Ravelry’s <a href="https://www.ravelry.com/api">API</a>. And its even on CRAN!</p>
+<p>Lets install, and get going!</p>
+<pre class="r"><code>install.packages(&quot;ravelRy&quot;)</code></pre>
+<pre class="r"><code>library(ravelRy)
+library(tidyverse)</code></pre>
+<div id="authentication" class="section level2">
+<h2>Authentication</h2>
+<p>As with most APIs, you need to authenticate somehow. I’ll use my Ravelry account credentials (you’ll need a <a href="https://www.ravelry.com/pro/developer">free, pro account</a> to access the API).</p>
+<pre class="r"><code>ravelRy::ravelry_auth(key = &quot;username&quot;)
+ravelRy::ravelry_auth(key = &quot;password&quot;)</code></pre>
+</div>
+<div id="search-for-a-sock-pattern" class="section level2">
+<h2>Search for a sock pattern!</h2>
+<p>Lets start simple, and just look for the first 20 results for “sock” that are available as a Ravelry download.</p>
+<pre class="r"><code>search_result &lt;- search_patterns(
+  query = &quot;sock&quot;,
+  page_size = 20,
+  craft = &quot;knitting&quot;, # knitting or crochet
+  fit = &quot;adult&quot;, # adult, baby, etc.
+  ravelry_download = TRUE
+)
+
+head(search_result)
+#&gt; # A tibble: 6 x 7
+#&gt;   free       id name      permalink   designer.id designer.name  pattern_sources
+#&gt;   &lt;lgl&gt;   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;          &lt;list&gt;         
+#&gt; 1 TRUE  1009293 Wohin?    wohin             17216 Caoua Coffee   &lt;df[,59] [2 x ~
+#&gt; 2 FALSE 1020039 Braidalot braidalot         97793 Dots Dabbles   &lt;df[,59] [2 x ~
+#&gt; 3 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &lt;df[,59] [1 x ~
+#&gt; 4 FALSE 1014660 Diamond ~ diamond-du~      100153 Liz Harris     &lt;df[,59] [2 x ~
+#&gt; 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &lt;df[,59] [2 x ~
+#&gt; 6 TRUE   891114 Rye Light rye-light         45502 tincanknits    &lt;df[,59] [3 x ~</code></pre>
+<p>The fourth result is even my old friend, “Hermione’s Everyday Socks!”</p>
+<pre class="r"><code>search_result[4, ] # get the fourth row in the table
+#&gt; # A tibble: 1 x 7
+#&gt;   free       id name      permalink   designer.id designer.name pattern_sources 
+#&gt;   &lt;lgl&gt;   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;         &lt;list&gt;          
+#&gt; 1 FALSE 1014660 Diamond ~ diamond-du~      100153 Liz Harris    &lt;df[,59] [2 x 5~</code></pre>
+<p>Lets take a look at the actual pattern from the search results using <code>get_patterns()</code>.</p>
+<pre class="r"><code>hermione &lt;- get_patterns(ids = search_result[4, ]$id)
+str(hermione, max.level = 2)
+#&gt; tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ comments_count         : int 12
+#&gt;  $ created_at             : chr &quot;2020/03/19 12:18:52 -0400&quot;
+#&gt;  $ currency               : chr &quot;USD&quot;
+#&gt;  $ difficulty_average     : num 4.66
+#&gt;  $ difficulty_count       : int 301
+#&gt;  $ downloadable           : logi TRUE
+#&gt;  $ favorites_count        : int 4155
+#&gt;  $ free                   : logi FALSE
+#&gt;  $ gauge                  : num 36
+#&gt;  $ gauge_divisor          : int 4
+#&gt;  $ gauge_pattern          : chr &quot;stockinette stitch&quot;
+#&gt;  $ generally_available    : chr &quot;2020/03/01 00:00:00 -0500&quot;
+#&gt;  $ id                     : int 1014660
+#&gt;  $ name                   : chr &quot;Diamond Duality&quot;
+#&gt;  $ pdf_url                : chr &quot;&quot;
+#&gt;  $ permalink              : chr &quot;diamond-duality-2&quot;
+#&gt;  $ price                  : num 6
+#&gt;  $ projects_count         : int 1195
+#&gt;  $ published              : chr &quot;2020/03/01&quot;
+#&gt;  $ queued_projects_count  : int 466
+#&gt;  $ rating_average         : num 4.22
+#&gt;  $ rating_count           : int 314
+#&gt;  $ row_gauge              : num 44
+#&gt;  $ updated_at             : chr &quot;2020/06/08 11:19:47 -0400&quot;
+#&gt;  $ url                    : chr &quot;&quot;
+#&gt;  $ yardage                : int 500
+#&gt;  $ yardage_max            : int 510
+#&gt;  $ personal_attributes    : chr &quot;&quot;
+#&gt;  $ sizes_available        : chr &quot;S/M, L, XL&quot;
+#&gt;  $ product_id             : int 617819
+#&gt;  $ currency_symbol        : chr &quot;$&quot;
+#&gt;  $ ravelry_download       : logi TRUE
+#&gt;  $ download_location      :List of 1
+#&gt;  $ pdf_in_library         : logi FALSE
+#&gt;  $ volumes_in_library     : chr &quot;&quot;
+#&gt;  $ gauge_description      : chr &quot;36 stitches and 44 rows = 4 inches in stockinette stitch&quot;
+#&gt;  $ yarn_weight_description: chr &quot;Fingering (14 wpi)&quot;
+#&gt;  $ yardage_description    : chr &quot;500 - 510 yards&quot;
+#&gt;  $ pattern_needle_sizes   :List of 1
+#&gt;  $ notes_html             : chr &quot;\n&lt;p&gt;&lt;em&gt;This pattern was Round 1 of Sock Madness 14 in 2020.&lt;/em&gt;&lt;/p&gt;\n\n&lt;p&gt;I’m always on the lookout for insp&quot;| __truncated__
+#&gt;  $ notes                  : chr &quot;*This pattern was Round 1 of Sock Madness 14 in 2020.* \r\n\r\nI&#39;m always on the lookout for inspiration to cre&quot;| __truncated__
+#&gt;  $ packs                  :List of 1
+#&gt;  $ printings              :List of 1
+#&gt;  $ yarn_weight            :List of 1
+#&gt;  $ craft                  :List of 1
+#&gt;  $ pattern_categories     :List of 1
+#&gt;  $ pattern_attributes     :List of 1
+#&gt;  $ pattern_author         :List of 1
+#&gt;  $ photos                 :List of 1
+#&gt;  $ pattern_type           :List of 1
+str(hermione$pattern_attributes)
+#&gt; List of 1
+#&gt;  $ : tibble [10 x 2] (S3: tbl_df/tbl/data.frame)
+#&gt;   ..$ id       : int [1:10] 10 23 26 181 200 204 262 265 286 300
+#&gt;   ..$ permalink: chr [1:10] &quot;adult&quot; &quot;top-cuff-down&quot; &quot;heel-flap&quot; &quot;stranded&quot; ...</code></pre>
+<p>I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?</p>
+<pre class="r"><code>hermione$difficulty_count # how many reviews rated a difficulty?
+#&gt; [1] 301
+hermione$difficulty_average # what is the average difficulty?
+#&gt; [1] 4.664452</code></pre>
+<p>Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.</p>
+<pre class="r"><code>slip_it_search &lt;- search_patterns(query = &quot;slip it simple sock&quot;)</code></pre>
+<p>Next, take the <code>id</code> column and feed it into <code>get_patterns()</code>.</p>
+<pre class="r"><code>slip_it &lt;- get_patterns(ids = slip_it_search$id)</code></pre>
+<p>What is our difficulty?</p>
+<pre class="r"><code>slip_it$difficulty_count
+#&gt; [1] 62
+slip_it$difficulty_average
+#&gt; [1] 2.032258</code></pre>
+<p>There are fewer reviews, but the difficulty is super low.</p>
+</div>
+<div id="refining-our-search" class="section level2">
+<h2>Refining our search</h2>
+<p>We can use the pattern table for <code>hermione</code> and <code>slip_it</code> to narrow our search further.</p>
+<pre class="r"><code>head(search_patterns(
+  query = &quot;sock&quot;,
+  page_size = 20,
+  craft = &quot;knitting&quot;, # knitting or crochet
+  fit = &quot;adult&quot;, # adult, baby, etc.
+  ravelry_download = TRUE,
+  pattern_needle_sizes = 1,
+  weight = &quot;fingering&quot;, # yarn weight
+  type = &quot;sock&quot;,
+  colors = 1
+))
+...
+#&gt; # A tibble: 6 x 7
+#&gt;   free       id name      permalink   designer.id designer.name  pattern_sources
+#&gt;   &lt;lgl&gt;   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;          &lt;list&gt;         
+#&gt; 1 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &lt;df[,59] [1 x ~
+#&gt; 2 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &lt;df[,59] [2 x ~
+#&gt; 3 TRUE   891114 Rye Light rye-light         45502 tincanknits    &lt;df[,59] [3 x ~
+#&gt; 4 TRUE   315418 Vanilla ~ vanilla-la~       53376 Virginia Rose~ &lt;df[,59] [1 x ~
+#&gt; 5 FALSE  720294 Mina&#39;s V~ minas-vani~       81846 Knitting Expa~ &lt;df[,59] [2 x ~
+...</code></pre>
+<p>Another trick is to go look at the URL when I am searching on Ravelry itself. This gives me an idea of what search terms I can add to <code>search_patterns()</code>.</p>
+<pre class="r"><code>refined_search &lt;- search_patterns(
+  query = &quot;socks&quot;,
+  pc = &quot;mid-calf&quot;,
+  page_size = 100,
+  craft = &quot;knitting&quot;, # knitting or crochet
+  # fit = &quot;adult&quot;, # adult, baby, etc.
+  ravelry_download = TRUE,
+  pattern_needle_sizes = 1,
+  weight = &quot;fingering&quot;, # yarn weight
+  type = &quot;sock&quot;,
+  colors = 1,
+  diff = &quot;3.5%7C8&quot;,
+  language = &quot;en&quot;,
+  sort = &quot;projects&quot;,
+  photo = &quot;yes&quot;
+)</code></pre>
+</div>
+<div id="review-refined-search-results" class="section level2">
+<h2>Review refined search results</h2>
+<p>Now that I’ve picked out 100 patterns to consider/make fun plots with, lets review them in more detail.</p>
+<pre class="r"><code>refined_patterns &lt;- get_patterns(ids = refined_search$id) # this might take a while</code></pre>
+<p>To start plotting, I will import my theme and <a href="https://github.com/EdwinTh/dutchmasters"><code>{dutchmasters}</code></a>.</p>
+<pre class="r"><code>source(&quot;my_sock_theme.R&quot;)
+library(dutchmasters)
+ggplot() +
+  geom_density(refined_patterns,
+    mapping = aes(
+      x = comments_count,
+      fill = free
+    ),
+    alpha = 0.7,
+    color = &quot;gray&quot;
+  ) +
+  dutchmasters::scale_fill_dutchmasters(palette = &quot;pearl_earring&quot;) +
+  labs(
+    title = &quot;Pattern Comment Density&quot;,
+    x = &quot;Comment count&quot;,
+    y = &quot;Density&quot;
+  ) +
+  my_theme()</code></pre>
+<p><img src="index_files/figure-html/comment_density-1.png" width="672" />
+{{&lt; chart data=“line-chart” &gt;}}</p>
+<p>Next, we’ll make a density plot series comparing the average difficulty rating for each pattern attribute (check out <a href="https://github.com/walkerkq/ravelRy/blob/master/man/example_files/example_eda.md">this example</a> for this plot’s inspiration).</p>
+<pre class="r"><code>pattern_details_attributes &lt;- refined_patterns %&gt;%
+  unnest(cols = &quot;pattern_attributes&quot;, names_sep = &quot;_&quot;)
+
+
+top_attributes &lt;- pattern_details_attributes %&gt;%
+  filter(difficulty_count &gt;= 20) %&gt;%
+  count(pattern_attributes_permalink) %&gt;%
+  filter(n &gt;= 20)
+
+attributes_long &lt;- pattern_details_attributes %&gt;%
+  filter(pattern_attributes_permalink %in% top_attributes$pattern_attributes_permalink) %&gt;%
+  select(id, pattern_attributes_permalink, difficulty_average, rating_average)
+
+attributes_long %&gt;%
+  ggplot() +
+  geom_density(aes(x = difficulty_average),
+    fill = dutchmasters::dutchmasters$pearl_earring[4],
+    color = &quot;gray&quot;,
+    outline.type = &quot;full&quot;
+  ) +
+  facet_grid(reorder(
+    pattern_attributes_permalink,
+    difficulty_average, median
+  ) ~ .,
+  switch = &quot;y&quot;, scales = &quot;free_y&quot;
+  ) +
+  scale_x_continuous(limits = c(2, 7)) +
+  labs(
+    title = &quot;Average difficulty rating by pattern attribute&quot;,
+    y = &quot;&quot;, x = &quot;Average difficulty&quot;
+  ) +
+  my_theme() +
+  theme(
+    panel.spacing.y = unit(0, &quot;lines&quot;),
+    panel.grid = element_blank(),
+    panel.grid.major.y = element_blank(),
+    strip.text.y.left = element_text(angle = 0),
+    strip.background = element_rect(fill = NA, color = NA),
+    axis.text.y = element_blank()
+  )</code></pre>
+<p><img src="index_files/figure-html/plot_difficulty_by_attribute-1.png" width="768" /></p>
+</div>
+<div id="narrow-down-results" class="section level2">
+<h2>Narrow down results</h2>
+<p>I want to use a pattern with high ratings and a high number of projects. What do these distributions look like?</p>
+<pre class="r"><code>library(cowplot)
+
+project_count &lt;- ggplot(data = refined_patterns) +
+  geom_density(
+    mapping = aes(x = projects_count),
+    fill = dutchmasters::dutchmasters$pearl_earring[2],
+    alpha = 0.8,
+    color = &quot;gray&quot;
+  ) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = &quot;Project Count&quot;,
+    x = &quot;Projects&quot;,
+    y = &quot;&quot;
+  ) +
+  my_theme()
+
+rating_count &lt;- ggplot(data = refined_patterns) +
+  geom_density(
+    mapping = aes(x = rating_count),
+    fill = dutchmasters::dutchmasters$pearl_earring[3],
+    alpha = 0.8,
+    color = &quot;gray&quot;
+  ) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = &quot;Rating Count&quot;,
+    x = &quot;Ratings&quot;,
+    y = &quot;&quot;
+  ) +
+  my_theme()
+
+
+cowplot::plot_grid(project_count, rating_count)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>It looks like there is a big drop-off around 1,000 project and 500 ratings.</p>
+<pre class="r"><code>project_rating_patterns &lt;- refined_patterns %&gt;%
+  filter(
+    projects_count &gt;= 1000,
+    rating_count &gt;= 500
+  )</code></pre>
+<p>That <code>filter()</code> took us from 100 patterns to 11. Progress!</p>
+<p>Now, lets look at the ratings and difficulty. We will also separate these out by availability.</p>
+<pre class="r"><code>ggplot(project_rating_patterns) +
+  geom_point(
+    mapping = aes(
+      x = difficulty_average,
+      y = rating_average,
+      color = free
+    ),
+    size = 4
+  ) +
+  dutchmasters::scale_color_dutchmasters(palette = &quot;pearl_earring&quot;) +
+  labs(
+    title = &quot;Average Rating and Average Difficulty&quot;,
+    x = &quot;Average difficulty&quot;,
+    y = &quot;Average Rating&quot;
+  ) +
+  my_theme()</code></pre>
+<p><img src="index_files/figure-html/average_rating_avg_difficulty-1.png" width="672" /></p>
+<p>Nothing too informative here. What are the top pattern attributes?</p>
+<pre class="r"><code>project_rating_patterns %&gt;%
+  unnest(cols = &quot;pattern_attributes&quot;, names_sep = &quot;_&quot;) %&gt;%
+  count(pattern_attributes_permalink) %&gt;%
+  filter(n &gt; 5) %&gt;%
+  arrange(desc(n)) %&gt;%
+  ggplot() +
+  geom_col(aes(
+    x = pattern_attributes_permalink,
+    y = n
+  ),
+  fill = dutchmasters::dutchmasters$pearl_earring[9]
+  ) +
+  labs(
+    title = &quot;Top pattern attributes&quot;,
+    x = &quot;Pattern attribute&quot;,
+    y = &quot;Frequency&quot;
+  ) +
+  my_theme()</code></pre>
+<p><img src="index_files/figure-html/top-pattern-attributes-1.png" width="672" /></p>
+<p>Another thing that makes patterns easy to follow is if they are downloadable (as opposed to linked to another web page). Lets <code>filter()</code> for that, and have a difficulty at least above 4.</p>
+<pre class="r"><code>filter(
+  project_rating_patterns, downloadable == TRUE,
+  difficulty_average &gt;= 4
+) %&gt;%
+  arrange(-rating_average)
+...
+#&gt;   comments_count                created_at currency difficulty_average
+#&gt; 1              8 2010/10/25 09:23:15 -0400      USD           4.252446
+#&gt; 2             27 2007/01/12 00:51:53 -0500      USD           4.903895
+#&gt; 3            131 2010/02/11 12:07:46 -0500                    4.434030
+#&gt; 4             22 2007/09/07 11:54:33 -0400                    4.520376
+#&gt;   difficulty_count downloadable favorites_count  free gauge gauge_divisor
+#&gt; 1              511         TRUE            4027 FALSE    32             4
+#&gt; 2             2362         TRUE           11155  TRUE     8             1
+...</code></pre>
+</div>
+<div id="fetch-images" class="section level2">
+<h2>Fetch images</h2>
+<p>Now that we only have four left, lets fetch the images!</p>
+<pre class="r"><code>photo_links &lt;- filter(
+  project_rating_patterns, downloadable == TRUE,
+  difficulty_average &gt;= 4
+) %&gt;%
+  unnest(cols = photos, names_sep = &quot;_&quot;) %&gt;%
+  filter(photos_sort_order == 4) %&gt;%
+  select(id, name, photos_medium_url)</code></pre>
+<p>Next, we will use <a href="https://github.com/dahtah/imager"><code>{imager}</code></a> to fetch the data and plot it.</p>
+<pre class="r"><code>library(imager)
+photo_links$name
+#&gt; [1] &quot;Pointelle&quot;   &quot;Firestarter&quot; &quot;Pomatomus&quot;   &quot;Skew&quot;
+
+map(photo_links$photos_medium_url, load.image) %&gt;%
+  map(plot, axes = FALSE)</code></pre>
+<p><img src="index_files/figure-html/images-1.png" width="672" /><img src="index_files/figure-html/images-2.png" width="672" /><img src="index_files/figure-html/images-3.png" width="672" /><img src="index_files/figure-html/images-4.png" width="672" /></p>
+<pre><code>#&gt; [[1]]
+#&gt; Image. Width: 425 pix Height: 500 pix Depth: 1 Colour channels: 3 
+#&gt; 
+#&gt; [[2]]
+#&gt; Image. Width: 500 pix Height: 381 pix Depth: 1 Colour channels: 3 
+#&gt; 
+#&gt; [[3]]
+#&gt; Image. Width: 500 pix Height: 500 pix Depth: 1 Colour channels: 3 
+#&gt; 
+#&gt; [[4]]
+#&gt; Image. Width: 348 pix Height: 500 pix Depth: 1 Colour channels: 3</code></pre>
+</div>
+<div id="and-the-winner-is." class="section level2">
+<h2>And the winner is….</h2>
+<p><a href="https://www.ravelry.com/patterns/library/pomatomus">Pomatomus</a>! I mean, look at those gorgeous waves!</p>
+<div class="figure">
+<img src="https://images4-f.ravelrycache.com/uploads/GoldenIris/304984815/webp/DSC_0135_medium2.webp#jpg" alt="" />
+<p class="caption">Pomatomus socks from the front</p>
+</div>
+<p>I have a lovely merino/nylon blend by <a href="https://www.instagram.com/sunvalleyfibers/">Sun Valley Fibers</a> waiting for me. I hope you enjoyed this little journey!</p>
+</div>
+<div id="credits" class="section level2">
+<h2>Credits</h2>
+<p>I followed along <a href="https://github.com/walkerkq/ravelRy/blob/master/man/example_files/example_eda.md">this example</a> by the ravelRy package author, <a href="https://www.kaylinpavlik.com/">Kaylin Pavlik</a>. I used colors from <a href="https://edwinth.github.io/">Edwin Thoen</a>’s R package, <a href="https://github.com/EdwinTh/dutchmasters">dutchmasters</a>.</p>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="lizroten.com/tag/tidyverse/">tidyverse</a>
+  
+  <a class="badge badge-light" href="lizroten.com/tag/ggplot2/">ggplot2</a>
+  
+  <a class="badge badge-light" href="lizroten.com/tag/ravelry/">ravelry</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/&amp;text=Finding%20the%20perfect%20sock%20pattern%20with%20%60%7bravelRy%7d%60" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/&amp;t=Finding%20the%20perfect%20sock%20pattern%20with%20%60%7bravelRy%7d%60" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Finding%20the%20perfect%20sock%20pattern%20with%20%60%7bravelRy%7d%60&amp;body=lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/&amp;title=Finding%20the%20perfect%20sock%20pattern%20with%20%60%7bravelRy%7d%60" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Finding%20the%20perfect%20sock%20pattern%20with%20%60%7bravelRy%7d%60%20lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/&amp;title=Finding%20the%20perfect%20sock%20pattern%20with%20%60%7bravelRy%7d%60" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="lizroten.com/"><img class="avatar mr-3 avatar-circle" src="/lizroten.com/author/liz-roten/avatar_hu52a603635ecebd45650b162dadabb4e5_12861_270x270_fill_q90_lanczos_center.jpg" alt="Liz Roten"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="lizroten.com/">Liz Roten</a></h5>
+      <h6 class="card-subtitle">Data Scientist &amp; Cartographer</h6>
+      <p class="card-text">My research interests include distributed robotics, mobile computing and programmable matter.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/lizroten.com/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/LizRoten" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/eroten" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/eroten" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+<section id="comments">
+  
+    
+
+  
+</section>
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.8.0/mermaid.min.js" integrity="sha512-ja+hSBi4JDtjSqc4LTBsSwuBT3tdZ3oKYKd07lTVYmCnTCor56AnRql00ssqnTOR9Ss4gOP/ROGB3SfcJnZkeg==" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/lizroten.com/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/lizroten.com/js/wowchemy.min.4c2bca31150ce93c5a5e43b8a50f22fd.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Liz Roten 2020
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    Published with
+    <a href="https://wowchemy.com" target="_blank" rel="noopener">Wowchemy</a>  —
+    the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">
+    open source</a> website builder that empowers creators.
+    
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

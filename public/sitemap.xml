@@ -4,167 +4,192 @@
   
   <url>
     <loc>lizroten.com/talk/example/</loc>
-    <lastmod>2030-06-01T13:00:00+00:00</lastmod>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/</loc>
-    <lastmod>2030-06-01T13:00:00+00:00</lastmod>
+    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
   </url>
   
   <url>
-    <loc>lizroten.com/talk/</loc>
-    <lastmod>2030-06-01T13:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/post/</loc>
-    <lastmod>2019-09-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/post/writing-technical-content/</loc>
-    <lastmod>2019-07-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/publication-type/3/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/publication/preprint/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/authors/</loc>
-    <lastmod>2019-09-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/author/nelson-bighetti/</loc>
-    <lastmod>2019-09-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/publication_types/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/publication/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tag/source-themes/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tags/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/post/jupyter/</loc>
-    <lastmod>2019-09-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/slides/</loc>
-    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/slides/example/</loc>
-    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tag/deep-learning/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tag/demo/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/project/external-project/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/project/internal-project/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/project/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tag/academic/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/post/getting-started/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+    <loc>lizroten.com/category/blog/</loc>
+    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/categories/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/</loc>
+    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/ggplot2/</loc>
+    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/ravelry/</loc>
+    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tags/</loc>
+    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/tidyverse/</loc>
+    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/post/writing-technical-content/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/publication-type/3/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/publication/preprint/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/authors/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/publication_types/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/source-themes/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/post/jupyter/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/slides/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/slides/example/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/deep-learning/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/demo/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/project/external-project/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/project/internal-project/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/project/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/academic/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/post/getting-started/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/category/demo/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/author/%E5%90%B3%E6%81%A9%E9%81%94/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tag/%E5%BC%80%E6%BA%90/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/category/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/publication-type/2/</loc>
-    <lastmod>2015-09-01T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/publication/journal-article/</loc>
-    <lastmod>2015-09-01T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/author/robert-ford/</loc>
-    <lastmod>2015-09-01T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/publication-type/1/</loc>
-    <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/publication/conference-paper/</loc>
-    <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/author/liz-roten/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/post/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/publication/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/talk/</loc>
+    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
   <url>
