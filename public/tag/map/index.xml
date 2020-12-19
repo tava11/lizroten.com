@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>map | Liz Roten</title>
+    <link>lizroten.com/tag/map/</link>
+      <atom:link href="lizroten.com/tag/map/index.xml" rel="self" type="application/rss+xml" />
+    <description>map</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2020</copyright><lastBuildDate>Sat, 19 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/lizroten.com/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>map</title>
+      <link>lizroten.com/tag/map/</link>
+    </image>
+    
+    <item>
+      <title>Maps with {edgebundle}</title>
+      <link>lizroten.com/blog/maps-with-edgebundle/</link>
+      <pubDate>Sat, 19 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/blog/maps-with-edgebundle/</guid>
+      <description>
+
+
+&lt;div id=&#34;goal&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Use &lt;code&gt;{edgebundle}&lt;/code&gt; to map flight patterns from BNA and MSP.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# remotes::install_github(&amp;quot;schochastics/edgebundle&amp;quot;)
+library(edgebundle)
+library(igraph)
+library(ggplot2)
+library(ggraph)
+library(dplyr)
+library(sf)
+library(tigris)
+
+set.seed(24601)
+
+my_caption &amp;lt;- c(&amp;quot;Liz Roten (@LizRoten) | Data: openflights.org&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We also need to use the Python library, datashader. &lt;code&gt;{edgebundle}&lt;/code&gt; ships with a nice function for installing all the dependencies.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;edgebundle:::install_bundle_py()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-prep&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data prep&lt;/h2&gt;
+&lt;p&gt;The data we will use is &lt;code&gt;us_flights&lt;/code&gt;, which is shipped with &lt;code&gt;{edgebundle}&lt;/code&gt;. &lt;code&gt;us_flights&lt;/code&gt; is a complex object.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flights &amp;lt;- us_flights # name us_flights
+coords &amp;lt;- cbind(V(flights)$longitude, V(flights)$latitude) # extract coordinates
+
+# create vertex sequence
+verts &amp;lt;- data.frame(x = V(flights)$longitude, y = V(flights)$latitude) &lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;supporting-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Supporting data&lt;/h3&gt;
+&lt;p&gt;To make our output a little more aesthetically pleasing, we will go ahead and transform the data to use Albers Equal Area Conic.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;states &amp;lt;- tigris::states(cb = TRUE, progress_bar = FALSE) %&amp;gt;% 
+  filter(STUSPS %in% state.abb,
+         !NAME %in% c(&amp;quot;Alaska&amp;quot;,
+                      &amp;quot;Hawaii&amp;quot;)) %&amp;gt;% 
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coords_full &amp;lt;- cbind(V(flights)$longitude, V(flights)$latitude,  V(flights)$name) # extract coordinates
+
+
+coords_sf &amp;lt;- st_as_sf(x = as.data.frame(coords_full), coords = c(&amp;quot;V1&amp;quot;, &amp;quot;V2&amp;quot;), crs = 4326) %&amp;gt;% 
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;edge-bundles&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Edge bundles&lt;/h2&gt;
+&lt;p&gt;Create edge bundles&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;force_bundle &amp;lt;- edge_bundle_force(flights, xy = coords, compatibility_threshold = 0.6) 
+
+force_bundle_sf &amp;lt;- force_bundle %&amp;gt;% 
+  st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), crs = 4326) %&amp;gt;% 
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;) %&amp;gt;% 
+  rowwise() %&amp;gt;% 
+  mutate(x_coord = st_coordinates(geometry)[[1]],
+         y_coord = st_coordinates(geometry)[[2]])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hammer_bundle &amp;lt;- edgebundle::edge_bundle_hammer(object = flights, 
+                                                xy = coords, 
+                                                bw = 0.7,
+                                                decay = 0.5)
+
+hammer_bundle_sf &amp;lt;- hammer_bundle %&amp;gt;% 
+  st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), crs = 4326) %&amp;gt;% 
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;) %&amp;gt;% 
+  rowwise() %&amp;gt;% 
+  mutate(x_coord = st_coordinates(geometry)[[1]],
+         y_coord = st_coordinates(geometry)[[2]])&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;map&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Map&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;my_theme &amp;lt;- theme_void() +
+  theme(
+    plot.background = element_rect(fill = &amp;quot;black&amp;quot;,
+                                   linetype = 0,
+                                   color = NA),
+    panel.background = element_rect(
+      fill = &amp;quot;black&amp;quot;,
+      linetype = 0,
+      color = NA
+    ),
+    plot.title = element_text(family = &amp;quot;Agency FB&amp;quot;,
+                              color = &amp;quot;white&amp;quot;,
+                              size = 20),
+    plot.caption = element_text(
+      family = &amp;quot;LeelawadeeUI-Semilight&amp;quot;,
+      color = &amp;quot;white&amp;quot;
+    ),
+    plot.subtitle = element_text(
+      color = &amp;quot;white&amp;quot;
+    ),
+    plot.margin = unit(c(.5, .5, .2, .5), &amp;quot;cm&amp;quot;),
+  )
+
+line_color &amp;lt;- &amp;quot;#e79e4f&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;base_plot &amp;lt;- geom_sf(data = states,
+          color = &amp;quot;white&amp;quot;,
+          fill = NA,
+          lwd = 0.1) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
+  base_plot +
+  geom_path(data = force_bundle_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = line_color,
+            size = 0.5,
+            alpha = 0.2) +
+  geom_path(data = force_bundle_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = &amp;quot;white&amp;quot;,
+            size = 0.005,
+            alpha = 0.1) +
+  geom_sf(data = coords_sf,
+          color = line_color,
+          size = 0.25) +
+    geom_sf(data = coords_sf,
+          color = &amp;quot;white&amp;quot;,
+          size = 0.25,
+          alpha = 0.1) +
+  labs(title = &amp;quot;US Flight Network&amp;quot;,
+       subtitle = &amp;quot;Force Bundle Method&amp;quot;,
+       caption = my_caption) +
+  my_theme &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/lizroten.com/post/2020-12-19-maps-with-edgebundle/index.en_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
+  base_plot +
+    geom_path(data = hammer_bundle_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = line_color,
+            size = 0.5,
+            alpha = 0.2) +
+  geom_path(data = hammer_bundle_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = &amp;quot;white&amp;quot;,
+            size = 0.005,
+            alpha = 0.1) +
+  geom_sf(data = coords_sf,
+          color = line_color,
+          size = 0.25) +
+    geom_sf(data = coords_sf,
+          color = &amp;quot;white&amp;quot;,
+          size = 0.25,
+          alpha = 0.1) +
+  labs(title = &amp;quot;US Flight Network&amp;quot;,
+       subtitle = &amp;quot;Hammer Bundle Method&amp;quot;,
+       caption = my_caption) +
+  my_theme &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/lizroten.com/post/2020-12-19-maps-with-edgebundle/index.en_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;finese-hammer-bundle-method&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Finese hammer bundle method&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hammer_bundle_adj &amp;lt;- edgebundle::edge_bundle_hammer(object = flights, 
+                                                xy = coords, 
+                                                bw = 0.2,
+                                                decay = 0.5)
+
+hammer_bundle_adj_sf &amp;lt;- hammer_bundle_adj %&amp;gt;% 
+  st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), crs = 4326) %&amp;gt;% 
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;) %&amp;gt;% 
+  rowwise() %&amp;gt;% 
+  mutate(x_coord = st_coordinates(geometry)[[1]],
+         y_coord = st_coordinates(geometry)[[2]])
+
+ggplot() +
+  base_plot +
+    geom_path(data = hammer_bundle_adj_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = line_color,
+            size = 0.5,
+            alpha = 0.2) +
+  geom_path(data = hammer_bundle_adj_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = &amp;quot;white&amp;quot;,
+            size = 0.005,
+            alpha = 0.1) +
+  geom_sf(data = coords_sf,
+          color = line_color,
+          size = 0.25) +
+    geom_sf(data = coords_sf,
+          color = &amp;quot;white&amp;quot;,
+          size = 0.25,
+          alpha = 0.1) +
+  labs(title = &amp;quot;US Flight Network&amp;quot;,
+       subtitle = &amp;quot;Hammer Bundle Method (adj)&amp;quot;,
+       caption = my_caption) +
+  my_theme &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/lizroten.com/post/2020-12-19-maps-with-edgebundle/index.en_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

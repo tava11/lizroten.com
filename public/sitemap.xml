@@ -4,81 +4,101 @@
   
   <url>
     <loc>lizroten.com/talk/example/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/</loc>
-    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+    <lastmod>2020-12-19T13:53:43-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/category/blog/</loc>
-    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+    <lastmod>2020-12-19T13:53:43-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/cartography/</loc>
+    <lastmod>2020-12-19T13:53:43-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/categories/</loc>
-    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/</loc>
-    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+    <lastmod>2020-12-19T13:53:43-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tag/ggplot2/</loc>
-    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+    <lastmod>2020-12-19T13:53:43-06:00</lastmod>
   </url>
   
   <url>
-    <loc>lizroten.com/tag/ravelry/</loc>
-    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+    <loc>lizroten.com/tag/map/</loc>
+    <lastmod>2020-12-19T13:53:43-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/category/map/</loc>
+    <lastmod>2020-12-19T13:53:43-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/blog/maps-with-edgebundle/</loc>
+    <lastmod>2020-12-19T13:53:43-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tags/</loc>
-    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+    <lastmod>2020-12-19T13:53:43-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tag/tidyverse/</loc>
-    <lastmod>2020-10-30T17:47:26-05:00</lastmod>
+    <lastmod>2020-12-19T13:53:43-06:00</lastmod>
   </url>
   
   <url>
-    <loc>lizroten.com/post/writing-technical-content/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <loc>lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/</loc>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/ravelry/</loc>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/blog/writing-technical-content-in-academic/</loc>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/publication-type/3/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/publication/preprint/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/authors/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/publication_types/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tag/source-themes/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
-    <loc>lizroten.com/post/jupyter/</loc>
+    <loc>lizroten.com/blog/display-jupyter-notebooks-with-academic/</loc>
     <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
@@ -123,7 +143,7 @@
   </url>
   
   <url>
-    <loc>lizroten.com/post/getting-started/</loc>
+    <loc>lizroten.com/blog/academic-the-website-builder-for-hugo/</loc>
     <lastmod>2020-10-29T16:22:14-05:00</lastmod>
   </url>
   
@@ -149,32 +169,32 @@
   
   <url>
     <loc>lizroten.com/publication-type/2/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/publication/journal-article/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/author/robert-ford/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/publication-type/1/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/publication/conference-paper/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/author/liz-roten/</loc>
-    <lastmod>2020-10-29T16:22:14-05:00</lastmod>
+    <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
   
   <url>

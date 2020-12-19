@@ -33,14 +33,222 @@
     </item>
     
     <item>
+      <title>Maps with {edgebundle}</title>
+      <link>lizroten.com/blog/maps-with-edgebundle/</link>
+      <pubDate>Sat, 19 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/blog/maps-with-edgebundle/</guid>
+      <description>
+
+
+&lt;div id=&#34;goal&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Use &lt;code&gt;{edgebundle}&lt;/code&gt; to map flight patterns from BNA and MSP.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# remotes::install_github(&amp;quot;schochastics/edgebundle&amp;quot;)
+library(edgebundle)
+library(igraph)
+library(ggplot2)
+library(ggraph)
+library(dplyr)
+library(sf)
+library(tigris)
+
+set.seed(24601)
+
+my_caption &amp;lt;- c(&amp;quot;Liz Roten (@LizRoten) | Data: openflights.org&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We also need to use the Python library, datashader. &lt;code&gt;{edgebundle}&lt;/code&gt; ships with a nice function for installing all the dependencies.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;edgebundle:::install_bundle_py()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-prep&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data prep&lt;/h2&gt;
+&lt;p&gt;The data we will use is &lt;code&gt;us_flights&lt;/code&gt;, which is shipped with &lt;code&gt;{edgebundle}&lt;/code&gt;. &lt;code&gt;us_flights&lt;/code&gt; is a complex object.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flights &amp;lt;- us_flights # name us_flights
+coords &amp;lt;- cbind(V(flights)$longitude, V(flights)$latitude) # extract coordinates
+
+# create vertex sequence
+verts &amp;lt;- data.frame(x = V(flights)$longitude, y = V(flights)$latitude) &lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;supporting-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Supporting data&lt;/h3&gt;
+&lt;p&gt;To make our output a little more aesthetically pleasing, we will go ahead and transform the data to use Albers Equal Area Conic.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;states &amp;lt;- tigris::states(cb = TRUE, progress_bar = FALSE) %&amp;gt;% 
+  filter(STUSPS %in% state.abb,
+         !NAME %in% c(&amp;quot;Alaska&amp;quot;,
+                      &amp;quot;Hawaii&amp;quot;)) %&amp;gt;% 
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coords_full &amp;lt;- cbind(V(flights)$longitude, V(flights)$latitude,  V(flights)$name) # extract coordinates
+
+
+coords_sf &amp;lt;- st_as_sf(x = as.data.frame(coords_full), coords = c(&amp;quot;V1&amp;quot;, &amp;quot;V2&amp;quot;), crs = 4326) %&amp;gt;% 
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;edge-bundles&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Edge bundles&lt;/h2&gt;
+&lt;p&gt;Create edge bundles&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;force_bundle &amp;lt;- edge_bundle_force(flights, xy = coords, compatibility_threshold = 0.6) 
+
+force_bundle_sf &amp;lt;- force_bundle %&amp;gt;% 
+  st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), crs = 4326) %&amp;gt;% 
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;) %&amp;gt;% 
+  rowwise() %&amp;gt;% 
+  mutate(x_coord = st_coordinates(geometry)[[1]],
+         y_coord = st_coordinates(geometry)[[2]])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hammer_bundle &amp;lt;- edgebundle::edge_bundle_hammer(object = flights, 
+                                                xy = coords, 
+                                                bw = 0.7,
+                                                decay = 0.5)
+
+hammer_bundle_sf &amp;lt;- hammer_bundle %&amp;gt;% 
+  st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), crs = 4326) %&amp;gt;% 
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;) %&amp;gt;% 
+  rowwise() %&amp;gt;% 
+  mutate(x_coord = st_coordinates(geometry)[[1]],
+         y_coord = st_coordinates(geometry)[[2]])&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;map&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Map&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;my_theme &amp;lt;- theme_void() +
+  theme(
+    plot.background = element_rect(fill = &amp;quot;black&amp;quot;,
+                                   linetype = 0,
+                                   color = NA),
+    panel.background = element_rect(
+      fill = &amp;quot;black&amp;quot;,
+      linetype = 0,
+      color = NA
+    ),
+    plot.title = element_text(family = &amp;quot;Agency FB&amp;quot;,
+                              color = &amp;quot;white&amp;quot;,
+                              size = 20),
+    plot.caption = element_text(
+      family = &amp;quot;LeelawadeeUI-Semilight&amp;quot;,
+      color = &amp;quot;white&amp;quot;
+    ),
+    plot.subtitle = element_text(
+      color = &amp;quot;white&amp;quot;
+    ),
+    plot.margin = unit(c(.5, .5, .2, .5), &amp;quot;cm&amp;quot;),
+  )
+
+line_color &amp;lt;- &amp;quot;#e79e4f&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;base_plot &amp;lt;- geom_sf(data = states,
+          color = &amp;quot;white&amp;quot;,
+          fill = NA,
+          lwd = 0.1) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
+  base_plot +
+  geom_path(data = force_bundle_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = line_color,
+            size = 0.5,
+            alpha = 0.2) +
+  geom_path(data = force_bundle_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = &amp;quot;white&amp;quot;,
+            size = 0.005,
+            alpha = 0.1) +
+  geom_sf(data = coords_sf,
+          color = line_color,
+          size = 0.25) +
+    geom_sf(data = coords_sf,
+          color = &amp;quot;white&amp;quot;,
+          size = 0.25,
+          alpha = 0.1) +
+  labs(title = &amp;quot;US Flight Network&amp;quot;,
+       subtitle = &amp;quot;Force Bundle Method&amp;quot;,
+       caption = my_caption) +
+  my_theme &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/lizroten.com/post/2020-12-19-maps-with-edgebundle/index.en_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
+  base_plot +
+    geom_path(data = hammer_bundle_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = line_color,
+            size = 0.5,
+            alpha = 0.2) +
+  geom_path(data = hammer_bundle_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = &amp;quot;white&amp;quot;,
+            size = 0.005,
+            alpha = 0.1) +
+  geom_sf(data = coords_sf,
+          color = line_color,
+          size = 0.25) +
+    geom_sf(data = coords_sf,
+          color = &amp;quot;white&amp;quot;,
+          size = 0.25,
+          alpha = 0.1) +
+  labs(title = &amp;quot;US Flight Network&amp;quot;,
+       subtitle = &amp;quot;Hammer Bundle Method&amp;quot;,
+       caption = my_caption) +
+  my_theme &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/lizroten.com/post/2020-12-19-maps-with-edgebundle/index.en_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;finese-hammer-bundle-method&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Finese hammer bundle method&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hammer_bundle_adj &amp;lt;- edgebundle::edge_bundle_hammer(object = flights, 
+                                                xy = coords, 
+                                                bw = 0.2,
+                                                decay = 0.5)
+
+hammer_bundle_adj_sf &amp;lt;- hammer_bundle_adj %&amp;gt;% 
+  st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), crs = 4326) %&amp;gt;% 
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;) %&amp;gt;% 
+  rowwise() %&amp;gt;% 
+  mutate(x_coord = st_coordinates(geometry)[[1]],
+         y_coord = st_coordinates(geometry)[[2]])
+
+ggplot() +
+  base_plot +
+    geom_path(data = hammer_bundle_adj_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = line_color,
+            size = 0.5,
+            alpha = 0.2) +
+  geom_path(data = hammer_bundle_adj_sf,
+            aes(x = x_coord,
+                y = y_coord,
+                group = group),
+            color = &amp;quot;white&amp;quot;,
+            size = 0.005,
+            alpha = 0.1) +
+  geom_sf(data = coords_sf,
+          color = line_color,
+          size = 0.25) +
+    geom_sf(data = coords_sf,
+          color = &amp;quot;white&amp;quot;,
+          size = 0.25,
+          alpha = 0.1) +
+  labs(title = &amp;quot;US Flight Network&amp;quot;,
+       subtitle = &amp;quot;Hammer Bundle Method (adj)&amp;quot;,
+       caption = my_caption) +
+  my_theme &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/lizroten.com/post/2020-12-19-maps-with-edgebundle/index.en_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Finding the perfect sock pattern with `{ravelRy}`</title>
-      <link>lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/</link>
+      <link>lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/</link>
       <pubDate>Wed, 08 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>lizroten.com/post/finding-the-perfect-sock-pattern-with-ravelry/</guid>
+      <guid>lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/</guid>
       <description>
 &lt;link href=&#34;index_files/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
 &lt;script src=&#34;index_files/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
 
+&lt;div id=&#34;TOC&#34;&gt;
+true
+&lt;/div&gt;
 
 &lt;p&gt;I am a knitter. Knitting is a calming, fulfilling practice that keep my hands busy and require &lt;em&gt;just&lt;/em&gt; enough brain power to keep my mind from wandering too far. Over the past winter, I conquered my fear of making socks, and now I profess that I am a sock knitter. I made socks for Christmas gifts, and churned out four pairs during my evenings, bus commutes, long work meetings, lectures, coffee and tea shop visits (basically everywhere). I’m comfortable with the standard stockinette sock, and I even ventured out into other patterns from Ravelry (&lt;em&gt;the&lt;/em&gt; social medium for yarn folks), like &lt;a href=&#34;https://www.ravelry.com/patterns/library/hermiones-everyday-socks&#34;&gt;Hermione’s Everyday Socks&lt;/a&gt; and the &lt;a href=&#34;https://www.ravelry.com/patterns/library/slip-it-simple-sock&#34;&gt;Slip It Simple Socks&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;But, even as the weather is warming here in Minnesota, working from home means that I don’t have a commute and COVID-19 means that I have plenty of spare angst, so I’ve decided to make a new pair of socks, and work with a new pattern.&lt;/p&gt;
@@ -70,63 +278,63 @@ head(search_result)
 #&amp;gt; # A tibble: 6 x 7
 #&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
 #&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
-#&amp;gt; 1 TRUE  1009293 Wohin?    wohin             17216 Caoua Coffee   &amp;lt;df[,59] [2 x ~
-#&amp;gt; 2 FALSE 1020039 Braidalot braidalot         97793 Dots Dabbles   &amp;lt;df[,59] [2 x ~
+#&amp;gt; 1 FALSE 1088356 Wheat St~ wheat-stal~      110221 Marion E. Mui~ &amp;lt;df[,59] [1 x ~
+#&amp;gt; 2 TRUE  1009293 Wohin?    wohin             17216 Caoua Coffee   &amp;lt;df[,59] [2 x ~
 #&amp;gt; 3 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
-#&amp;gt; 4 FALSE 1014660 Diamond ~ diamond-du~      100153 Liz Harris     &amp;lt;df[,59] [2 x ~
-#&amp;gt; 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
-#&amp;gt; 6 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt; 4 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
+#&amp;gt; 5 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
+#&amp;gt; 6 FALSE 1020039 Braidalot braidalot         97793 Dots Dabbles   &amp;lt;df[,59] [2 x ~&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The fourth result is even my old friend, “Hermione’s Everyday Socks!”&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;search_result[4, ] # get the fourth row in the table
 #&amp;gt; # A tibble: 1 x 7
-#&amp;gt;   free       id name      permalink   designer.id designer.name pattern_sources 
-#&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;list&amp;gt;          
-#&amp;gt; 1 FALSE 1014660 Diamond ~ diamond-du~      100153 Liz Harris    &amp;lt;df[,59] [2 x 5~&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt;   free      id name       permalink    designer.id designer.name pattern_sources
+#&amp;gt;   &amp;lt;lgl&amp;gt;  &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;              &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;list&amp;gt;         
+#&amp;gt; 1 TRUE  130787 Hermione&amp;#39;~ hermiones-e~       14789 Erica Lueder  &amp;lt;df[,59] [2 x ~&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets take a look at the actual pattern from the search results using &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hermione &amp;lt;- get_patterns(ids = search_result[4, ]$id)
 str(hermione, max.level = 2)
 #&amp;gt; tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
-#&amp;gt;  $ comments_count         : int 12
-#&amp;gt;  $ created_at             : chr &amp;quot;2020/03/19 12:18:52 -0400&amp;quot;
-#&amp;gt;  $ currency               : chr &amp;quot;USD&amp;quot;
-#&amp;gt;  $ difficulty_average     : num 4.66
-#&amp;gt;  $ difficulty_count       : int 301
+#&amp;gt;  $ comments_count         : int 162
+#&amp;gt;  $ created_at             : chr &amp;quot;2009/07/09 11:36:45 -0400&amp;quot;
+#&amp;gt;  $ currency               : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ difficulty_average     : num 2.37
+#&amp;gt;  $ difficulty_count       : int 7785
 #&amp;gt;  $ downloadable           : logi TRUE
-#&amp;gt;  $ favorites_count        : int 4155
-#&amp;gt;  $ free                   : logi FALSE
+#&amp;gt;  $ favorites_count        : int 61199
+#&amp;gt;  $ free                   : logi TRUE
 #&amp;gt;  $ gauge                  : num 36
 #&amp;gt;  $ gauge_divisor          : int 4
-#&amp;gt;  $ gauge_pattern          : chr &amp;quot;stockinette stitch&amp;quot;
-#&amp;gt;  $ generally_available    : chr &amp;quot;2020/03/01 00:00:00 -0500&amp;quot;
-#&amp;gt;  $ id                     : int 1014660
-#&amp;gt;  $ name                   : chr &amp;quot;Diamond Duality&amp;quot;
+#&amp;gt;  $ gauge_pattern          : chr &amp;quot;stockinette stitch  &amp;quot;
+#&amp;gt;  $ generally_available    : chr &amp;quot;2009/07/01 00:00:00 -0400&amp;quot;
+#&amp;gt;  $ id                     : int 130787
+#&amp;gt;  $ name                   : chr &amp;quot;Hermione&amp;#39;s Everyday Socks&amp;quot;
 #&amp;gt;  $ pdf_url                : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ permalink              : chr &amp;quot;diamond-duality-2&amp;quot;
-#&amp;gt;  $ price                  : num 6
-#&amp;gt;  $ projects_count         : int 1195
-#&amp;gt;  $ published              : chr &amp;quot;2020/03/01&amp;quot;
-#&amp;gt;  $ queued_projects_count  : int 466
-#&amp;gt;  $ rating_average         : num 4.22
-#&amp;gt;  $ rating_count           : int 314
-#&amp;gt;  $ row_gauge              : num 44
-#&amp;gt;  $ updated_at             : chr &amp;quot;2020/06/08 11:19:47 -0400&amp;quot;
-#&amp;gt;  $ url                    : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ yardage                : int 500
-#&amp;gt;  $ yardage_max            : int 510
+#&amp;gt;  $ permalink              : chr &amp;quot;hermiones-everyday-socks&amp;quot;
+#&amp;gt;  $ price                  : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ projects_count         : int 32099
+#&amp;gt;  $ published              : chr &amp;quot;2009/07/01&amp;quot;
+#&amp;gt;  $ queued_projects_count  : int 12216
+#&amp;gt;  $ rating_average         : num 4.64
+#&amp;gt;  $ rating_count           : int 7868
+#&amp;gt;  $ row_gauge              : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ updated_at             : chr &amp;quot;2017/01/03 08:29:11 -0500&amp;quot;
+#&amp;gt;  $ url                    : chr &amp;quot;http://dreamsinfiber.blogspot.com/2009/07/hermoines-everyday-socks-free-pattern.html#links&amp;quot;
+#&amp;gt;  $ yardage                : int 350
+#&amp;gt;  $ yardage_max            : int 400
 #&amp;gt;  $ personal_attributes    : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ sizes_available        : chr &amp;quot;S/M, L, XL&amp;quot;
-#&amp;gt;  $ product_id             : int 617819
-#&amp;gt;  $ currency_symbol        : chr &amp;quot;$&amp;quot;
+#&amp;gt;  $ sizes_available        : chr &amp;quot;Women&amp;#39;s med&amp;quot;
+#&amp;gt;  $ product_id             : int 29899
+#&amp;gt;  $ currency_symbol        : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ ravelry_download       : logi TRUE
 #&amp;gt;  $ download_location      :List of 1
 #&amp;gt;  $ pdf_in_library         : logi FALSE
 #&amp;gt;  $ volumes_in_library     : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ gauge_description      : chr &amp;quot;36 stitches and 44 rows = 4 inches in stockinette stitch&amp;quot;
+#&amp;gt;  $ gauge_description      : chr &amp;quot;36 stitches  = 4 inches in stockinette stitch  &amp;quot;
 #&amp;gt;  $ yarn_weight_description: chr &amp;quot;Fingering (14 wpi)&amp;quot;
-#&amp;gt;  $ yardage_description    : chr &amp;quot;500 - 510 yards&amp;quot;
+#&amp;gt;  $ yardage_description    : chr &amp;quot;350 - 400 yards&amp;quot;
 #&amp;gt;  $ pattern_needle_sizes   :List of 1
-#&amp;gt;  $ notes_html             : chr &amp;quot;\n&amp;lt;p&amp;gt;&amp;lt;em&amp;gt;This pattern was Round 1 of Sock Madness 14 in 2020.&amp;lt;/em&amp;gt;&amp;lt;/p&amp;gt;\n\n&amp;lt;p&amp;gt;I’m always on the lookout for insp&amp;quot;| __truncated__
-#&amp;gt;  $ notes                  : chr &amp;quot;*This pattern was Round 1 of Sock Madness 14 in 2020.* \r\n\r\nI&amp;#39;m always on the lookout for inspiration to cre&amp;quot;| __truncated__
+#&amp;gt;  $ notes_html             : chr &amp;quot;\n&amp;lt;p&amp;gt;Hermione, as described in J.K. Rowling’s Harry Potter Series, is a rather smart and practical heroine. Whi&amp;quot;| __truncated__
+#&amp;gt;  $ notes                  : chr &amp;quot;Hermione, as described in J.K. Rowling’s Harry Potter Series, is a rather smart and practical heroine.   While &amp;quot;| __truncated__
 #&amp;gt;  $ packs                  :List of 1
 #&amp;gt;  $ printings              :List of 1
 #&amp;gt;  $ yarn_weight            :List of 1
@@ -138,14 +346,14 @@ str(hermione, max.level = 2)
 #&amp;gt;  $ pattern_type           :List of 1
 str(hermione$pattern_attributes)
 #&amp;gt; List of 1
-#&amp;gt;  $ : tibble [10 x 2] (S3: tbl_df/tbl/data.frame)
-#&amp;gt;   ..$ id       : int [1:10] 10 23 26 181 200 204 262 265 286 300
-#&amp;gt;   ..$ permalink: chr [1:10] &amp;quot;adult&amp;quot; &amp;quot;top-cuff-down&amp;quot; &amp;quot;heel-flap&amp;quot; &amp;quot;stranded&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt;  $ : tibble [12 x 2] (S3: tbl_df/tbl/data.frame)
+#&amp;gt;   ..$ id       : int [1:12] 3 8 9 10 12 23 26 70 205 262 ...
+#&amp;gt;   ..$ permalink: chr [1:12] &amp;quot;unisex&amp;quot; &amp;quot;child&amp;quot; &amp;quot;teen&amp;quot; &amp;quot;adult&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hermione$difficulty_count # how many reviews rated a difficulty?
-#&amp;gt; [1] 301
+#&amp;gt; [1] 7785
 hermione$difficulty_average # what is the average difficulty?
-#&amp;gt; [1] 4.664452&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt; [1] 2.369685&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;slip_it_search &amp;lt;- search_patterns(query = &amp;quot;slip it simple sock&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Next, take the &lt;code&gt;id&lt;/code&gt; column and feed it into &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
@@ -173,13 +381,13 @@ slip_it$difficulty_average
 ))
 ...
 #&amp;gt; # A tibble: 6 x 7
-#&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
-#&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
-#&amp;gt; 1 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
-#&amp;gt; 2 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
-#&amp;gt; 3 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
-#&amp;gt; 4 TRUE   315418 Vanilla ~ vanilla-la~       53376 Virginia Rose~ &amp;lt;df[,59] [1 x ~
-#&amp;gt; 5 FALSE  720294 Mina&amp;#39;s V~ minas-vani~       81846 Knitting Expa~ &amp;lt;df[,59] [2 x ~
+#&amp;gt;   free      id name      permalink    designer.id designer.name  pattern_sources
+#&amp;gt;   &amp;lt;lgl&amp;gt;  &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;              &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
+#&amp;gt; 1 TRUE  580119 Rose Cit~ rose-city-r~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
+#&amp;gt; 2 TRUE  130787 Hermione~ hermiones-e~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
+#&amp;gt; 3 TRUE  891114 Rye Light rye-light          45502 tincanknits    &amp;lt;df[,59] [3 x ~
+#&amp;gt; 4 TRUE  315418 Vanilla ~ vanilla-lat~       53376 Virginia Rose~ &amp;lt;df[,59] [1 x ~
+#&amp;gt; 5 FALSE 720294 Mina&amp;#39;s V~ minas-vanil~       81846 Knitting Expa~ &amp;lt;df[,59] [2 x ~
 ...&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Another trick is to go look at the URL when I am searching on Ravelry itself. This gives me an idea of what search terms I can add to &lt;code&gt;search_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;refined_search &amp;lt;- search_patterns(
@@ -415,9 +623,9 @@ map(photo_links$photos_medium_url, load.image) %&amp;gt;%
     
     <item>
       <title>Writing technical content in Academic</title>
-      <link>lizroten.com/post/writing-technical-content/</link>
+      <link>lizroten.com/blog/writing-technical-content-in-academic/</link>
       <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>lizroten.com/post/writing-technical-content/</guid>
+      <guid>lizroten.com/blog/writing-technical-content-in-academic/</guid>
       <description>&lt;p&gt;Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;On this page, you&amp;rsquo;ll find some examples of the types of technical content that can be rendered with Academic.&lt;/p&gt;
@@ -441,7 +649,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-573618429&#34; class=&#34;chart pb-3&#34; style=&#34;max-width: 100%; margin: auto;&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-452386197&#34; class=&#34;chart pb-3&#34; style=&#34;max-width: 100%; margin: auto;&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -451,7 +659,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-573618429&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-452386197&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
@@ -701,9 +909,9 @@ You found me!
     
     <item>
       <title>Display Jupyter Notebooks with Academic</title>
-      <link>lizroten.com/post/jupyter/</link>
+      <link>lizroten.com/blog/display-jupyter-notebooks-with-academic/</link>
       <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>lizroten.com/post/jupyter/</guid>
+      <guid>lizroten.com/blog/display-jupyter-notebooks-with-academic/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from IPython.core.display import Image
 Image(&#39;https://www.python.org/static/community_logos/python-logo-master-v3-TM-flattened.png&#39;)
 &lt;/code&gt;&lt;/pre&gt;
@@ -895,9 +1103,9 @@ Three
     
     <item>
       <title>Academic: the website builder for Hugo</title>
-      <link>lizroten.com/post/getting-started/</link>
+      <link>lizroten.com/blog/academic-the-website-builder-for-hugo/</link>
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>lizroten.com/post/getting-started/</guid>
+      <guid>lizroten.com/blog/academic-the-website-builder-for-hugo/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Create a free website with Academic using Markdown, Jupyter, or RStudio. Choose a beautiful color theme and build anything with the Page Builder - over 40 &lt;em&gt;widgets&lt;/em&gt;, &lt;em&gt;themes&lt;/em&gt;, and &lt;em&gt;language packs&lt;/em&gt; included!&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://academic-demo.netlify.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Check out the latest &lt;strong&gt;demo&lt;/strong&gt;&lt;/a&gt; of what you&amp;rsquo;ll get in less than 10 minutes, or &lt;a href=&#34;https://sourcethemes.com/academic/#expo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;view the &lt;strong&gt;showcase&lt;/strong&gt;&lt;/a&gt; of personal, project, and business sites.&lt;/p&gt;
 &lt;ul&gt;
