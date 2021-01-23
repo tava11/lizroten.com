@@ -1,5 +1,5 @@
 ---
-title: Finding the perfect sock pattern with `{ravelRy}`
+title: Finding the perfect sock pattern with {ravelRy}
 author: admin
 date: '2020-04-08'
 slug: finding-the-perfect-sock-pattern-with-ravelry
@@ -219,11 +219,11 @@ ggplot() +
   labs(
     title = "Pattern Comment Density",
     x = "Comment count",
-    y = "Density"
+    y = "Density",
+    caption = my_caption
   ) +
   my_theme()
 ```
-{{< chart data="line-chart" >}}
 
 Next, we'll make a density plot series comparing the average difficulty rating for each pattern attribute (check out [this example](https://github.com/walkerkq/ravelRy/blob/master/man/example_files/example_eda.md) for this plot's inspiration).   
 
@@ -240,9 +240,10 @@ top_attributes <- pattern_details_attributes %>%
 
 attributes_long <- pattern_details_attributes %>%
   filter(pattern_attributes_permalink %in% top_attributes$pattern_attributes_permalink) %>%
+  mutate(pattern_attributes_permalink = stringr::str_to_title(pattern_attributes_permalink)) %>% 
   select(id, pattern_attributes_permalink, difficulty_average, rating_average)
 
-attributes_long %>%
+plot_diff_by_att <- attributes_long %>%
   ggplot() +
   geom_density(aes(x = difficulty_average),
     fill = dutchmasters::dutchmasters$pearl_earring[4],
@@ -258,7 +259,10 @@ attributes_long %>%
   scale_x_continuous(limits = c(2, 7)) +
   labs(
     title = "Average difficulty rating by pattern attribute",
-    y = "", x = "Average difficulty"
+    # subtitle = "Sock knitting patterns",
+    y = "", x = "Average difficulty",
+        caption = my_caption
+
   ) +
   my_theme() +
   theme(
@@ -267,8 +271,13 @@ attributes_long %>%
     panel.grid.major.y = element_blank(),
     strip.text.y.left = element_text(angle = 0),
     strip.background = element_rect(fill = NA, color = NA),
-    axis.text.y = element_blank()
-  )
+    axis.text.y = element_blank())
+
+plot_diff_by_att
+```
+
+```{r, include = FALSE}
+ggsave(plot_diff_by_att, filename = "featured.png")
 ```
 
 ## Narrow down results  
@@ -304,7 +313,9 @@ rating_count <- ggplot(data = refined_patterns) +
   labs(
     title = "Rating Count",
     x = "Ratings",
-    y = ""
+    y = "",
+        caption = my_caption
+
   ) +
   my_theme()
 
@@ -340,7 +351,8 @@ ggplot(project_rating_patterns) +
   labs(
     title = "Average Rating and Average Difficulty",
     x = "Average difficulty",
-    y = "Average Rating"
+    y = "Average Rating",
+    caption = my_caption
   ) +
   my_theme()
 ```
@@ -363,7 +375,9 @@ project_rating_patterns %>%
   labs(
     title = "Top pattern attributes",
     x = "Pattern attribute",
-    y = "Frequency"
+    y = "",
+    caption = my_caption
+
   ) +
   my_theme()
 ```

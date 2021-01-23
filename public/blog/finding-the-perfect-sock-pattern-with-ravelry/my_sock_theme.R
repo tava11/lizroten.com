@@ -32,6 +32,9 @@ my_colors <- c(
   "#6C733C",
   "#D9B991"
 )
+
+my_caption <- paste0("@LizRoten | Data via Ravelry")
+
 ## theme function -----------------------------------------
 my_theme <- function(...) {
   theme_minimal() +
@@ -42,6 +45,7 @@ my_theme <- function(...) {
         linetype = 0,
         colour = NA
       ),
+
       panel.background = element_rect(
         fill = background_color,
         linetype = 0,
@@ -53,7 +57,10 @@ my_theme <- function(...) {
       ### title and caption -------------------------------
       title = element_text(family = font_title,
                            size = size_header),
+      plot.title.position = "plot",
+      plot.margin = margin(rep(10, 4), unit = "pt"),
       plot.caption = element_text(size = size_caption),
+      plot.caption.position = "plot",
       ### axis and strip text ------------------------------
       strip.text = element_text(size = size_axis_text),
       axis.title = element_text(size = size_axis_title),

@@ -18,9 +18,9 @@ bio: My favorite food is eggplant.
 
 # Interests to show in About widget
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Data Visualization
+- Data Science for Good
+- Interactive Data Viz
 
 # Education to show in About widget
 education:
@@ -68,7 +68,5 @@ highlight_name: false
 
 I am a data scientist and cartographer based out of St. Paul, Minnesota. I primarily work in R, cleaning and organizing data, developing organization specific R packages, and developing R Shiny interactive data visualizations.
 
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.

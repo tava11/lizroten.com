@@ -5,7 +5,7 @@
     <link>lizroten.com/</link>
       <atom:link href="lizroten.com/index.xml" rel="self" type="application/rss+xml" />
     <description>Liz Roten</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2020</copyright><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
     <image>
       <url>/lizroten.com/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Liz Roten</title>
@@ -33,17 +33,21 @@
     </item>
     
     <item>
+      <title>StL</title>
+      <link>lizroten.com/talk/streetlight-locality-workshop/</link>
+      <pubDate>Sat, 01 Jun 2030 13:00:00 +0000</pubDate>
+      <guid>lizroten.com/talk/streetlight-locality-workshop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Maps with {edgebundle}</title>
       <link>lizroten.com/blog/maps-with-edgebundle/</link>
       <pubDate>Sat, 19 Dec 2020 00:00:00 +0000</pubDate>
       <guid>lizroten.com/blog/maps-with-edgebundle/</guid>
-      <description>
-
-
-&lt;div id=&#34;goal&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Goal&lt;/h2&gt;
-&lt;p&gt;Use &lt;code&gt;{edgebundle}&lt;/code&gt; to map flight patterns from BNA and MSP.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# remotes::install_github(&amp;quot;schochastics/edgebundle&amp;quot;)
+      <description>&lt;h2 id=&#34;goal&#34;&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Use &lt;code&gt;{edgebundle}&lt;/code&gt; to map flight patterns over the US.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# remotes::install_github(&amp;quot;schochastics/edgebundle&amp;quot;)
 library(edgebundle)
 library(igraph)
 library(ggplot2)
@@ -54,87 +58,53 @@ library(tigris)
 
 set.seed(24601)
 
-my_caption &amp;lt;- c(&amp;quot;Liz Roten (@LizRoten) | Data: openflights.org&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+my_caption &amp;lt;- c(&amp;quot;Liz Roten (@LizRoten) | Data: openflights.org&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We also need to use the Python library, datashader. &lt;code&gt;{edgebundle}&lt;/code&gt; ships with a nice function for installing all the dependencies.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;edgebundle:::install_bundle_py()&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;data-prep&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Data prep&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;edgebundle:::install_bundle_py()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;data-prep&#34;&gt;Data prep&lt;/h2&gt;
 &lt;p&gt;The data we will use is &lt;code&gt;us_flights&lt;/code&gt;, which is shipped with &lt;code&gt;{edgebundle}&lt;/code&gt;. &lt;code&gt;us_flights&lt;/code&gt; is a complex object.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flights &amp;lt;- us_flights # name us_flights
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;flights &amp;lt;- us_flights # name us_flights
 coords &amp;lt;- cbind(V(flights)$longitude, V(flights)$latitude) # extract coordinates
 
 # create vertex sequence
-verts &amp;lt;- data.frame(x = V(flights)$longitude, y = V(flights)$latitude) &lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;supporting-data&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Supporting data&lt;/h3&gt;
+verts &amp;lt;- data.frame(x = V(flights)$longitude, y = V(flights)$latitude) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;supporting-data&#34;&gt;Supporting data&lt;/h3&gt;
 &lt;p&gt;To make our output a little more aesthetically pleasing, we will go ahead and transform the data to use Albers Equal Area Conic.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;states &amp;lt;- tigris::states(cb = TRUE, progress_bar = FALSE) %&amp;gt;% 
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;states &amp;lt;- tigris::states(cb = TRUE, progress_bar = FALSE) %&amp;gt;% 
   filter(STUSPS %in% state.abb,
          !NAME %in% c(&amp;quot;Alaska&amp;quot;,
                       &amp;quot;Hawaii&amp;quot;)) %&amp;gt;% 
-  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coords_full &amp;lt;- cbind(V(flights)$longitude, V(flights)$latitude,  V(flights)$name) # extract coordinates
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;coords_full &amp;lt;- cbind(V(flights)$longitude, V(flights)$latitude,  V(flights)$name) # extract coordinates
 
 
 coords_sf &amp;lt;- st_as_sf(x = as.data.frame(coords_full), coords = c(&amp;quot;V1&amp;quot;, &amp;quot;V2&amp;quot;), crs = 4326) %&amp;gt;% 
-  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;edge-bundles&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Edge bundles&lt;/h2&gt;
+  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;edge-bundle&#34;&gt;Edge bundle&lt;/h2&gt;
 &lt;p&gt;Create edge bundles&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;force_bundle &amp;lt;- edge_bundle_force(flights, xy = coords, compatibility_threshold = 0.6) 
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;force_bundle &amp;lt;- edge_bundle_force(flights, xy = coords, compatibility_threshold = 0.6) 
 
 force_bundle_sf &amp;lt;- force_bundle %&amp;gt;% 
   st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), crs = 4326) %&amp;gt;% 
   sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;) %&amp;gt;% 
   rowwise() %&amp;gt;% 
   mutate(x_coord = st_coordinates(geometry)[[1]],
-         y_coord = st_coordinates(geometry)[[2]])&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hammer_bundle &amp;lt;- edgebundle::edge_bundle_hammer(object = flights, 
-                                                xy = coords, 
-                                                bw = 0.7,
-                                                decay = 0.5)
-
-hammer_bundle_sf &amp;lt;- hammer_bundle %&amp;gt;% 
-  st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), crs = 4326) %&amp;gt;% 
-  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;) %&amp;gt;% 
-  rowwise() %&amp;gt;% 
-  mutate(x_coord = st_coordinates(geometry)[[1]],
-         y_coord = st_coordinates(geometry)[[2]])&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;map&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Map&lt;/h2&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;my_theme &amp;lt;- theme_void() +
-  theme(
-    plot.background = element_rect(fill = &amp;quot;black&amp;quot;,
-                                   linetype = 0,
-                                   color = NA),
-    panel.background = element_rect(
-      fill = &amp;quot;black&amp;quot;,
-      linetype = 0,
-      color = NA
-    ),
-    plot.title = element_text(family = &amp;quot;Agency FB&amp;quot;,
-                              color = &amp;quot;white&amp;quot;,
-                              size = 20),
-    plot.caption = element_text(
-      family = &amp;quot;LeelawadeeUI-Semilight&amp;quot;,
-      color = &amp;quot;white&amp;quot;
-    ),
-    plot.subtitle = element_text(
-      color = &amp;quot;white&amp;quot;
-    ),
-    plot.margin = unit(c(.5, .5, .2, .5), &amp;quot;cm&amp;quot;),
-  )
-
-line_color &amp;lt;- &amp;quot;#e79e4f&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;base_plot &amp;lt;- geom_sf(data = states,
+         y_coord = st_coordinates(geometry)[[2]])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-map&#34;&gt;Create map&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;source(&amp;quot;theme.R&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;base_plot &amp;lt;- geom_sf(data = states,
           color = &amp;quot;white&amp;quot;,
           fill = NA,
-          lwd = 0.1) &lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
+          lwd = 0.1) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;final_map &amp;lt;- ggplot() +
   base_plot +
   geom_path(data = force_bundle_sf,
             aes(x = x_coord,
@@ -153,101 +123,57 @@ line_color &amp;lt;- &amp;quot;#e79e4f&amp;quot;&lt;/code&gt;&lt;/pre&gt;
   geom_sf(data = coords_sf,
           color = line_color,
           size = 0.25) +
-    geom_sf(data = coords_sf,
-          color = &amp;quot;white&amp;quot;,
-          size = 0.25,
-          alpha = 0.1) +
-  labs(title = &amp;quot;US Flight Network&amp;quot;,
-       subtitle = &amp;quot;Force Bundle Method&amp;quot;,
-       caption = my_caption) +
-  my_theme &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;lizroten.com/lizroten.com/post/2020-12-19-maps-with-edgebundle/index.en_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot() +
-  base_plot +
-    geom_path(data = hammer_bundle_sf,
-            aes(x = x_coord,
-                y = y_coord,
-                group = group),
-            color = line_color,
-            size = 0.5,
-            alpha = 0.2) +
-  geom_path(data = hammer_bundle_sf,
-            aes(x = x_coord,
-                y = y_coord,
-                group = group),
-            color = &amp;quot;white&amp;quot;,
-            size = 0.005,
-            alpha = 0.1) +
   geom_sf(data = coords_sf,
-          color = line_color,
-          size = 0.25) +
-    geom_sf(data = coords_sf,
           color = &amp;quot;white&amp;quot;,
           size = 0.25,
           alpha = 0.1) +
   labs(title = &amp;quot;US Flight Network&amp;quot;,
-       subtitle = &amp;quot;Hammer Bundle Method&amp;quot;,
+       # subtitle = &amp;quot;Force Bundle Method&amp;quot;,
        caption = my_caption) +
-  my_theme &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;lizroten.com/lizroten.com/post/2020-12-19-maps-with-edgebundle/index.en_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;finese-hammer-bundle-method&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Finese hammer bundle method&lt;/h2&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hammer_bundle_adj &amp;lt;- edgebundle::edge_bundle_hammer(object = flights, 
-                                                xy = coords, 
-                                                bw = 0.2,
-                                                decay = 0.5)
+  my_theme
 
-hammer_bundle_adj_sf &amp;lt;- hammer_bundle_adj %&amp;gt;% 
-  st_as_sf(coords = c(&amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;), crs = 4326) %&amp;gt;% 
-  sf::st_transform(crs = &amp;quot; +proj=aea +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs&amp;quot;) %&amp;gt;% 
-  rowwise() %&amp;gt;% 
-  mutate(x_coord = st_coordinates(geometry)[[1]],
-         y_coord = st_coordinates(geometry)[[2]])
+final_map
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/maps-with-edgebundle/index_files/figure-html/map_force_bundle-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;To get the sizing just right on the final image I posted on Twitter, I adjusted the size of my viewing panel in RStudio until I was happy with the dimensions.&lt;/p&gt;
+&lt;h2 id=&#34;credits&#34;&gt;Credits&lt;/h2&gt;
+&lt;p&gt;This entire post was inspired by &lt;a href=&#34;https://twitter.com/dr_xeo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dominic Royé&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;Trying a very nice new tool, thanks to {edgebundle} package created by &lt;a href=&#34;https://twitter.com/schochastics?ref_src=twsrc%5Etfw&#34;&gt;@schochastics&lt;/a&gt;. Here the European flight network in a bundle flow version. &lt;a href=&#34;https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#rstats&lt;/a&gt; &lt;a href=&#34;https://twitter.com/hashtag/rspatial?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#rspatial&lt;/a&gt; &lt;a href=&#34;https://twitter.com/hashtag/datavis?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#datavis&lt;/a&gt; &lt;a href=&#34;https://t.co/dty4tTSYdE&#34;&gt;pic.twitter.com/dty4tTSYdE&lt;/a&gt;&lt;/p&gt;&amp;mdash; Dominic Royé (@dr_xeo) &lt;a href=&#34;https://twitter.com/dr_xeo/status/1340299685421076485?ref_src=twsrc%5Etfw&#34;&gt;December 19, 2020&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 
-ggplot() +
-  base_plot +
-    geom_path(data = hammer_bundle_adj_sf,
-            aes(x = x_coord,
-                y = y_coord,
-                group = group),
-            color = line_color,
-            size = 0.5,
-            alpha = 0.2) +
-  geom_path(data = hammer_bundle_adj_sf,
-            aes(x = x_coord,
-                y = y_coord,
-                group = group),
-            color = &amp;quot;white&amp;quot;,
-            size = 0.005,
-            alpha = 0.1) +
-  geom_sf(data = coords_sf,
-          color = line_color,
-          size = 0.25) +
-    geom_sf(data = coords_sf,
-          color = &amp;quot;white&amp;quot;,
-          size = 0.25,
-          alpha = 0.1) +
-  labs(title = &amp;quot;US Flight Network&amp;quot;,
-       subtitle = &amp;quot;Hammer Bundle Method (adj)&amp;quot;,
-       caption = my_caption) +
-  my_theme &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;lizroten.com/lizroten.com/post/2020-12-19-maps-with-edgebundle/index.en_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;/div&gt;
+&lt;p&gt;You can find my tweet with this map &lt;a href=&#34;https://twitter.com/LizRoten/status/1341075405269295109&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>Finding the perfect sock pattern with `{ravelRy}`</title>
+      <title>COVID Traffic Trends</title>
+      <link>lizroten.com/project/covid-traffic-trends/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/covid-traffic-trends/</guid>
+      <description>&lt;p&gt;In early 2020, the transportation and modeling team at the Metropolitan Council began using traffic data from the Minnesota Department of Transportation (MnDOT) to evaluate the impact of recent physical distancing efforts on regional and statewide travel. I developed an accompanying R Shiny app  with sections for visualizing the model results, downloading tabular data, and explaining the model. Individual items include an interactive plot showing the percent difference from expected traffic levels and an interactive map displaying the change in expected traffic at individual traffic sensors across the Twin Cities metro area and Rochester area.&lt;/p&gt;
+&lt;p&gt;I built the app based on the &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; framework, which builds the app repository as an R package. The result is a robust Shiny app, complete with testing and modularized elements. The app integrates other package I&amp;rsquo;ve developed, including &lt;a href=&#34;https://github.com/Metropolitan-Council/council.skeleton&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{council.skeleton}&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/Metropolitan-Council/councilR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{councilR}&lt;/code&gt;&lt;/a&gt;. The first iteration of the app was published within a week of starting on it.&lt;/p&gt;
+&lt;h2 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h2&gt;
+&lt;p&gt;The plot shows the daily relative decrease in freeway travel over time across the Twin Cities metropolitan region after March 1. Points that fall below the zero-line represent decreases in travel relative to typical travel on that day of the year and day of the week. Typical travel is estimated using a statistical analysis of traffic volumes from 2018, 2019, and 2020 prior to March 1.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;covid_plot.PNG&#34; alt=&#34;This plot shows the daily relative decrease in freeway travel over time across the Twin Cities metropolitan region after March 1. Points that fall below the zero-line represent decreases in travel relative to typical travel on that day of the year and day of the week. Typical travel is estimated using a statistical analysis of traffic volumes from 2018, 2019, and 2020 prior to March 1.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The map shows the decreases in travel at individual traffic monitoring sites across the Twin Cities Metropolitan area. Traffic monitoring is performed by the Minnesota Department of Transportation (MnDOT) using detectors built into the infrastructure of the roads. These detectors are usually used to estimate congestion along Metro area highways.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;covid_map.PNG&#34; alt=&#34;The map shows the decreases in travel at individual traffic monitoring sites across the Twin Cities Metropolitan area. Traffic monitoring is performed by the Minnesota Department of Transportation (MnDOT) using detectors built into the infrastructure of the roads. These detectors are usually used to estimate congestion along Metro area highways.&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;relevent-links&#34;&gt;Relevent links&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://metrocouncil.org/Transportation/Planning-2/Transit-Plans,-Studies-Reports/Highways-Roads/COVID-19.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Official news release&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://metrotransitmn.shinyapps.io/covid-traffic-trends/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Live app site (updated regularly)&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://github.com/Metropolitan-Council/loop-sensor-trends&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub repository&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Finding the perfect sock pattern with {ravelRy}</title>
       <link>lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/</link>
       <pubDate>Wed, 08 Apr 2020 00:00:00 +0000</pubDate>
       <guid>lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/</guid>
       <description>
-&lt;link href=&#34;index_files/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;index_files/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 &lt;div id=&#34;TOC&#34;&gt;
-true
+
 &lt;/div&gt;
 
 &lt;p&gt;I am a knitter. Knitting is a calming, fulfilling practice that keep my hands busy and require &lt;em&gt;just&lt;/em&gt; enough brain power to keep my mind from wandering too far. Over the past winter, I conquered my fear of making socks, and now I profess that I am a sock knitter. I made socks for Christmas gifts, and churned out four pairs during my evenings, bus commutes, long work meetings, lectures, coffee and tea shop visits (basically everywhere). I’m comfortable with the standard stockinette sock, and I even ventured out into other patterns from Ravelry (&lt;em&gt;the&lt;/em&gt; social medium for yarn folks), like &lt;a href=&#34;https://www.ravelry.com/patterns/library/hermiones-everyday-socks&#34;&gt;Hermione’s Everyday Socks&lt;/a&gt; and the &lt;a href=&#34;https://www.ravelry.com/patterns/library/slip-it-simple-sock&#34;&gt;Slip It Simple Socks&lt;/a&gt;.&lt;/p&gt;
@@ -278,63 +204,63 @@ head(search_result)
 #&amp;gt; # A tibble: 6 x 7
 #&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
 #&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
-#&amp;gt; 1 FALSE 1088356 Wheat St~ wheat-stal~      110221 Marion E. Mui~ &amp;lt;df[,59] [1 x ~
-#&amp;gt; 2 TRUE  1009293 Wohin?    wohin             17216 Caoua Coffee   &amp;lt;df[,59] [2 x ~
-#&amp;gt; 3 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
-#&amp;gt; 4 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
-#&amp;gt; 5 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
-#&amp;gt; 6 FALSE 1020039 Braidalot braidalot         97793 Dots Dabbles   &amp;lt;df[,59] [2 x ~&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt; 1 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
+#&amp;gt; 2 FALSE 1105021 Secret S~ secret-soc~       32124 Helen Stewart  &amp;lt;df[,59] [2 x ~
+#&amp;gt; 3 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
+#&amp;gt; 4 TRUE  1009293 Wohin?    wohin             17216 Caoua Coffee   &amp;lt;df[,59] [2 x ~
+#&amp;gt; 5 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
+#&amp;gt; 6 FALSE  927223 Love Note love-note         45502 tincanknits    &amp;lt;df[,59] [2 x ~&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The fourth result is even my old friend, “Hermione’s Everyday Socks!”&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;search_result[4, ] # get the fourth row in the table
 #&amp;gt; # A tibble: 1 x 7
-#&amp;gt;   free      id name       permalink    designer.id designer.name pattern_sources
-#&amp;gt;   &amp;lt;lgl&amp;gt;  &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;              &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;list&amp;gt;         
-#&amp;gt; 1 TRUE  130787 Hermione&amp;#39;~ hermiones-e~       14789 Erica Lueder  &amp;lt;df[,59] [2 x ~&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt;   free       id name   permalink designer.id designer.name pattern_sources   
+#&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;           &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;list&amp;gt;            
+#&amp;gt; 1 TRUE  1009293 Wohin? wohin           17216 Caoua Coffee  &amp;lt;df[,59] [2 x 59]&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets take a look at the actual pattern from the search results using &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hermione &amp;lt;- get_patterns(ids = search_result[4, ]$id)
 str(hermione, max.level = 2)
 #&amp;gt; tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
-#&amp;gt;  $ comments_count         : int 162
-#&amp;gt;  $ created_at             : chr &amp;quot;2009/07/09 11:36:45 -0400&amp;quot;
+#&amp;gt;  $ comments_count         : int 11
+#&amp;gt;  $ created_at             : chr &amp;quot;2020/02/29 11:04:19 -0500&amp;quot;
 #&amp;gt;  $ currency               : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ difficulty_average     : num 2.37
-#&amp;gt;  $ difficulty_count       : int 7785
+#&amp;gt;  $ difficulty_average     : num 4.63
+#&amp;gt;  $ difficulty_count       : int 489
 #&amp;gt;  $ downloadable           : logi TRUE
-#&amp;gt;  $ favorites_count        : int 61199
+#&amp;gt;  $ favorites_count        : int 2307
 #&amp;gt;  $ free                   : logi TRUE
-#&amp;gt;  $ gauge                  : num 36
+#&amp;gt;  $ gauge                  : num 34
 #&amp;gt;  $ gauge_divisor          : int 4
-#&amp;gt;  $ gauge_pattern          : chr &amp;quot;stockinette stitch  &amp;quot;
-#&amp;gt;  $ generally_available    : chr &amp;quot;2009/07/01 00:00:00 -0400&amp;quot;
-#&amp;gt;  $ id                     : int 130787
-#&amp;gt;  $ name                   : chr &amp;quot;Hermione&amp;#39;s Everyday Socks&amp;quot;
+#&amp;gt;  $ gauge_pattern          : chr &amp;quot;stockinette&amp;quot;
+#&amp;gt;  $ generally_available    : chr &amp;quot;2020/02/01 00:00:00 -0500&amp;quot;
+#&amp;gt;  $ id                     : int 1009293
+#&amp;gt;  $ name                   : chr &amp;quot;Wohin?&amp;quot;
 #&amp;gt;  $ pdf_url                : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ permalink              : chr &amp;quot;hermiones-everyday-socks&amp;quot;
+#&amp;gt;  $ permalink              : chr &amp;quot;wohin&amp;quot;
 #&amp;gt;  $ price                  : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ projects_count         : int 32099
-#&amp;gt;  $ published              : chr &amp;quot;2009/07/01&amp;quot;
-#&amp;gt;  $ queued_projects_count  : int 12216
-#&amp;gt;  $ rating_average         : num 4.64
-#&amp;gt;  $ rating_count           : int 7868
-#&amp;gt;  $ row_gauge              : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ updated_at             : chr &amp;quot;2017/01/03 08:29:11 -0500&amp;quot;
-#&amp;gt;  $ url                    : chr &amp;quot;http://dreamsinfiber.blogspot.com/2009/07/hermoines-everyday-socks-free-pattern.html#links&amp;quot;
-#&amp;gt;  $ yardage                : int 350
-#&amp;gt;  $ yardage_max            : int 400
+#&amp;gt;  $ projects_count         : int 1627
+#&amp;gt;  $ published              : chr &amp;quot;2020/02/01&amp;quot;
+#&amp;gt;  $ queued_projects_count  : int 278
+#&amp;gt;  $ rating_average         : num 4.61
+#&amp;gt;  $ rating_count           : int 505
+#&amp;gt;  $ row_gauge              : num 46
+#&amp;gt;  $ updated_at             : chr &amp;quot;2020/08/21 18:42:45 -0400&amp;quot;
+#&amp;gt;  $ url                    : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ yardage                : int 394
+#&amp;gt;  $ yardage_max            : int 503
 #&amp;gt;  $ personal_attributes    : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ sizes_available        : chr &amp;quot;Women&amp;#39;s med&amp;quot;
-#&amp;gt;  $ product_id             : int 29899
+#&amp;gt;  $ sizes_available        : chr &amp;quot;adult S (M, L)&amp;quot;
+#&amp;gt;  $ product_id             : int 633597
 #&amp;gt;  $ currency_symbol        : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ ravelry_download       : logi TRUE
 #&amp;gt;  $ download_location      :List of 1
 #&amp;gt;  $ pdf_in_library         : logi FALSE
 #&amp;gt;  $ volumes_in_library     : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ gauge_description      : chr &amp;quot;36 stitches  = 4 inches in stockinette stitch  &amp;quot;
+#&amp;gt;  $ gauge_description      : chr &amp;quot;34 stitches and 46 rows = 4 inches in stockinette&amp;quot;
 #&amp;gt;  $ yarn_weight_description: chr &amp;quot;Fingering (14 wpi)&amp;quot;
-#&amp;gt;  $ yardage_description    : chr &amp;quot;350 - 400 yards&amp;quot;
+#&amp;gt;  $ yardage_description    : chr &amp;quot;394 - 503 yards&amp;quot;
 #&amp;gt;  $ pattern_needle_sizes   :List of 1
-#&amp;gt;  $ notes_html             : chr &amp;quot;\n&amp;lt;p&amp;gt;Hermione, as described in J.K. Rowling’s Harry Potter Series, is a rather smart and practical heroine. Whi&amp;quot;| __truncated__
-#&amp;gt;  $ notes                  : chr &amp;quot;Hermione, as described in J.K. Rowling’s Harry Potter Series, is a rather smart and practical heroine.   While &amp;quot;| __truncated__
+#&amp;gt;  $ notes_html             : chr &amp;quot;\n&amp;lt;p&amp;gt;This was the pattern for the qualification round of Sock Madness 14, a speed knitting contest. (See the &amp;lt;a&amp;quot;| __truncated__
+#&amp;gt;  $ notes                  : chr &amp;quot;This was the pattern for the qualification round of Sock Madness 14, a speed knitting contest. (See the [Sock M&amp;quot;| __truncated__
 #&amp;gt;  $ packs                  :List of 1
 #&amp;gt;  $ printings              :List of 1
 #&amp;gt;  $ yarn_weight            :List of 1
@@ -346,23 +272,23 @@ str(hermione, max.level = 2)
 #&amp;gt;  $ pattern_type           :List of 1
 str(hermione$pattern_attributes)
 #&amp;gt; List of 1
-#&amp;gt;  $ : tibble [12 x 2] (S3: tbl_df/tbl/data.frame)
-#&amp;gt;   ..$ id       : int [1:12] 3 8 9 10 12 23 26 70 205 262 ...
-#&amp;gt;   ..$ permalink: chr [1:12] &amp;quot;unisex&amp;quot; &amp;quot;child&amp;quot; &amp;quot;teen&amp;quot; &amp;quot;adult&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt;  $ : tibble [8 x 2] (S3: tbl_df/tbl/data.frame)
+#&amp;gt;   ..$ id       : int [1:8] 10 23 26 70 165 265 267 320
+#&amp;gt;   ..$ permalink: chr [1:8] &amp;quot;adult&amp;quot; &amp;quot;top-cuff-down&amp;quot; &amp;quot;heel-flap&amp;quot; &amp;quot;textured&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hermione$difficulty_count # how many reviews rated a difficulty?
-#&amp;gt; [1] 7785
+#&amp;gt; [1] 489
 hermione$difficulty_average # what is the average difficulty?
-#&amp;gt; [1] 2.369685&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt; [1] 4.625767&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;slip_it_search &amp;lt;- search_patterns(query = &amp;quot;slip it simple sock&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Next, take the &lt;code&gt;id&lt;/code&gt; column and feed it into &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;slip_it &amp;lt;- get_patterns(ids = slip_it_search$id)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;What is our difficulty?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;slip_it$difficulty_count
-#&amp;gt; [1] 62
+#&amp;gt; [1] 68
 slip_it$difficulty_average
-#&amp;gt; [1] 2.032258&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt; [1] 2&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;There are fewer reviews, but the difficulty is super low.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;refining-our-search&#34; class=&#34;section level2&#34;&gt;
@@ -381,13 +307,13 @@ slip_it$difficulty_average
 ))
 ...
 #&amp;gt; # A tibble: 6 x 7
-#&amp;gt;   free      id name      permalink    designer.id designer.name  pattern_sources
-#&amp;gt;   &amp;lt;lgl&amp;gt;  &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;              &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
-#&amp;gt; 1 TRUE  580119 Rose Cit~ rose-city-r~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
-#&amp;gt; 2 TRUE  130787 Hermione~ hermiones-e~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
-#&amp;gt; 3 TRUE  891114 Rye Light rye-light          45502 tincanknits    &amp;lt;df[,59] [3 x ~
-#&amp;gt; 4 TRUE  315418 Vanilla ~ vanilla-lat~       53376 Virginia Rose~ &amp;lt;df[,59] [1 x ~
-#&amp;gt; 5 FALSE 720294 Mina&amp;#39;s V~ minas-vanil~       81846 Knitting Expa~ &amp;lt;df[,59] [2 x ~
+#&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
+#&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
+#&amp;gt; 1 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
+#&amp;gt; 2 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
+#&amp;gt; 3 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
+#&amp;gt; 4 TRUE   315418 Vanilla ~ vanilla-la~       53376 Virginia Rose~ &amp;lt;df[,59] [1 x ~
+#&amp;gt; 5 FALSE  720294 Mina&amp;#39;s V~ minas-vani~       81846 Knitting Expa~ &amp;lt;df[,59] [2 x ~
 ...&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Another trick is to go look at the URL when I am searching on Ravelry itself. This gives me an idea of what search terms I can add to &lt;code&gt;search_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;refined_search &amp;lt;- search_patterns(
@@ -427,11 +353,11 @@ ggplot() +
   labs(
     title = &amp;quot;Pattern Comment Density&amp;quot;,
     x = &amp;quot;Comment count&amp;quot;,
-    y = &amp;quot;Density&amp;quot;
+    y = &amp;quot;Density&amp;quot;,
+    caption = my_caption
   ) +
   my_theme()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;index_files/figure-html/comment_density-1.png&#34; width=&#34;672&#34; /&gt;
-{{&amp;lt; chart data=“line-chart” &amp;gt;}}&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/comment_density-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Next, we’ll make a density plot series comparing the average difficulty rating for each pattern attribute (check out &lt;a href=&#34;https://github.com/walkerkq/ravelRy/blob/master/man/example_files/example_eda.md&#34;&gt;this example&lt;/a&gt; for this plot’s inspiration).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pattern_details_attributes &amp;lt;- refined_patterns %&amp;gt;%
   unnest(cols = &amp;quot;pattern_attributes&amp;quot;, names_sep = &amp;quot;_&amp;quot;)
@@ -444,9 +370,10 @@ top_attributes &amp;lt;- pattern_details_attributes %&amp;gt;%
 
 attributes_long &amp;lt;- pattern_details_attributes %&amp;gt;%
   filter(pattern_attributes_permalink %in% top_attributes$pattern_attributes_permalink) %&amp;gt;%
+  mutate(pattern_attributes_permalink = stringr::str_to_title(pattern_attributes_permalink)) %&amp;gt;% 
   select(id, pattern_attributes_permalink, difficulty_average, rating_average)
 
-attributes_long %&amp;gt;%
+plot_diff_by_att &amp;lt;- attributes_long %&amp;gt;%
   ggplot() +
   geom_density(aes(x = difficulty_average),
     fill = dutchmasters::dutchmasters$pearl_earring[4],
@@ -462,7 +389,10 @@ attributes_long %&amp;gt;%
   scale_x_continuous(limits = c(2, 7)) +
   labs(
     title = &amp;quot;Average difficulty rating by pattern attribute&amp;quot;,
-    y = &amp;quot;&amp;quot;, x = &amp;quot;Average difficulty&amp;quot;
+    # subtitle = &amp;quot;Sock knitting patterns&amp;quot;,
+    y = &amp;quot;&amp;quot;, x = &amp;quot;Average difficulty&amp;quot;,
+        caption = my_caption
+
   ) +
   my_theme() +
   theme(
@@ -471,9 +401,10 @@ attributes_long %&amp;gt;%
     panel.grid.major.y = element_blank(),
     strip.text.y.left = element_text(angle = 0),
     strip.background = element_rect(fill = NA, color = NA),
-    axis.text.y = element_blank()
-  )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;index_files/figure-html/plot_difficulty_by_attribute-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+    axis.text.y = element_blank())
+
+plot_diff_by_att&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/plot_difficulty_by_attribute-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;narrow-down-results&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Narrow down results&lt;/h2&gt;
@@ -506,13 +437,15 @@ rating_count &amp;lt;- ggplot(data = refined_patterns) +
   labs(
     title = &amp;quot;Rating Count&amp;quot;,
     x = &amp;quot;Ratings&amp;quot;,
-    y = &amp;quot;&amp;quot;
+    y = &amp;quot;&amp;quot;,
+        caption = my_caption
+
   ) +
   my_theme()
 
 
 cowplot::plot_grid(project_count, rating_count)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;index_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It looks like there is a big drop-off around 1,000 project and 500 ratings.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;project_rating_patterns &amp;lt;- refined_patterns %&amp;gt;%
   filter(
@@ -534,10 +467,11 @@ cowplot::plot_grid(project_count, rating_count)&lt;/code&gt;&lt;/pre&gt;
   labs(
     title = &amp;quot;Average Rating and Average Difficulty&amp;quot;,
     x = &amp;quot;Average difficulty&amp;quot;,
-    y = &amp;quot;Average Rating&amp;quot;
+    y = &amp;quot;Average Rating&amp;quot;,
+    caption = my_caption
   ) +
   my_theme()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;index_files/figure-html/average_rating_avg_difficulty-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/average_rating_avg_difficulty-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Nothing too informative here. What are the top pattern attributes?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;project_rating_patterns %&amp;gt;%
   unnest(cols = &amp;quot;pattern_attributes&amp;quot;, names_sep = &amp;quot;_&amp;quot;) %&amp;gt;%
@@ -554,10 +488,12 @@ cowplot::plot_grid(project_count, rating_count)&lt;/code&gt;&lt;/pre&gt;
   labs(
     title = &amp;quot;Top pattern attributes&amp;quot;,
     x = &amp;quot;Pattern attribute&amp;quot;,
-    y = &amp;quot;Frequency&amp;quot;
+    y = &amp;quot;&amp;quot;,
+    caption = my_caption
+
   ) +
   my_theme()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;index_files/figure-html/top-pattern-attributes-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/top-pattern-attributes-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Another thing that makes patterns easy to follow is if they are downloadable (as opposed to linked to another web page). Lets &lt;code&gt;filter()&lt;/code&gt; for that, and have a difficulty at least above 4.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;filter(
   project_rating_patterns, downloadable == TRUE,
@@ -592,7 +528,7 @@ photo_links$name
 
 map(photo_links$photos_medium_url, load.image) %&amp;gt;%
   map(plot, axes = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;index_files/figure-html/images-1.png&#34; width=&#34;672&#34; /&gt;&lt;img src=&#34;index_files/figure-html/images-2.png&#34; width=&#34;672&#34; /&gt;&lt;img src=&#34;index_files/figure-html/images-3.png&#34; width=&#34;672&#34; /&gt;&lt;img src=&#34;index_files/figure-html/images-4.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/images-1.png&#34; width=&#34;672&#34; /&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/images-2.png&#34; width=&#34;672&#34; /&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/images-3.png&#34; width=&#34;672&#34; /&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/images-4.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;#&amp;gt; [[1]]
 #&amp;gt; Image. Width: 425 pix Height: 500 pix Depth: 1 Colour channels: 3 
 #&amp;gt; 
@@ -622,278 +558,6 @@ map(photo_links$photos_medium_url, load.image) %&amp;gt;%
     </item>
     
     <item>
-      <title>Writing technical content in Academic</title>
-      <link>lizroten.com/blog/writing-technical-content-in-academic/</link>
-      <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>lizroten.com/blog/writing-technical-content-in-academic/</guid>
-      <description>&lt;p&gt;Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;On this page, you&amp;rsquo;ll find some examples of the types of technical content that can be rendered with Academic.&lt;/p&gt;
-&lt;h2 id=&#34;examples&#34;&gt;Examples&lt;/h2&gt;
-&lt;h3 id=&#34;code&#34;&gt;Code&lt;/h3&gt;
-&lt;p&gt;Academic supports a Markdown extension for highlighting code syntax. You can enable this feature by toggling the &lt;code&gt;highlight&lt;/code&gt; option in your &lt;code&gt;config/_default/params.toml&lt;/code&gt; file.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```python
-import pandas as pd
-data = pd.read_csv(&amp;quot;data.csv&amp;quot;)
-data.head()
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import pandas as pd
-data = pd.read_csv(&amp;quot;data.csv&amp;quot;)
-data.head()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;charts&#34;&gt;Charts&lt;/h3&gt;
-&lt;p&gt;Academic supports the popular &lt;a href=&#34;https://plot.ly/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Plotly&lt;/a&gt; chart format.&lt;/p&gt;
-&lt;p&gt;Save your Plotly JSON in your page folder, for example &lt;code&gt;chart.json&lt;/code&gt;, and then add the &lt;code&gt;{{&amp;lt; chart data=&amp;quot;chart&amp;quot; &amp;gt;}}&lt;/code&gt; shortcode where you would like the chart to appear.&lt;/p&gt;
-&lt;p&gt;Demo:&lt;/p&gt;
-
-
-&lt;div id=&#34;chart-452386197&#34; class=&#34;chart pb-3&#34; style=&#34;max-width: 100%; margin: auto;&#34;&gt;&lt;/div&gt;
-&lt;script&gt;
-  (function() {
-    let a = setInterval( function() {
-      if ( typeof window.Plotly === &#39;undefined&#39; ) {
-        return;
-      }
-      clearInterval( a );
-
-      Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-452386197&#39;, chart.data, chart.layout, {responsive: true});
-      });
-    }, 500 );
-  })();
-&lt;/script&gt;
-&lt;p&gt;You might also find the &lt;a href=&#34;http://plotly-json-editor.getforge.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Plotly JSON Editor&lt;/a&gt; useful.&lt;/p&gt;
-&lt;h3 id=&#34;math&#34;&gt;Math&lt;/h3&gt;
-&lt;p&gt;Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the &lt;code&gt;math&lt;/code&gt; option in your &lt;code&gt;config/_default/params.toml&lt;/code&gt; file.&lt;/p&gt;
-&lt;p&gt;To render &lt;em&gt;inline&lt;/em&gt; or &lt;em&gt;block&lt;/em&gt; math, wrap your LaTeX math with &lt;code&gt;$...$&lt;/code&gt; or &lt;code&gt;$$...$$&lt;/code&gt;, respectively.&lt;/p&gt;
-&lt;p&gt;Example &lt;strong&gt;math block&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;$$\gamma_{n} = \frac{ 
-\left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T 
-\left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}
-{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;p&gt;$$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left |\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right |^2}$$&lt;/p&gt;
-&lt;p&gt;Example &lt;strong&gt;inline math&lt;/strong&gt; &lt;code&gt;$\nabla F(\mathbf{x}_{n})$&lt;/code&gt; renders as $\nabla F(\mathbf{x}_{n})$.&lt;/p&gt;
-&lt;p&gt;Example &lt;strong&gt;multi-line math&lt;/strong&gt; using the &lt;code&gt;\\\\&lt;/code&gt; math linebreak:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;$$f(k;p_0^*) = \begin{cases} p_0^* &amp;amp; \text{if }k=1, \\\\
-1-p_0^* &amp;amp; \text {if }k=0.\end{cases}$$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;p&gt;$$f(k;p_0^&lt;em&gt;) = \begin{cases} p_0^&lt;/em&gt; &amp;amp; \text{if }k=1, \\&lt;br&gt;
-1-p_0^* &amp;amp; \text {if }k=0.\end{cases}$$&lt;/p&gt;
-&lt;h3 id=&#34;diagrams&#34;&gt;Diagrams&lt;/h3&gt;
-&lt;p&gt;Academic supports a Markdown extension for diagrams. You can enable this feature by toggling the &lt;code&gt;diagram&lt;/code&gt; option in your &lt;code&gt;config/_default/params.toml&lt;/code&gt; file or by adding &lt;code&gt;diagram: true&lt;/code&gt; to your page front matter.&lt;/p&gt;
-&lt;p&gt;An example &lt;strong&gt;flowchart&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-graph TD
-A[Hard] --&amp;gt;|Text| B(Round)
-B --&amp;gt; C{Decision}
-C --&amp;gt;|One| D[Result 1]
-C --&amp;gt;|Two| E[Result 2]
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;graph TD
-A[Hard] --&amp;gt;|Text| B(Round)
-B --&amp;gt; C{Decision}
-C --&amp;gt;|One| D[Result 1]
-C --&amp;gt;|Two| E[Result 2]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;An example &lt;strong&gt;sequence diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-sequenceDiagram
-Alice-&amp;gt;&amp;gt;John: Hello John, how are you?
-loop Healthcheck
-    John-&amp;gt;&amp;gt;John: Fight against hypochondria
-end
-Note right of John: Rational thoughts!
-John--&amp;gt;&amp;gt;Alice: Great!
-John-&amp;gt;&amp;gt;Bob: How about you?
-Bob--&amp;gt;&amp;gt;John: Jolly good!
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;sequenceDiagram
-Alice-&amp;gt;&amp;gt;John: Hello John, how are you?
-loop Healthcheck
-    John-&amp;gt;&amp;gt;John: Fight against hypochondria
-end
-Note right of John: Rational thoughts!
-John--&amp;gt;&amp;gt;Alice: Great!
-John-&amp;gt;&amp;gt;Bob: How about you?
-Bob--&amp;gt;&amp;gt;John: Jolly good!
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;An example &lt;strong&gt;Gantt diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-gantt
-section Section
-Completed :done,    des1, 2014-01-06,2014-01-08
-Active        :active,  des2, 2014-01-07, 3d
-Parallel 1   :         des3, after des1, 1d
-Parallel 2   :         des4, after des1, 1d
-Parallel 3   :         des5, after des3, 1d
-Parallel 4   :         des6, after des4, 1d
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;gantt
-section Section
-Completed :done,    des1, 2014-01-06,2014-01-08
-Active        :active,  des2, 2014-01-07, 3d
-Parallel 1   :         des3, after des1, 1d
-Parallel 2   :         des4, after des1, 1d
-Parallel 3   :         des5, after des3, 1d
-Parallel 4   :         des6, after des4, 1d
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;An example &lt;strong&gt;class diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-classDiagram
-Class01 &amp;lt;|-- AveryLongClass : Cool
-&amp;lt;&amp;lt;interface&amp;gt;&amp;gt; Class01
-Class09 --&amp;gt; C2 : Where am i?
-Class09 --* C3
-Class09 --|&amp;gt; Class07
-Class07 : equals()
-Class07 : Object[] elementData
-Class01 : size()
-Class01 : int chimp
-Class01 : int gorilla
-class Class10 {
-  &amp;lt;&amp;lt;service&amp;gt;&amp;gt;
-  int id
-  size()
-}
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;classDiagram
-Class01 &amp;lt;|-- AveryLongClass : Cool
-&amp;lt;&amp;lt;interface&amp;gt;&amp;gt; Class01
-Class09 --&amp;gt; C2 : Where am i?
-Class09 --* C3
-Class09 --|&amp;gt; Class07
-Class07 : equals()
-Class07 : Object[] elementData
-Class01 : size()
-Class01 : int chimp
-Class01 : int gorilla
-class Class10 {
-  &amp;lt;&amp;lt;service&amp;gt;&amp;gt;
-  int id
-  size()
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;An example &lt;strong&gt;state diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-stateDiagram
-[*] --&amp;gt; Still
-Still --&amp;gt; [*]
-Still --&amp;gt; Moving
-Moving --&amp;gt; Still
-Moving --&amp;gt; Crash
-Crash --&amp;gt; [*]
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;stateDiagram
-[*] --&amp;gt; Still
-Still --&amp;gt; [*]
-Still --&amp;gt; Moving
-Moving --&amp;gt; Still
-Moving --&amp;gt; Crash
-Crash --&amp;gt; [*]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;todo-lists&#34;&gt;Todo lists&lt;/h3&gt;
-&lt;p&gt;You can even write your todo lists in Academic too:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;- [x] Write math example
-- [x] Write diagram example
-- [ ] Do something else
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Write math example&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Write diagram example&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Do something else&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;tables&#34;&gt;Tables&lt;/h3&gt;
-&lt;p&gt;Represent your data in tables:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;First Header&lt;/th&gt;
-&lt;th&gt;Second Header&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Content Cell&lt;/td&gt;
-&lt;td&gt;Content Cell&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Content Cell&lt;/td&gt;
-&lt;td&gt;Content Cell&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id=&#34;callouts&#34;&gt;Callouts&lt;/h3&gt;
-&lt;p&gt;Academic supports a &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/#alerts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shortcode for callouts&lt;/a&gt;, also referred to as &lt;em&gt;asides&lt;/em&gt;, &lt;em&gt;hints&lt;/em&gt;, or &lt;em&gt;alerts&lt;/em&gt;. By wrapping a paragraph in &lt;code&gt;{{% alert note %}} ... {{% /alert %}}&lt;/code&gt;, it will render as an aside.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% callout note %}}
-A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
-{{% /callout %}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;spoilers&#34;&gt;Spoilers&lt;/h3&gt;
-&lt;p&gt;Add a spoiler to a page to reveal text, such as an answer to a question, after a button is clicked.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; spoiler text=&amp;quot;Click to view the spoiler&amp;quot; &amp;gt;}}
-You found me!
-{{&amp;lt; /spoiler &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;spoiler &#34; &gt;
-  &lt;p&gt;
-    &lt;a class=&#34;btn btn-primary&#34; data-toggle=&#34;collapse&#34; href=&#34;#spoiler-2&#34; role=&#34;button&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;spoiler-2&#34;&gt;
-      Click to view the spoiler
-    &lt;/a&gt;
-  &lt;/p&gt;
-  &lt;div class=&#34;collapse card &#34; id=&#34;spoiler-2&#34;&gt;
-    &lt;div class=&#34;card-body&#34;&gt;
-      You found me!
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;icons&#34;&gt;Icons&lt;/h3&gt;
-&lt;p&gt;Academic enables you to use a wide range of &lt;a href=&#34;https://sourcethemes.com/academic/docs/page-builder/#icons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;icons from &lt;em&gt;Font Awesome&lt;/em&gt; and &lt;em&gt;Academicons&lt;/em&gt;&lt;/a&gt; in addition to &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/#emojis&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;emojis&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Here are some examples using the &lt;code&gt;icon&lt;/code&gt; shortcode to render icons:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; icon name=&amp;quot;terminal&amp;quot; pack=&amp;quot;fas&amp;quot; &amp;gt;}} Terminal  
-{{&amp;lt; icon name=&amp;quot;python&amp;quot; pack=&amp;quot;fab&amp;quot; &amp;gt;}} Python  
-{{&amp;lt; icon name=&amp;quot;r-project&amp;quot; pack=&amp;quot;fab&amp;quot; &amp;gt;}} R
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;p&gt;
-  &lt;i class=&#34;fas fa-terminal  pr-1 fa-fw&#34;&gt;&lt;/i&gt; Terminal&lt;br&gt;
-
-  &lt;i class=&#34;fab fa-python  pr-1 fa-fw&#34;&gt;&lt;/i&gt; Python&lt;br&gt;
-
-  &lt;i class=&#34;fab fa-r-project  pr-1 fa-fw&#34;&gt;&lt;/i&gt; R&lt;/p&gt;
-&lt;h3 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h3&gt;
-</description>
-    </item>
-    
-    <item>
       <title>An example preprint / working paper</title>
       <link>lizroten.com/publication/preprint/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
@@ -904,50 +568,6 @@ You found me!
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Display Jupyter Notebooks with Academic</title>
-      <link>lizroten.com/blog/display-jupyter-notebooks-with-academic/</link>
-      <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>lizroten.com/blog/display-jupyter-notebooks-with-academic/</guid>
-      <description>&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from IPython.core.display import Image
-Image(&#39;https://www.python.org/static/community_logos/python-logo-master-v3-TM-flattened.png&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./index_1_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;print(&amp;quot;Welcome to Academic!&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;Welcome to Academic!
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;install-python-and-jupyterlab&#34;&gt;Install Python and JupyterLab&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.anaconda.com/distribution/#download-section&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Install Anaconda&lt;/a&gt; which includes Python 3 and JupyterLab.&lt;/p&gt;
-&lt;p&gt;Alternatively, install JupyterLab with &lt;code&gt;pip3 install jupyterlab&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;create-or-upload-a-jupyter-notebook&#34;&gt;Create or upload a Jupyter notebook&lt;/h2&gt;
-&lt;p&gt;Run the following commands in your Terminal, substituting &lt;code&gt;&amp;lt;MY-WEBSITE-FOLDER&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;SHORT-POST-TITLE&amp;gt;&lt;/code&gt; with the file path to your Academic website folder and a short title for your blog post (use hyphens instead of spaces), respectively:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir -p &amp;lt;MY-WEBSITE-FOLDER&amp;gt;/content/post/&amp;lt;SHORT-POST-TITLE&amp;gt;/
-cd &amp;lt;MY-WEBSITE-FOLDER&amp;gt;/content/post/&amp;lt;SHORT-POST-TITLE&amp;gt;/
-jupyter lab index.ipynb
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The &lt;code&gt;jupyter&lt;/code&gt; command above will launch the JupyterLab editor, allowing us to add Academic metadata and write the content.&lt;/p&gt;
-&lt;h2 id=&#34;edit-your-post-metadata&#34;&gt;Edit your post metadata&lt;/h2&gt;
-&lt;p&gt;The first cell of your Jupter notebook will contain your post metadata (&lt;a href=&#34;https://sourcethemes.com/academic/docs/front-matter/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;front matter&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;In Jupter, choose &lt;em&gt;Markdown&lt;/em&gt; as the type of the first cell and wrap your Academic metadata in three dashes, indicating that it is YAML front matter:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;---
-title: My post&#39;s title
-date: 2019-09-01
-
-# Put any other Academic metadata here...
----
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Edit the metadata of your post, using the &lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;documentation&lt;/a&gt; as a guide to the available options.&lt;/p&gt;
-&lt;p&gt;To set a &lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#featured-image&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;featured image&lt;/a&gt;, place an image named &lt;code&gt;featured&lt;/code&gt; into your post&amp;rsquo;s folder.&lt;/p&gt;
-&lt;p&gt;For other tips, such as using math, see the guide on &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;writing content with Academic&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;convert-notebook-to-markdown&#34;&gt;Convert notebook to Markdown&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;jupyter nbconvert index.ipynb --to markdown --NbConvertApp.output_files_dir=.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
-&lt;p&gt;This post was created with Jupyter. The orginal files can be found at &lt;a href=&#34;https://github.com/gcushen/hugo-academic/tree/master/exampleSite/content/post/jupyter&#34;&gt;https://github.com/gcushen/hugo-academic/tree/master/exampleSite/content/post/jupyter&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -1003,13 +623,13 @@ $$&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Press &lt;code&gt;Space&lt;/code&gt; to play!&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;fragment &#34; &gt;
-One
+One 
 &lt;/span&gt;
 &lt;span class=&#34;fragment &#34; &gt;
-&lt;strong&gt;Two&lt;/strong&gt;
+&lt;strong&gt;Two&lt;/strong&gt; 
 &lt;/span&gt;
 &lt;span class=&#34;fragment &#34; &gt;
-Three
+Three 
 &lt;/span&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;A fragment can accept two optional parameters:&lt;/p&gt;
@@ -1077,133 +697,6 @@ Three
 &lt;h1 id=&#34;questions&#34;&gt;Questions?&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&#34;https://spectrum.chat/academic&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ask&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#create-slides&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Documentation&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>External Project</title>
-      <link>lizroten.com/project/external-project/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>lizroten.com/project/external-project/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Internal Project</title>
-      <link>lizroten.com/project/internal-project/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>lizroten.com/project/internal-project/</guid>
-      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-&lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-&lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-&lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-&lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Academic: the website builder for Hugo</title>
-      <link>lizroten.com/blog/academic-the-website-builder-for-hugo/</link>
-      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>lizroten.com/blog/academic-the-website-builder-for-hugo/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Create a free website with Academic using Markdown, Jupyter, or RStudio. Choose a beautiful color theme and build anything with the Page Builder - over 40 &lt;em&gt;widgets&lt;/em&gt;, &lt;em&gt;themes&lt;/em&gt;, and &lt;em&gt;language packs&lt;/em&gt; included!&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://academic-demo.netlify.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Check out the latest &lt;strong&gt;demo&lt;/strong&gt;&lt;/a&gt; of what you&amp;rsquo;ll get in less than 10 minutes, or &lt;a href=&#34;https://sourcethemes.com/academic/#expo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;view the &lt;strong&gt;showcase&lt;/strong&gt;&lt;/a&gt; of personal, project, and business sites.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;👉 &lt;a href=&#34;#install&#34;&gt;&lt;strong&gt;Get Started&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;📚 &lt;a href=&#34;https://sourcethemes.com/academic/docs/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;View the &lt;strong&gt;documentation&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;💬 &lt;a href=&#34;https://discourse.gohugo.io&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Ask a question&lt;/strong&gt; on the forum&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;👥 &lt;a href=&#34;https://spectrum.chat/academic&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Chat with the &lt;strong&gt;community&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;🐦 Twitter: &lt;a href=&#34;https://twitter.com/source_themes&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@source_themes&lt;/a&gt; &lt;a href=&#34;https://twitter.com/GeorgeCushen&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@GeorgeCushen&lt;/a&gt; &lt;a href=&#34;https://twitter.com/search?q=%23MadeWithAcademic&amp;amp;src=typd&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;#MadeWithAcademic&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;💡 &lt;a href=&#34;https://github.com/gcushen/hugo-academic/issues&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Request a &lt;strong&gt;feature&lt;/strong&gt; or report a &lt;strong&gt;bug&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;⬆️ &lt;strong&gt;Updating?&lt;/strong&gt; View the &lt;a href=&#34;https://sourcethemes.com/academic/docs/update/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Update Guide&lt;/a&gt; and &lt;a href=&#34;https://sourcethemes.com/academic/updates/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Release Notes&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;❤️ &lt;strong&gt;Support development&lt;/strong&gt; of Academic:
-&lt;ul&gt;
-&lt;li&gt;☕️ &lt;a href=&#34;https://paypal.me/cushen&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Donate a coffee&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;💵 &lt;a href=&#34;https://www.patreon.com/cushen&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Become a backer on &lt;strong&gt;Patreon&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;🖼️ &lt;a href=&#34;https://www.redbubble.com/people/neutreno/works/34387919-academic&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Decorate your laptop or journal with an Academic &lt;strong&gt;sticker&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;👕 &lt;a href=&#34;https://academic.threadless.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Wear the &lt;strong&gt;T-shirt&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;👩‍💻 &lt;a href=&#34;https://sourcethemes.com/academic/docs/contribute/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Contribute&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;figure id=&#34;figure-academic-is-mobile-first-with-a-responsive-design-to-ensure-that-your-site-looks-stunning-on-every-device&#34;&gt;
-
-
-  &lt;a data-fancybox=&#34;&#34; href=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png&#34; data-caption=&#34;Academic is mobile first with a responsive design to ensure that your site looks stunning on every device.&#34;&gt;
-
-
-  &lt;img src=&#34;https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png&#34; alt=&#34;&#34;  &gt;
-&lt;/a&gt;
-
-
-  
-  
-  &lt;figcaption&gt;
-    Academic is mobile first with a responsive design to ensure that your site looks stunning on every device.
-  &lt;/figcaption&gt;
-
-
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;Key features:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Page builder&lt;/strong&gt; - Create &lt;em&gt;anything&lt;/em&gt; with &lt;a href=&#34;https://sourcethemes.com/academic/docs/page-builder/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;widgets&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;elements&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Edit any type of content&lt;/strong&gt; - Blog posts, publications, talks, slides, projects, and more!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Create content&lt;/strong&gt; in &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Markdown&lt;/strong&gt;&lt;/a&gt;, &lt;a href=&#34;https://sourcethemes.com/academic/docs/jupyter/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Jupyter&lt;/strong&gt;&lt;/a&gt;, or &lt;a href=&#34;https://sourcethemes.com/academic/docs/install/#install-with-rstudio&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;RStudio&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Plugin System&lt;/strong&gt; - Fully customizable &lt;a href=&#34;https://sourcethemes.com/academic/themes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;color&lt;/strong&gt; and &lt;strong&gt;font themes&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Display Code and Math&lt;/strong&gt; - Code highlighting and &lt;a href=&#34;https://en.wikibooks.org/wiki/LaTeX/Mathematics&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;LaTeX math&lt;/a&gt; supported&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Integrations&lt;/strong&gt; - &lt;a href=&#34;https://analytics.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Google Analytics&lt;/a&gt;, &lt;a href=&#34;https://disqus.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Disqus commenting&lt;/a&gt;, Maps, Contact Forms, and more!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Beautiful Site&lt;/strong&gt; - Simple and refreshing one page design&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Industry-Leading SEO&lt;/strong&gt; - Help get your website found on search engines and social media&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Media Galleries&lt;/strong&gt; - Display your images and videos with captions in a customizable gallery&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Mobile Friendly&lt;/strong&gt; - Look amazing on every screen with a mobile friendly version of your site&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Multi-language&lt;/strong&gt; - 15+ language packs including English, 中文, and Português&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Multi-user&lt;/strong&gt; - Each author gets their own profile page&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Privacy Pack&lt;/strong&gt; - Assists with GDPR&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Stand Out&lt;/strong&gt; - Bring your site to life with animation, parallax backgrounds, and scroll effects&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;One-Click Deployment&lt;/strong&gt; - No servers. No databases. Only files.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
-&lt;p&gt;Academic comes with &lt;strong&gt;automatic day (light) and night (dark) mode&lt;/strong&gt; built-in. Alternatively, visitors can  choose their preferred mode - click the sun/moon icon in the top right of the &lt;a href=&#34;https://academic-demo.netlify.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Demo&lt;/a&gt; to see it in action! Day/night mode can also be disabled by the site admin in &lt;code&gt;params.toml&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/themes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Choose a stunning &lt;strong&gt;theme&lt;/strong&gt; and &lt;strong&gt;font&lt;/strong&gt;&lt;/a&gt; for your site. Themes are fully &lt;a href=&#34;https://sourcethemes.com/academic/docs/customization/#custom-theme&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;customizable&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;ecosystem&#34;&gt;Ecosystem&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/sourcethemes/academic-admin&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Academic Admin&lt;/a&gt;:&lt;/strong&gt; An admin tool to import publications from BibTeX or import assets for an offline site&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/sourcethemes/academic-scripts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Academic Scripts&lt;/a&gt;:&lt;/strong&gt; Scripts to help migrate content to new versions of Academic&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
-&lt;p&gt;You can choose from one of the following four methods to install:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/install/#install-with-web-browser&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;one-click install using your web browser (recommended)&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/install/#install-with-git&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;install on your computer using &lt;strong&gt;Git&lt;/strong&gt; with the Command Prompt/Terminal app&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/install/#install-with-zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;install on your computer by downloading the &lt;strong&gt;ZIP files&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/install/#install-with-rstudio&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;install on your computer with &lt;strong&gt;RStudio&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Then &lt;a href=&#34;https://sourcethemes.com/academic/docs/get-started/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;personalize and deploy your new site&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;updating&#34;&gt;Updating&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/update/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;View the Update Guide&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Feel free to &lt;em&gt;star&lt;/em&gt; the project on &lt;a href=&#34;https://github.com/gcushen/hugo-academic/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Github&lt;/a&gt; to help keep track of &lt;a href=&#34;https://sourcethemes.com/academic/updates&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;updates&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;license&#34;&gt;License&lt;/h2&gt;
-&lt;p&gt;Copyright 2016-present &lt;a href=&#34;https://georgecushen.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;George Cushen&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Released under the &lt;a href=&#34;https://github.com/gcushen/hugo-academic/blob/master/LICENSE.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MIT&lt;/a&gt; license.&lt;/p&gt;
 </description>
     </item>
     
