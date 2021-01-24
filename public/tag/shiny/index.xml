@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shiny | Liz Roten</title>
+    <link>lizroten.com/tag/shiny/</link>
+      <atom:link href="lizroten.com/tag/shiny/index.xml" rel="self" type="application/rss+xml" />
+    <description>Shiny</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Fri, 23 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/lizroten.com/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Shiny</title>
+      <link>lizroten.com/tag/shiny/</link>
+    </image>
+    
+    <item>
+      <title>Twin Cities Rent Trends</title>
+      <link>lizroten.com/project/twin-cities-rent-trends/</link>
+      <pubDate>Fri, 23 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/twin-cities-rent-trends/</guid>
+      <description>&lt;p&gt;&lt;em&gt;Twin Cities Rent Trends&lt;/em&gt; is a dashboard for analyzing rental housing market trends in the seven-county Twin Cities region. Rent data can be difficult and costly to obtain, and different sources can yield significantly different values. This app allows users to compare each source and view the data at different geographic levels. Users can view rent trends, including absolute rent price, rents adjusted for inflation, and year-over-year percent change. Users can also visualize the relationship between rent and vacancy rates (not available for all data sources).&lt;/p&gt;
+&lt;p&gt;I built the app based on the &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; framework, which builds the app repository as an R package. The result is a robust Shiny app, complete with testing and modular elements. The app integrates other package I&amp;rsquo;ve developed, including &lt;a href=&#34;https://github.com/Metropolitan-Council/council.skeleton&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{council.skeleton}&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/Metropolitan-Council/councilR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{councilR}&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h2&gt;
+&lt;p&gt;St. Paul rent and vacancy&lt;br&gt;
+&lt;img src=&#34;costar_vacancy.PNG&#34; alt=&#34;Vacancy map and plots&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Lynnhurst neighborhood rent&lt;br&gt;
+&lt;img src=&#34;zillow_neighborhood.PNG&#34; alt=&#34;Rent map and plots&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Data download page&lt;br&gt;
+&lt;img src=&#34;data_download.PNG&#34; alt=&#34;Data download page&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Greenhouse Gas Emissions Inventory</title>
+      <link>lizroten.com/project/greenhouse-gas-inventory/</link>
+      <pubDate>Thu, 16 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/greenhouse-gas-inventory/</guid>
+      <description>&lt;p&gt;I developed a methodology for estimating greenhouse gas emissions from passenger and commercial vehicles for every city or township in the Twin Cities region. Data implemented include aggregated, anonymized location-based services data provided by &lt;a href=&#34;https://www.streetlightdata.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;StreetLight Data&lt;/a&gt;, the &lt;a href=&#34;https://www.epa.gov/moves&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Environmental Protection Agency&amp;rsquo;s MOVES model&lt;/a&gt;, and &lt;a href=&#34;https://www.dot.state.mn.us/traffic/data/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MnDOT&amp;rsquo;s&lt;/a&gt; vehicle classification data. The resulting data is implemented in the Council&amp;rsquo;s larger greenhouse gas inventory, which quantifies emissions from sources including energy, transportation, agriculture, and waste management.&lt;/p&gt;
+&lt;p&gt;The data is also available in our interactive tool, &lt;a href=&#34;https://metrotransitmn.shinyapps.io/ghg_tool/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Twin Cities Greenhouse Gas Inventory&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You can find more information on the Council&amp;rsquo;s website &lt;a href=&#34;https://metrocouncil.org/tcghginventory.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Climate change is occurring all around the world, including right here in the Twin Cities region. Minnesota has already experienced more extreme rainfall and warmer winters due to climate change, and more changes are on the way. The good news is that local jurisdictions can take meaningful action now to address climate change.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The climate is changing due to human activities which release greenhouse gases (GHGs) into the atmosphere and cause average temperatures to rise. Many human activities emit carbon dioxide, as well as even more powerful greenhouse gases like methane, nitrous oxide, and others. Each of these gases exist naturally in the environment, but human-built systems for energy, transportation, agriculture, and waste management are responsible for releasing climate-altering quantities of these gases.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>COVID Traffic Trends</title>
+      <link>lizroten.com/project/covid-traffic-trends/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/covid-traffic-trends/</guid>
+      <description>&lt;p&gt;In early 2020, the transportation and modeling team at the Metropolitan Council began using traffic data from the Minnesota Department of Transportation (MnDOT) to evaluate the impact of recent physical distancing efforts on regional and statewide travel. I developed an accompanying R Shiny app  with sections for visualizing the model results, downloading tabular data, and explaining the model. Individual items include an interactive plot showing the percent difference from expected traffic levels and an interactive map displaying the change in expected traffic at individual traffic sensors across the Twin Cities metro area and Rochester area.&lt;/p&gt;
+&lt;p&gt;I built the app based on the &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; framework, which builds the app repository as an R package. The result is a robust Shiny app, complete with testing and modularized elements. The app integrates other package I&amp;rsquo;ve developed, including &lt;a href=&#34;https://github.com/Metropolitan-Council/council.skeleton&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{council.skeleton}&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/Metropolitan-Council/councilR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{councilR}&lt;/code&gt;&lt;/a&gt;. The first iteration of the app was published within a week of starting on it.&lt;/p&gt;
+&lt;h2 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h2&gt;
+&lt;p&gt;The plot shows the daily relative decrease in freeway travel over time across the Twin Cities metropolitan region after March 1. Points that fall below the zero-line represent decreases in travel relative to typical travel on that day of the year and day of the week. Typical travel is estimated using a statistical analysis of traffic volumes from 2018, 2019, and 2020 prior to March 1.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;covid_plot.PNG&#34; alt=&#34;This plot shows the daily relative decrease in freeway travel over time across the Twin Cities metropolitan region after March 1. Points that fall below the zero-line represent decreases in travel relative to typical travel on that day of the year and day of the week. Typical travel is estimated using a statistical analysis of traffic volumes from 2018, 2019, and 2020 prior to March 1.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The map shows the decreases in travel at individual traffic monitoring sites across the Twin Cities Metropolitan area. Traffic monitoring is performed by the Minnesota Department of Transportation (MnDOT) using detectors built into the infrastructure of the roads. These detectors are usually used to estimate congestion along Metro area highways.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;covid_map.PNG&#34; alt=&#34;The map shows the decreases in travel at individual traffic monitoring sites across the Twin Cities Metropolitan area. Traffic monitoring is performed by the Minnesota Department of Transportation (MnDOT) using detectors built into the infrastructure of the roads. These detectors are usually used to estimate congestion along Metro area highways.&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;relevent-links&#34;&gt;Relevent links&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://metrocouncil.org/Transportation/Planning-2/Transit-Plans,-Studies-Reports/Highways-Roads/COVID-19.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Official news release&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://metrotransitmn.shinyapps.io/covid-traffic-trends/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Live app site (updated regularly)&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://github.com/Metropolitan-Council/loop-sensor-trends&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub repository&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>3 Years of Mental Health: A quantified-self story</title>
+      <link>lizroten.com/blog/3-years-of-mental-health-a-quantified-self-story/</link>
+      <pubDate>Mon, 30 Oct 2017 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/blog/3-years-of-mental-health-a-quantified-self-story/</guid>
+      <description>&lt;h2 id=&#34;about-the-process&#34;&gt;About the Process&lt;/h2&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://emoodtracker.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;eMoods&lt;/a&gt; to track my mental health from day to day. For this viz, I used eMoods data, as well as my Google Location History data, to display my life between February 2015 and October 2017. I used ggplot2 in R Studio to generate the radial bar charts on the far rights, and Adobe Illustrator to construct the bar graphs in the bottom left corner. For the heatmaps, I first attempted to use ArcGIS to view data I downloaded from my Google account directly but quickly found that software to be limiting for the goals of this project  I forked and modified &lt;a href=&#34;https://locationhistoryvisualizer.com/heatmap/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Location History Visualizer&lt;/a&gt; using JavaScript, HTML, and CSS to use my own color scheme and preferred base map.  I assembled the images in Adobe Illustrator and presented this work for my class.&lt;/p&gt;
+&lt;p&gt;I worked with geospatial data in formats I was unfamiliar with, such as KML, JSON, and tar.gz zipped files. I also had no prior experience in Adobe Illustrator, JavaScript, HTML, and CSS. This piece not only demonstrates my skill in these areas but also my persistence and commitment to telling my story.&lt;/p&gt;
+&lt;p&gt;During my Spring 2018 independent project, I also used R Shiny to take a simple, interactive look at the polar coordinate bar graphs. You can see this app on its own &lt;a href=&#34;https://eroten.shinyapps.io/independentFP&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; and the updated version &lt;a href=&#34;https://eroten.shinyapps.io/01_shiny/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;iframe src=&#34;https://eroten.shinyapps.io/independentFP/&#34; width=&#34;100%&#34; height=&#34;650&#34; style=&#34;border-color: transparent;&#34;&gt;&lt;/iframe&gt;&lt;br /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

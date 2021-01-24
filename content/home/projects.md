@@ -30,8 +30,8 @@ subtitle = "They paid me to do this"
     tag = "Metropolitan Council"
   
   [[content.filter_button]]
-    name = "Other"
-    tag = "Demo"
+    name = "Shiny"
+    tag = "Shiny"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.
