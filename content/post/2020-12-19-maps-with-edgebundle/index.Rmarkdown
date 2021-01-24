@@ -4,13 +4,12 @@ author: admin
 date: '2020-12-19'
 slug: maps-with-edgebundle
 categories:
-  - blog
-  - map
+  - tutorial
+  - cartography
 tags:
   - ggplot2
   - tidyverse
   - cartography
-  - map
 subtitle: 'Mapping US flight networks'
 summary: 'Replicating a snappy map'
 authors: []
@@ -18,7 +17,7 @@ lastmod: '2020-12-19T13:53:43-06:00'
 featured: yes
 image:
   caption: ''
-  focal_point: ''
+  focal_point: Top
   preview_only: no
 projects: []
 ---

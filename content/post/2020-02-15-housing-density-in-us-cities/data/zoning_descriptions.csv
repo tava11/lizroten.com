@@ -1,0 +1,57 @@
+Code,Description
+LA,Lake Austin Residence   
+SF-4B,Single Family Residence - Condominium 
+MF-1,Multi-Family Residence - Limited Density 
+MF-4,Multi-Family Residence - Moderate-High Density 
+MH,Mobile Home Residence   
+MF-2,Multi-Family Residence - Low Density 
+GO,General Office    
+GR,Community Commercial    
+DMU,Downtown Mixed Use   
+CS-1,Commercial-Liquor Sales    
+MI,Major Industry    
+DR,Development Reserve    
+PUD,Planned Unit Development   
+NBG,North Burnet/Gateway District   
+MF-5,Multi-Family Residence - High Density 
+SF-6,Townhouse & Condominium Residence  
+MF-3,Multi-Family Residence - Medium Density 
+MF-6,Multi-Family Residence - Highest Density 
+MF,Multifamily Residence
+NO,Neighborhood Office    
+CR,Commercial Recreation    
+L,Lake Commercial    
+W/LO,Warehouse Limited Office   
+CH,Commercial Highway    
+LI,Limited Industrial Services   
+AV,Aviation Services    
+P,Public     
+ERC,East Riverside Corridor   
+SF-2,Single Family Residence - Standard Lot
+RR,Rural Residence    
+SF-3,Family Residence    
+SF-5,Urban Family Residence   
+SF-1,Single Family Residence - Large Lot
+SF-4,Single Family Residence
+LO,Limited Office    
+LR,Neighborhood Commercial    
+CBD,Central Business District   
+CS,General Commercial Services   
+IP,Industrial Park    
+R&D,Research and Development   
+AG,Agricultural     
+TOD,Transit-Oriented Development    
+TND,Traditional Neighborhood District   
+CO,Conditional overlay
+NCCD,Neighborhood Conservation Combining District 
+CVC,Capitol View Corridor Combining District 
+PDA,Planned Development Area Combining District
+WO,Waterfront Overlay Combining District
+MU,Mixed Use
+CURE,Central Urban Redevelopment
+CDZ,Capitol Dominance Combining District
+CAZ,Congress Avenue Combining District
+PSZ,Sixth/Pecan Street Combining District
+DPZ,Downtown Parks Combining District
+DCZ,Downtown Creeks Combining District
+SF-4A,Single Family Residence - Small Lot

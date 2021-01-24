@@ -5,6 +5,7 @@ date: '2020-04-08'
 slug: finding-the-perfect-sock-pattern-with-ravelry
 categories:
   - blog
+  - tutorial
 tags:
   - tidyverse
   - ggplot2
@@ -17,7 +18,7 @@ lastmod: '2020-10-30T17:47:26-05:00'
 featured: no
 image:
   caption: ''
-  focal_point: ''
+  focal_point: Top
   preview_only: no
 projects: []
 ---
