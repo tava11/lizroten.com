@@ -1,8 +1,9 @@
 ---
 title: COVID Traffic Trends
-summary: An example of using the in-built project page.
+summary: Monitoring social distance guideline adherence with traffic data
 tags:
 - Metropolitan Council
+- Shiny
 date: "2020-05-22T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
@@ -20,7 +21,7 @@ links:
 - icon: desktop
   icon_pack: fa
   name: Live App
-  url: https://github.com/Metropolitan-Council/loop-sensor-trends/tree/master/covid.traffic.trends
+  url: https://metrotransitmn.shinyapps.io/covid-traffic-trends/
 url_code: ""
 url_pdf: ""
 url_slides: ""
