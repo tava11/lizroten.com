@@ -915,6 +915,482 @@ boston_all &amp;lt;- rbind(boston_res, boston_non_res)
     </item>
     
     <item>
+      <title>Fisk&#39;s &#39;Mississippi River Meander&#39; in R</title>
+      <link>lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/</link>
+      <pubDate>Thu, 17 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/</guid>
+      <description>&lt;script src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/datatables-css/datatables-crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/datatables-binding/datatables.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/dt-core/css/jquery.dataTables.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;link href=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/dt-core/css/jquery.dataTables.extra.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/dt-core/js/jquery.dataTables.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;Those of us even mildly obsessed with maps will be familiar with Harold Fisk’s 1944 series documenting the historic travel of the Mississippi River in Mississippi River Alluvial Valley. In my house in college, filled with geography majors and map enthusiasts, we had a small print hung on the wall, and it was easy to start reading it, and end up standing there, just staring, for quite a while.&lt;/p&gt;
+&lt;p&gt;Even viewing on a screen, its easy to see how you can get lost in the map. The colors are distinct and vivid, and the contextual information, like political boundaries and fault lines, against the aged sepia base do not distract. The map is dynamic, with irregular shapes and curves. If not done right, the messiness could overwhelm the viewer, but Fisk succeeds in capturing the audience’s attention. The content itself makes you reconsider your relationship with this body of water. Seeing how it has moved and changed course over time reminds you of how small, short and insignificant our lives can be compared to the Earth’s natural history.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.atlasofplaces.com/atlas-of-places-images/_scaled/ATLAS-OF-PLACES-ARMY-CORPS-OF-ENGINEERS-MISSISSIPPI-RIVER-MEANDER-BELT-GPH-7.jpg&#34; alt=&#34;“Alluvial Valley of the Lower Mississippi River by Harold Fisk, 1944” courtesy of Atlas of Places&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I &lt;em&gt;adore&lt;/em&gt; this map. I won’t attempt to fully recreate it here, but I want to explore the data behind it, and see what I can find.&lt;/p&gt;
+&lt;h2 id=&#34;prep&#34;&gt;Prep&lt;/h2&gt;
+&lt;p&gt;Lets load in packages I know I’ll need.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rgdal)
+library(dplyr)
+library(sf)
+library(ggplot2)
+library(leaflet)
+library(xml2)
+library(data.table)
+library(raster)
+library(ggrepel)
+library(stringr)
+library(ggmap)
+library(tidycensus)
+library(cowplot)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To start, I studied the map and did an inventory of the elements.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;State lines&lt;/li&gt;
+&lt;li&gt;Elevation&lt;/li&gt;
+&lt;li&gt;Mississippi River&lt;/li&gt;
+&lt;li&gt;Rivers other than the Mississippi&lt;/li&gt;
+&lt;li&gt;County lines&lt;/li&gt;
+&lt;li&gt;Cut offs (neck, chute, and fault)&lt;/li&gt;
+&lt;li&gt;Lakes&lt;/li&gt;
+&lt;li&gt;Major landmarks&lt;/li&gt;
+&lt;li&gt;Flood areas&lt;/li&gt;
+&lt;li&gt;Much more!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I was having difficulty working with raster elevation data, so I decided to save that for another day. However, there is a dataset from a 1994 study by Roger T. Saucier, “Geomorphology and Quaternary Geologic History of the Lower Mississippi Valley, Volumes I and II.” The United States Geological Survey (USGS) developed both georeferenced plates and vector shapefiles. I downloaded both the datasets from the &lt;a href=&#34;https://www.sciencebase.gov/catalog/item/59b7ddd6e4b08b1644df5cf6&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;USGS website&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;data-cleaning&#34;&gt;Data cleaning&lt;/h3&gt;
+&lt;p&gt;I downloaded the zipped shapefile, so here I unzip the folder, read in the shapefile, and convert it to an &lt;code&gt;sf&lt;/code&gt; object.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;unzip(&amp;quot;data/gis/Saucier_Geomorph_shapefile.zip&amp;quot;, exdir = &amp;quot;data/gis&amp;quot;)
+saucier &amp;lt;- readOGR(&amp;quot;data/gis/Saucier_Geomorph_shapefile/Saucier_Geomorph.shp&amp;quot;) %&amp;gt;% 
+  st_as_sf() %&amp;gt;% 
+  sf::st_transform(&amp;quot;+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can get a quick idea of what the data looks like with &lt;code&gt;names()&lt;/code&gt; and a simple ggplot.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;names(saucier)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Formation&amp;quot; &amp;quot;Descrip&amp;quot;   &amp;quot;Geo_Age&amp;quot;   &amp;quot;geometry&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot() +
+  geom_sf(data = saucier,
+          aes(fill = Geo_Age),
+          color = NA) +
+  labs(fill = &amp;quot;Geologic Age&amp;quot;) +
+  scale_fill_brewer(type = &amp;quot;qual&amp;quot;, palette = &amp;quot;Accent&amp;quot;) +
+  theme_minimal()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Included in the zipped download is an XML metadata file. I can parse it (with some trial and error) to get &lt;code&gt;Formation&lt;/code&gt; and &lt;code&gt;Geo_Age&lt;/code&gt; descriptions.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;meta_xml &amp;lt;- read_xml(&amp;quot;data/gis/Saucier_Geomorph_shapefile/Saucier_Geomorph_FGDC.xml&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can then take the XML document and manipulate it into a table with only the attributes we need.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;item &amp;lt;- xml_find_all(meta_xml, &amp;quot;//edomv&amp;quot;) %&amp;gt;% xml_text() %&amp;gt;% factor()
+item_desc &amp;lt;- xml_find_all(meta_xml, &amp;quot;//edomvd&amp;quot;) %&amp;gt;% xml_text() %&amp;gt;% as.character()
+
+meta_table &amp;lt;- data.table::data.table(item, item_desc) %&amp;gt;% 
+  unique() %&amp;gt;% 
+  filter(nchar(item_desc) &amp;gt; 14)
+
+
+DT::datatable(meta_table,
+              rownames = FALSE,
+              colnames = c(&amp;quot;Formation/Geo_Age&amp;quot;, 
+                           &amp;quot;description&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:100%;height:auto;&#34; class=&#34;datatables html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;filter&#34;:&#34;none&#34;,&#34;data&#34;:[[&#34;Had&#34;,&#34;Hal&#34;,&#34;Hb&#34;,&#34;Hc&#34;,&#34;Hchm&#34;,&#34;Hcom&#34;,&#34;Hcom-Projected&#34;,&#34;Hcp&#34;,&#34;Hdi&#34;,&#34;Hdlp&#34;,&#34;Hds&#34;,&#34;Hnl&#34;,&#34;Hp&#34;,&#34;Hpu&#34;,&#34;Pdch&#34;,&#34;Pdp&#34;,&#34;Pdu&#34;,&#34;Pi&#34;,&#34;Plm&#34;,&#34;Ppch&#34;,&#34;Ppp&#34;,&#34;Ppu&#34;,&#34;Ps&#34;,&#34;Ptc&#34;,&#34;Ptu&#34;,&#34;Pvcl&#34;,&#34;Pve&#34;,&#34;Pvl&#34;,&#34;RiverTrack&#34;,&#34;Holocene&#34;,&#34;Holocene (Alluvial Valley)&#34;,&#34;Holocene (Deltaic and Chenier Plains)&#34;,&#34;Pleistocene&#34;],[&#34;Principal abandoned deltaic distributaries. Distributaries grouped together and not separately delineated.&#34;,&#34;Undifferentiated alluvium of small streams.&#34;,&#34;Backswamp (floodbasin) deposits.&#34;,&#34;Cheniers and relict beach ridges.&#34;,&#34;Abandoned channels (neck and chute cutoffs) of the Mississippi River.&#34;,&#34;Abandoned courses of the Mississippi River. Projected where removed by later subsequent small streams. Includes trunk channels of major delta complexes.&#34;,&#34;Projected where removed by lateral migration of subsequent small streams. Includes trunk channels of major delta complexes.&#34;,&#34;Undifferentiated paludal deposits of chenier plain. Represents brackish to saline marsh environments.&#34;,&#34;Interdistributary deposits. Represents brackish to saline marsh environments.&#34;,&#34;Lacustrine and lacustrine deltaic deposits of the Atchafalaya Basin.&#34;,&#34;Inland swamp deposits. Represents freshwater swamp environment.&#34;,&#34;Natural levees in deltaic plain associated with major distributaries and present Mississippi River. Natural levees that overlie interdistributary and other deltaic deposits, but not point bar deposits, are grouped together and not separately delineated.&#34;,&#34;Point bar (meander scroll) deposits of Mississippi River, Arkansas River, Red River, and small streams. Meander belts of Arkansas, Mississippi, and Red Rivers are grouped together and not separately delineated.&#34;,&#34;Point bar (meander scroll) and associated deposits of meander belts buried by backswamp deposits.&#34;,&#34;Abandoned channels (cutoffs) of the Deweyville Complex.&#34;,&#34;Point bar (meander scroll) deposits of the Deweyville Complex.&#34;,&#34;Undifferentiated fluvial deposits of the Deweyville Complex.&#34;,&#34;Undifferentiated fluvial deposits of the Intermediate Complex.&#34;,&#34;Lacustrine deposits of the Deweyville (Lake Monroe) Complex. Levels are grouped together and not separately delineated.&#34;,&#34;Abandoned channels (cutoffs) and short segments of Mississippi River abandoned courses of the Prarie Complex. Probable Wisconsin Stage.&#34;,&#34;Point bar (meander scroll) deposits of Mississippi River origin of the Prarie Complex. Probable Wisconsin Stage. Levels are grouped together and not separately delineated.&#34;,&#34;Undifferentiated fluvial deposits of the Prairie Complex. Mostly natural levee and backswamp deposits of Mississippi, Arkansas, Red Rivers. Levels are grouped together and not separately delineated.&#34;,&#34;Sand dune fields and eolian deposits on valley trains.&#34;,&#34;Undifferentiated fluvial deposits of the Cache River terrace.&#34;,&#34;Undifferentiated fluvial deposits of probable Early Wisconsin Stage or earlier age.&#34;,&#34;Relict channels of Late Wisconsin Stage valley train. Levels are grouped together and not separately delineated.&#34;,&#34;Early Wisconsin Stage valley train. Interfluves and relict channels not separately delineated. Levels are grouped together and not separately delineated.&#34;,&#34;Late Wisconsin Stage valley train. Includes both interfluve and relict channels unless channels delineated separately. Levels are grouped together and not separately delineated.&#34;,&#34;Historic river tracks of the Mississippi River, Arkansas River, and oxbow lakes within the Lower Mississippi. Does not represent current river tracks nor current oxbow lakes.&#34;,&#34;Position of river in 1994.&#34;,&#34;Upland remnants of Tertiary age and terraces and ridges of Wisconsin and pre-Wisconsin age serve to subdivide the Mississippi alluvial valley into six major lowlands; each basin is a true topographic depression and definable hydrologic unit with a bounding interfluve; drainage is from north to south into a major collecting stream.&#34;,&#34;Landforms within the deltaic and chenier plains that are as little as 5 to 10 ft above the surrounding landscape are often visible for miles, and a difference in elevation of inches may mean the difference between marsh and forest vegetation; features within the northern limit are piercement-type salt dome; abandoned distributaries are topographically prominent of the deltaic plain, but cheniers fill this role in the chenier plain.&#34;,&#34;Quaternary features part of the Pleistocene epoch.&#34;]],&#34;container&#34;:&#34;&lt;table class=\&#34;display\&#34;&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt;Formation/Geo_Age&lt;\/th&gt;\n      &lt;th&gt;description&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&#34;,&#34;options&#34;:{&#34;order&#34;:[],&#34;autoWidth&#34;:false,&#34;orderClasses&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p&gt;To keep everything straight, I join this table with our &lt;code&gt;sf&lt;/code&gt; object.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;saucier_meta &amp;lt;- saucier %&amp;gt;% 
+  dplyr::left_join(meta_table, by = c(&amp;quot;Formation&amp;quot; = &amp;quot;item&amp;quot;)) %&amp;gt;% 
+  dplyr::left_join(meta_table, by = c(&amp;quot;Geo_Age&amp;quot; = &amp;quot;item&amp;quot;)) %&amp;gt;% 
+  dplyr::select(-item_desc.x) %&amp;gt;% 
+  st_as_sf()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I also downloaded a recent shapefile of the Mississippi River in the state of &lt;a href=&#34;https://www.maris.state.ms.us/HTML/DATA/data_Hydrology/MississippiRiver.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Mississippi&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ms_r_1983 &amp;lt;- readOGR(&amp;quot;data/gis/ms_r/ms_r.shp&amp;quot;) %&amp;gt;%
+  st_as_sf() %&amp;gt;%
+  sf::st_transform(&amp;quot;+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I then saved my own &lt;code&gt;{gggplot2}&lt;/code&gt; theme object and a few colors. Notice that I establish the font sizes all in one place, which makes it much easier to make small adjustments that will affect multiple aspects. I adjusted this theme frequently as I went along (I didn’t magically find all the right adjustments in one shot 😉).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(showtext)
+showtext_auto()
+file &amp;lt;- sysfonts::font_files()
+
+font_add(&amp;quot;Lato&amp;quot;, &amp;quot;Lato-Regular.ttf&amp;quot;)
+font_add(&amp;quot;Open Sans Light&amp;quot;, &amp;quot;OpenSans-Light.ttf&amp;quot;)
+font_add(&amp;quot;Open Sans Light Italic&amp;quot;, &amp;quot;OpenSans-LightItalic.ttf&amp;quot;)
+font_add(&amp;quot;PT Sans&amp;quot;, &amp;quot;PTSans-Regular.ttf&amp;quot;)
+font_add(&amp;quot;PT Serif&amp;quot;, &amp;quot;PTSerif-Regular.ttf&amp;quot;)
+
+
+## font sizes --------------------------------------------
+size_header &amp;lt;- 14 * 3.4
+size_axis_title &amp;lt;- 12* 3.4
+size_legend_title &amp;lt;- 12* 3.4
+size_axis_text &amp;lt;- 8* 3.4
+size_legend_text &amp;lt;- 8* 3.4
+size_caption &amp;lt;- 6* 3.4
+
+## color -------------------------------------------------
+background_color &amp;lt;- &amp;quot;white&amp;quot;
+
+my_colors &amp;lt;- c(
+  &amp;quot;#9BABBF&amp;quot;,
+  &amp;quot;#8C694A&amp;quot;,
+  &amp;quot;#6C733C&amp;quot;,
+  &amp;quot;#D9B991&amp;quot;
+)
+## theme function -----------------------------------------
+my_theme &amp;lt;- function(...) {
+  theme_void() +
+    theme(
+      ### plot and panel-----------------------------------
+      plot.background = element_rect(
+        fill = background_color,
+        linetype = 0,
+        colour = NA
+      ),
+      panel.background = element_rect(
+        fill = background_color,
+        linetype = 0,
+        color = NA
+      ),
+      panel.grid = element_blank(),
+      # plot.margin = unit(c(.5, .5, .2, .5), &amp;quot;cm&amp;quot;),
+      panel.border = element_blank(),
+      ### title and caption -------------------------------
+      title = element_text(family = &amp;quot;PT Serif&amp;quot;,
+                           size = size_header),
+      plot.caption = element_text(size = size_caption),
+      ### axis and strip text ------------------------------
+      strip.text = element_blank(),
+      axis.title = element_text(size = size_axis_title),
+      axis.text = element_text(size = size_axis_text),
+      ## legend text ----------------------------------------
+      legend.position = &amp;quot;right&amp;quot;,
+      legend.text = element_text(
+        family = &amp;quot;Open Sans Light&amp;quot;,
+        size = size_legend_text
+      )
+    )
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;explore-geological-ages-and-formations&#34;&gt;Explore geological ages and formations&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=TWcyIpul8OE&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Holocene&lt;/a&gt; is our current &lt;a href=&#34;https://en.wikipedia.org/wiki/Holocene&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;geological epoch&lt;/a&gt;. The alluvial valley (or &lt;a href=&#34;https://en.wikipedia.org/wiki/Alluvial_plain&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;alluvial plain&lt;/a&gt;) is created by sediment deposits over the millenia. The soil deposits show where the Mississippi’s floodplain has been over time.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;saucier_holocene &amp;lt;- saucier_meta %&amp;gt;% # all holocene features
+  filter(Geo_Age == &amp;quot;Holocene&amp;quot;)
+
+saucier_holocene_alluvial &amp;lt;- saucier_meta %&amp;gt;% # holocene alluvial valley
+  filter(Geo_Age == &amp;quot;Holocene (Alluvial Valley)&amp;quot;,
+         Formation %in% c(&amp;quot;Hchm&amp;quot;, &amp;quot;Hcom&amp;quot;, &amp;quot;Had&amp;quot;,
+                          &amp;quot;Ppch&amp;quot;, 
+                          &amp;quot;Pdch&amp;quot;))
+
+ggplot() +
+  geom_sf(data = saucier_holocene_alluvial,
+          aes(fill = Formation),
+          color = NA) +
+  geom_sf(data = saucier_holocene,
+          color = &amp;quot;#0066ff&amp;quot;) +
+  labs(title = &amp;quot;Mississippi River&amp;quot;,
+       subtitle = &amp;quot;Holocene and Alluvial Valley&amp;quot;,
+       caption = &amp;quot;USGS 2018&amp;quot;) +
+  my_theme() +
+  theme(axis.text = element_blank())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Next, the Pleistocene (aka, the Ice Age). The &lt;a href=&#34;https://en.wikipedia.org/wiki/Pleistocene&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pleistocene&lt;/a&gt; was around 2 million to 11 million years ago.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;saucier_pleistocene &amp;lt;- saucier_meta %&amp;gt;% 
+  filter(Geo_Age == &amp;quot;Pleistocene&amp;quot;,
+         Formation %in% c(&amp;quot;Hchm&amp;quot;, &amp;quot;Hcom&amp;quot;, &amp;quot;Had&amp;quot;,
+                          &amp;quot;Ppch&amp;quot;, &amp;quot;Pdch&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I picked out an area to focus on, so I can make a &lt;code&gt;SpatialPolygons&lt;/code&gt; object to clip the other data to.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;e2 &amp;lt;- as(raster::extent(-91.2678, -90.7281,
+                        33.596, 34.25), &amp;quot;SpatialPolygons&amp;quot;) 
+proj4string(e2) &amp;lt;- &amp;quot;+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Clip data to close area.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;saucier_holocene_alluvial_close  &amp;lt;- st_intersection(saucier_holocene_alluvial %&amp;gt;% 
+                                                      st_make_valid(),
+                                                    st_as_sf(e2))
+saucier_holocene_close &amp;lt;- st_intersection(saucier_holocene,
+                                          st_as_sf(e2))
+saucier_pleistocene_close &amp;lt;- st_intersection(saucier_pleistocene,
+                                             st_as_sf(e2))
+ms_r_close &amp;lt;- st_intersection(ms_r_1983, st_as_sf(e2))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can take these close-ups and add a couple text labels with &lt;code&gt;geom_text_repel()&lt;/code&gt; from &lt;a href=&#34;https://github.com/slowkow/ggrepel&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ggrepel&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot() +
+  geom_sf(data = saucier_holocene_alluvial_close,
+          color = NA,
+          fill = &amp;quot;#b97f74&amp;quot;) +
+  geom_text_repel(data = saucier_holocene_alluvial_close[2,],
+                  aes(geometry = geometry),
+                  stat = &amp;quot;sf_coordinates&amp;quot;,
+                  nudge_x = -0.1,
+                  nudge_y = 0.2,
+                  label = str_wrap(&amp;quot;Abandoned channels and courses&amp;quot;,
+                                   width = 15),
+                  family = &amp;quot;Open Sans Light Italic&amp;quot;,
+                  size = 3
+  ) +
+  scale_fill_brewer(type = &amp;quot;qual&amp;quot;) +
+  geom_sf(data = saucier_holocene_close,
+          fill = &amp;quot;#e4d5b6&amp;quot;,
+          color = NA) +
+  geom_text_repel(data = saucier_holocene_close[1,],
+                  aes(geometry = geometry),
+                  stat = &amp;quot;sf_coordinates&amp;quot;,
+                  nudge_x = -0.1,
+                  nudge_y = 0.2,
+                  label = str_wrap(&amp;quot;Historical river track&amp;quot;,
+                                   width = 15),
+                  family = &amp;quot;Open Sans Light Italic&amp;quot;,
+                  size = 3 * 3.4
+  ) +
+  geom_sf(data = ms_r_close,
+          inherit.aes = FALSE,
+          fill = &amp;quot;#9fa066&amp;quot;,
+          color = NA) +
+  labs(title = &amp;quot;Mississippi River&amp;quot;,
+       subtitle = &amp;quot;Holocene Alluvial Valley&amp;quot;,
+       caption = paste0(&amp;quot;USGS 2018, MARIS 1983&amp;quot;)) +
+  my_theme() +
+  theme(
+    axis.text = element_blank(),
+    axis.title = element_blank())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Lets zoom in even closer, and add in a basemap to get some of those features in the original map with &lt;code&gt;get_stamenmap()&lt;/code&gt; from &lt;a href=&#34;https://github.com/dkahle/ggmap&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ggmap&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;base &amp;lt;- ggmap::get_stamenmap(bbox = c(-91.4, 33.6, -90.8, 34.0),
+                             maptype = &amp;quot;terrain-lines&amp;quot;, 
+                             messaging = FALSE, zoom = 12) %&amp;gt;% 
+  ggmap()
+
+
+latit &amp;lt;- base$data$lat
+long &amp;lt;- base$data$lon
+coords &amp;lt;- matrix(c(latit, long),nrow = 4)
+p &amp;lt;- Polygon(coords = coords)
+ps &amp;lt;- Polygons(list(p), 1)
+sps &amp;lt;- SpatialPolygons(list(ps)) %&amp;gt;% 
+  st_as_sf() %&amp;gt;% 
+  sf::st_set_crs(&amp;quot;+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs&amp;quot;)
+
+poly &amp;lt;- as(raster::extent(-91.4, -90.8, 33.6, 34.0), &amp;quot;SpatialPolygons&amp;quot;)  %&amp;gt;%
+  st_as_sf() %&amp;gt;%
+  sf::st_set_crs(&amp;quot;+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs&amp;quot;)
+
+base +
+  geom_sf(data = saucier_holocene_alluvial_close,
+          color = NA, inherit.aes = FALSE,
+          fill = &amp;quot;#b97f74&amp;quot;) +
+  geom_sf(data = saucier_holocene_close,
+          fill = &amp;quot;#e4d5b6&amp;quot;,
+          inherit.aes = FALSE,
+          color = NA,) +
+  geom_sf(data = saucier_pleistocene,
+          inherit.aes = FALSE,
+          fill = &amp;quot;green&amp;quot;) +
+  geom_sf(data = ms_r_1983,
+          inherit.aes = FALSE,
+          fill = &amp;quot;#9fa066&amp;quot;,
+          color = NA) +
+  labs(title = &amp;quot;Mississippi River and Alluvial Valley&amp;quot;,
+       fill = &amp;quot;Formation Description&amp;quot;,
+       caption = paste0(&amp;quot;USGS 2018, MARIS 1983&amp;quot;, &amp;quot;\n&amp;quot;,
+                        &amp;quot;Basemap: Stamen&amp;quot;, &amp;quot;\n&amp;quot;,
+                        &amp;quot;Liz Roten&amp;quot;)) +
+  my_theme() +
+  theme(axis.title = element_blank(),
+        plot.caption = element_text(size = 6*3.4))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;wisconsin-glaciation&#34;&gt;Wisconsin glaciation&lt;/h3&gt;
+&lt;p&gt;The &lt;a href=&#34;https://en.wikipedia.org/wiki/Wisconsin_glaciation&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Wisconsin Glacial Episode&lt;/a&gt; was the most recent glacial period.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;saucier_holocene_alluvial_closer &amp;lt;- st_intersection(st_make_valid(saucier_holocene_alluvial), st_as_sf(poly))
+saucier_holocene_closer &amp;lt;- st_intersection(saucier_holocene,
+                                           st_as_sf(poly))
+saucier_pleistocene_closer &amp;lt;- st_intersection(st_make_valid(saucier),
+                                              st_as_sf(poly)) %&amp;gt;% 
+  filter(Geo_Age == &amp;quot;Pleistocene&amp;quot;)
+saucier_closer &amp;lt;- st_intersection(st_make_valid(saucier),
+                                  st_as_sf(poly))
+ms_r_closer &amp;lt;- st_intersection(ms_r_1983,
+                               st_as_sf(poly))
+
+primary &amp;lt;- ggplot() +
+  geom_sf(data = saucier_pleistocene_closer,
+          color = NA, inherit.aes = FALSE,
+          aes(fill = Formation)) +
+  scale_fill_manual(values = c(&amp;quot;#8d977c&amp;quot;,
+                               &amp;quot;#716b2f&amp;quot;,
+                               &amp;quot;#bea85d&amp;quot;),
+                    labels = c(&amp;quot;Prairie Complex&amp;quot;,
+                               &amp;quot;Early Wisconsin&amp;quot;,
+                               &amp;quot;Late Wisconsin&amp;quot;)) +
+  geom_sf(data = saucier_holocene_alluvial_closer,
+          color = NA, inherit.aes = FALSE,
+          fill = &amp;quot;#b97f74&amp;quot;) +
+  geom_sf(data = saucier_holocene_closer,
+          fill = &amp;quot;#e4d5b6&amp;quot;,
+          inherit.aes = FALSE,
+          color = NA) +
+  geom_sf(data = ms_r_closer,
+          inherit.aes = FALSE,
+          fill = &amp;quot;#9fa066&amp;quot;,
+          color = NA) +
+  geom_text_repel(data = saucier_holocene_closer[1,],
+                  aes(geometry = geometry),
+                  stat = &amp;quot;sf_coordinates&amp;quot;,
+                  nudge_x = 0.2,
+                  nudge_y = -0.08,
+                  label = str_wrap(&amp;quot;Historical river track&amp;quot;,
+                                   width = 15),
+                  family = &amp;quot;Open Sans Light Italic&amp;quot;,
+                  size = 3*3.4
+  ) +
+  geom_text_repel(data = saucier_holocene_alluvial_closer[1,],
+                  aes(geometry = geometry),
+                  stat = &amp;quot;sf_coordinates&amp;quot;,
+                  nudge_x = -0.1,
+                  nudge_y = 0,
+                  label = str_wrap(&amp;quot;Abandoned channels and courses&amp;quot;,
+                                   width = 15),
+                  family = &amp;quot;Open Sans Light Italic&amp;quot;,
+                  size = 3*3.4
+  ) +
+  geom_text_repel(data = ms_r_closer[5,],
+                  aes(geometry = geometry),
+                  stat = &amp;quot;sf_coordinates&amp;quot;,
+                  nudge_x = -0.15,
+                  nudge_y = 0.05,
+                  label = str_wrap(&amp;quot;River track, 1983&amp;quot;, 
+                                   width = 15),
+                  family = &amp;quot;Open Sans Light Italic&amp;quot;,
+                  size = 3*3.4
+  ) +
+  labs(title = &amp;quot;Mississippi River&amp;quot;,
+       subtitle = &amp;quot;Pleistocene features&amp;quot;,
+       fill = &amp;quot;&amp;quot;,
+       caption = paste0(&amp;quot;USGS 2018, MARIS 1983&amp;quot;, &amp;quot;\n&amp;quot;,
+                        &amp;quot;Liz Roten&amp;quot;)) +
+  my_theme() +
+  theme(axis.title = element_blank(),
+        axis.text = element_blank(),
+        plot.margin = unit(c(1,1,1,1), &amp;quot;mm&amp;quot;))
+
+primary
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;context-and-inset-map&#34;&gt;Context and inset map&lt;/h3&gt;
+&lt;p&gt;To add a little more context, lets use &lt;a href=&#34;https://walkerke.github.io/tidycensus/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tidycensus&lt;/a&gt; to bring in the TIGER shapefiles of Mississippi, Louisiana, and Arkansas.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;all_states &amp;lt;- tigris::states(
+                            class = &amp;quot;sf&amp;quot;,
+                            year = 2018) %&amp;gt;% 
+  dplyr::select(NAME) %&amp;gt;% 
+  dplyr::filter(NAME %in% c(&amp;quot;Mississippi&amp;quot;,
+                                      &amp;quot;Arkansas&amp;quot;,
+                                      &amp;quot;Louisiana&amp;quot;)) %&amp;gt;% 
+  unique()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets take a look at what we got from tidycensus.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot() +
+  geom_sf(data = all_states,
+          fill = &amp;quot;whitesmoke&amp;quot;,
+          color = &amp;quot;darkgray&amp;quot;) +
+  geom_sf_text(data = all_states,
+               label = all_states$NAME,
+               nudge_y = -0.25,
+               size = 4,
+               family = &amp;quot;Open Sans Light&amp;quot;) +
+  geom_sf(data = ms_r_1983,
+          inherit.aes = FALSE,
+          fill = &amp;quot;lightblue&amp;quot;,
+          color = &amp;quot;lightblue&amp;quot;,
+          size = 1,
+          color = NA) +
+  ggrepel::geom_text_repel(data = ms_r_1983[1,],
+                           aes(geometry = geometry),
+                           stat = &amp;quot;sf_coordinates&amp;quot;,
+                           label = stringr::str_wrap(&amp;quot;Mississippi River&amp;quot;, 
+                                                     width = 11), 
+                           nudge_x = 1,
+                           nudge_y = -1,
+                           family = &amp;quot;Open Sans Light Italic&amp;quot;,
+                           size = 3 * 3.4
+  ) +
+  geom_sf(data = poly,
+          fill = NA, 
+          color = &amp;quot;black&amp;quot;,
+          size = 1) + 
+  labs(caption = paste0(&amp;quot;US ACS 2010, MARIS 1983&amp;quot;), 
+       title = &amp;quot;Mississippi River and surrounding states&amp;quot;) +
+  my_theme() +
+  theme_void()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We can save a simplified version of the state map to serve as an inset map.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;inset &amp;lt;- ggplot() +
+  geom_sf(data = all_states,
+          fill = &amp;quot;whitesmoke&amp;quot;,
+          color = &amp;quot;darkgray&amp;quot;) +
+
+  geom_sf(data = ms_r_1983,
+          inherit.aes = FALSE,
+          fill = &amp;quot;lightblue&amp;quot;,
+          color = &amp;quot;lightblue&amp;quot;,
+          size = 1,
+          color = NA) +
+  geom_sf(data = poly,
+          fill = NA, 
+          color = &amp;quot;black&amp;quot;,
+          size = 1) + 
+  my_theme() +
+  theme_void()
+
+inset &amp;lt;- as_grob(inset)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggdraw(primary) +
+  draw_grob(inset,
+            scale = 0.3,
+            hjust = -0.4,
+            vjust = 0.3)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/index.en_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Finally, lets save this map as an SVG.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggsave(&amp;quot;final_map.svg&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;finishing-up&#34;&gt;Finishing up&lt;/h2&gt;
+&lt;p&gt;I don’t make static maps as often as I used to, so it was a bit weird doing map design work in RStudio, rather than ArcMap or Illustrator. There are a lot of tiny adjustments I want to make to the element positions. I exported the last map as an SVG, and then made some adjustments in Inkscape.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;final_map.png&#34; alt=&#34;Edited map of Mississippi River with Pleistocene features&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I’m still not quite happy with the un-used white space on the right, but, hey, I’ll take it 🙇‍♂️.&lt;/p&gt;
+&lt;h3 id=&#34;notes&#34;&gt;Notes&lt;/h3&gt;
+&lt;p&gt;Colors were inspired by the original map. I extracted the exact values using &lt;a href=&#34;https://www.lifewire.com/generate-a-color-scheme-from-image-1701671&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GIMP&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;People do so many cool things with Fisk’s map series! Check out a few below.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.flickr.com/photos/165735975@N07/43345684644/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Modern LIDAR images&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Quilts by &lt;a href=&#34;http://www.timnatarr.com/gallery&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Timna Tarr&lt;/a&gt; and &lt;a href=&#34;http://www.cathyfussellquilts.com/#/river-series/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Cathy Fussell&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For the original plates check out these two sites.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Georeferenced TIFs from &lt;a href=&#34;https://lmvmapping.erdc.usace.army.mil/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;USGS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;High resolution JPGs from &lt;a href=&#34;http://www.radicalcartography.net/index.html?fisk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Radical Cartography&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can read more about Harold Fisk’s work at &lt;a href=&#34;https://mappingmovement.newberry.org/selection/ancient-courses-mississippi-river-meander-belt&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Mapping Movement in American History and Culture&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you are interested in more geology on the lower Mississippi alluvial valley, check out &lt;a href=&#34;https://www.sciencedirect.com/science/article/abs/pii/S0013795296000117&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Fluvial geomorphic features of the Lower Mississippi alluvial valley&lt;/a&gt; by Lawson M. Smith.&lt;/p&gt;
+&lt;h3 id=&#34;data-citation&#34;&gt;Data citation&lt;/h3&gt;
+&lt;p&gt;Wacaster, S.R., Clark, J.M., Westerman, D.A., and Kress, W.H., 2018, Digital Dataset for the Geomorphology of the Lower Mississippi River Valley in Missouri, Kentucky, Arkansas, Tennessee, Louisiana, and Mississippi: U.S. Geological Survey data release, &lt;a href=&#34;https://doi.org/10.5066/F7N878QN&#34;&gt;https://doi.org/10.5066/F7N878QN&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Thanks for reading! Feel free to leave a comment or question below.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>An example preprint / working paper</title>
       <link>lizroten.com/publication/preprint/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
