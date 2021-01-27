@@ -1,0 +1,71 @@
+---
+title: Bowflex C6 to Peloton resistance conversion plots
+author: Liz Roten
+date: '2021-01-26'
+slug: bowflex-c6-to-peloton-resistance-conversion-plots
+categories: []
+tags:
+  - ggplot2
+  - statistics
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-01-26T19:48:04-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "#>"
+  # dev = c("CairoPNG"),
+  # dev.args = list(res = 300, 
+  #                 pointsize = 12)
+)
+
+```
+
+
+All I can think about in my spin class is what the distribution looks like. I'm one of those people now. Sue me.   
+
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tidymodels)
+library(mgcv)
+```
+```{r}
+pelo_red <- "#df1c2f"
+```
+
+
+```{r}
+conv_table <- tibble(C6 = c(0, 5, 9, 17, 25, 33, 49, 100),
+       Peloton = c(0, 25, 30, 35, 40, 45, 50, 100),
+       Difficulty = seq(from = 0, to = 10, length.out = 8 ))
+
+conv_table_long <- conv_table %>% 
+  gather(C6, Peloton, key = "Bike", value = "Resistance")
+```
+
+
+```{r}
+ggplot(data = conv_table_long) +
+  geom_smooth(mapping = aes(x = Difficulty,
+                            y = Resistance,
+                            color = Bike),
+              se = FALSE)+ 
+  scale_color_manual(values = c("white",
+                                pelo_red)) +
+  labs(title = "Peloton vs. C6 resistance") +
+  my_theme  
+```
+
