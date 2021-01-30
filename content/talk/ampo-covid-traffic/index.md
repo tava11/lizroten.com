@@ -17,15 +17,15 @@ all_day: false
 # Schedule page publish date (NOT talk date).
 # publishDate: "2020-10-281T13:00:00Z"
 
-authors: [admin]
+authors: [admin, "Ashley Asmus", "Jonathan Ehrlich"]
 tags: ["Metropolitan Council", "COVID", "Conference"]
 
 # Is this a featured talk? (true/false)
 featured: true
 
 image:
-  # caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/bzdhc5b3Bxs)'
-  # focal_point: Right
+  caption: 'Liz Roten for Metropolitan Council, 2019'
+  focal_point: Smart
 
 links:
 - icon: file-pdf
