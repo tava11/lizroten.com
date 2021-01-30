@@ -18,18 +18,7 @@ image:
   preview_only: no
 projects: []
 ---
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  warning = FALSE,
-  message = FALSE,
-  comment = "#>",
-  dev = c("CairoPNG"),
-  dev.args = list(res = 300,
-                  pointsize = 12)
-)
 
-```
 
 
 Around the holidays, my partner and I decided to bring a stationary exercise bike into our home. After many pros and cons lists, we opted for the [Bowflex C6](https://www.bowflex.com/bikes/c6/100894.html). I decided to try out this whole [Peloton](https://www.onepeloton.com/) thing, and quickly found that the resistance adjustments are not equivalent between the Peloton bike and the C6. Thankfully, there is a wonderful [subreddit](https://www.reddit.com/r/SchwinnIC4_BowflexC6/) just for this model! The folks there directed me to this [conversion chart](https://www.reddit.com/r/pelotoncycle/wiki/index/resistancechart), which then led me to a [3D-printed plate](https://www.etsy.com/listing/940670883/schwinn-ic4-exercise-bike-resistance?ref=hp_opfy-3&frs=1&bes=1) to keep on my handlebars. 
@@ -37,7 +26,8 @@ Around the holidays, my partner and I decided to bring a stationary exercise bik
 
 As I kept going along in my classes, all I could think was "What does this look like on a plot? What is the distribution?" Here is the result. 
 
-```{r}
+
+```r
 
 ## load packages
 library(dplyr)
@@ -52,7 +42,8 @@ pelo_red <- "#df1c2f"
 
 Create data table.  
 
-```{r}
+
+```r
 conv_table <- tibble(C6 = c(0, 5, 9, 17, 25, 33, 49, 100),
        Peloton = c(0, 25, 30, 35, 40, 45, 50, 100),
        Difficulty = seq(from = 0, to = 10, length.out = 8 ))
@@ -63,7 +54,8 @@ conv_table_long <- conv_table %>%
 
 Now, plot.  
 
-```{r, message=FALSE}
+
+```r
 plot <- ggplot(data = conv_table_long) +
   geom_smooth(mapping = aes(x = Difficulty,
                             y = Resistance,
@@ -86,9 +78,9 @@ plot <- ggplot(data = conv_table_long) +
 plot
 ```
 
-```{r, include = FALSE}
-ggsave(plot, filename = "featured.png")
-```
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+
+
 
 
 Now I'm keeping an eye on [this thread](https://www.reddit.com/r/SchwinnIC4_BowflexC6/comments/l5pgos/i_built_a_schwinntopeloton_resistance_converter/).  
