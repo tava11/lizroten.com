@@ -9,7 +9,47 @@
   
   <url>
     <loc>lizroten.com/</loc>
-    <lastmod>2021-01-25T10:35:17-06:00</lastmod>
+    <lastmod>2021-01-30T14:37:12-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/authors/</loc>
+    <lastmod>2021-01-30T14:37:12-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/blog/bowflex-c6-to-peloton-resistance-conversion-plots/</loc>
+    <lastmod>2021-01-30T14:37:12-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/categories/</loc>
+    <lastmod>2021-01-30T14:37:12-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/ggplot2/</loc>
+    <lastmod>2021-01-30T14:37:12-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/peloton/</loc>
+    <lastmod>2021-01-30T14:37:12-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/personal/</loc>
+    <lastmod>2021-01-30T14:37:12-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tags/</loc>
+    <lastmod>2021-01-30T14:37:12-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/category/tutorial/</loc>
+    <lastmod>2021-01-30T14:37:12-06:00</lastmod>
   </url>
   
   <url>
@@ -23,23 +63,8 @@
   </url>
   
   <url>
-    <loc>lizroten.com/categories/</loc>
-    <lastmod>2021-01-25T10:35:17-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tag/ggplot2/</loc>
-    <lastmod>2021-01-25T10:35:17-06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>lizroten.com/blog/maps-with-edgebundle/</loc>
     <lastmod>2021-01-24T15:49:37-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tags/</loc>
-    <lastmod>2021-01-25T10:35:17-06:00</lastmod>
   </url>
   
   <url>
@@ -48,48 +73,58 @@
   </url>
   
   <url>
-    <loc>lizroten.com/category/tutorial/</loc>
-    <lastmod>2021-01-25T10:35:17-06:00</lastmod>
+    <loc>lizroten.com/author/ashley-asmus/</loc>
+    <lastmod>2021-01-30T14:36:20-06:00</lastmod>
   </url>
   
   <url>
-    <loc>lizroten.com/authors/</loc>
-    <lastmod>2021-01-24T15:50:15-06:00</lastmod>
+    <loc>lizroten.com/author/catherine-manzo/</loc>
+    <lastmod>2021-01-30T14:36:20-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tag/climate/</loc>
-    <lastmod>2021-01-24T15:50:15-06:00</lastmod>
+    <lastmod>2021-01-30T14:36:20-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tag/conference/</loc>
-    <lastmod>2021-01-24T15:50:15-06:00</lastmod>
+    <lastmod>2021-01-30T14:36:20-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tag/covid/</loc>
-    <lastmod>2021-01-24T15:50:15-06:00</lastmod>
+    <lastmod>2021-01-30T14:36:20-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/author/jonathan-ehrlich/</loc>
+    <lastmod>2021-01-30T14:36:20-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/author/mauricio-leon/</loc>
+    <lastmod>2021-01-30T14:36:20-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tag/metropolitan-council/</loc>
-    <lastmod>2021-01-24T15:50:24-06:00</lastmod>
+    <lastmod>2021-01-30T14:36:32-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/talk/ampo-covid-traffic/</loc>
-    <lastmod>2021-01-24T15:50:15-06:00</lastmod>
+    <lastmod>2021-01-30T14:36:20-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tag/streetlight-data/</loc>
-    <lastmod>2021-01-24T15:50:15-06:00</lastmod>
+    <lastmod>2021-01-30T14:36:32-06:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/talk/ampo-streetlight-ghg/</loc>
-    <lastmod>2021-01-24T15:50:15-06:00</lastmod>
+    <lastmod>2021-01-30T14:36:20-06:00</lastmod>
   </url>
   
   <url>
@@ -99,7 +134,7 @@
   
   <url>
     <loc>lizroten.com/project/</loc>
-    <lastmod>2021-01-24T15:50:24-06:00</lastmod>
+    <lastmod>2021-01-30T14:36:32-06:00</lastmod>
   </url>
   
   <url>
@@ -178,6 +213,31 @@
   </url>
   
   <url>
+    <loc>lizroten.com/tag/parks/</loc>
+    <lastmod>2021-01-30T14:36:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/talk/wilmds-streetlight-parks/</loc>
+    <lastmod>2021-01-30T14:36:03-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/project/como-hex-streetlight-parks/</loc>
+    <lastmod>2021-01-30T14:36:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/tableau/</loc>
+    <lastmod>2021-01-30T14:36:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/talk/tcrg-streetlight-parks/</loc>
+    <lastmod>2021-01-30T14:36:03-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>lizroten.com/publication-type/3/</loc>
     <lastmod>2020-11-21T15:54:42-06:00</lastmod>
   </url>
@@ -249,11 +309,6 @@
   
   <url>
     <loc>lizroten.com/tag/illustrator/</loc>
-    <lastmod>2021-01-24T15:49:37-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tag/personal/</loc>
     <lastmod>2021-01-24T15:49:37-06:00</lastmod>
   </url>
   

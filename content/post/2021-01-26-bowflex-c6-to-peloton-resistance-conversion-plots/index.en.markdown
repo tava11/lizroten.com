@@ -1,20 +1,22 @@
 ---
-title: Bowflex C6 to Peloton resistance conversion plots
+title: Bowflex C6 to Peloton resistance conversion plot
 author: Liz Roten
 date: '2021-01-26'
 slug: bowflex-c6-to-peloton-resistance-conversion-plots
-categories: []
+categories: 
+  - tutorial
 tags:
   - ggplot2
-  - statistics
+  - peloton
+  - personal
 subtitle: 'Accepting my spin bike obsession'
 summary: ''
-authors: []
+authors: [admin]
 lastmod: '2021-01-26T19:48:04-06:00'
 featured: no
 image:
   caption: ''
-  focal_point: ''
+  focal_point: Top
   preview_only: no
 projects: []
 ---
@@ -52,7 +54,7 @@ conv_table_long <- conv_table %>%
   gather(C6, Peloton, key = "Bike", value = "Resistance")
 ```
 
-Now, plot.  
+Make the plot.    
 
 
 ```r
@@ -74,13 +76,17 @@ plot <- ggplot(data = conv_table_long) +
        x = "Difficulty",
        caption = "@LizRoten 2021 | Data r/pelotoncycle") +
   my_theme  
+```
+Display plot
 
+
+```r
 plot
 ```
 
-<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+
+![Final plot](featured.png)
 
 
 
 
-Now I'm keeping an eye on [this thread](https://www.reddit.com/r/SchwinnIC4_BowflexC6/comments/l5pgos/i_built_a_schwinntopeloton_resistance_converter/).  
