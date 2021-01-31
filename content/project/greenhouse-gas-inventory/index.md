@@ -3,7 +3,8 @@ title: Greenhouse Gas Emissions Inventory
 summary: Estimating commercial and personal vehicle emissions with location-based services data
 tags:
 - Metropolitan Council
-- Shiny
+# - Shiny
+- StreetLight Data
 date: "2020-07-16T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
