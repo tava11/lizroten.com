@@ -9,7 +9,7 @@ tags:
   - ggplot2
   - peloton
   - personal
-subtitle: 'Accepting my spin bike obsession'
+subtitle: 'Visualizing spin bike difficulty'
 summary: ''
 authors: [admin]
 lastmod: '2021-01-26T19:48:04-06:00'
