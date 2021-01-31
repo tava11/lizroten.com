@@ -1,5 +1,5 @@
 ---
-title: Bowflex C6 to Peloton resistance conversion plot
+title: Converting Peloton resistance to Bowflex C6 resistance
 author: Liz Roten
 date: '2021-01-26'
 slug: bowflex-c6-to-peloton-resistance-conversion-plots
@@ -34,6 +34,7 @@ As I kept going along in my classes, all I could think was "What does this look 
 ## load packages
 library(dplyr)
 library(tidyr)
+library(purrr)
 library(ggplot2)
 
 ## theme and Peloton(c) red
@@ -47,8 +48,8 @@ Create data table.
 
 ```r
 conv_table <- tibble(C6 = c(0, 5, 9, 17, 25, 33, 49, 100),
-       Peloton = c(0, 25, 30, 35, 40, 45, 50, 100),
-       Difficulty = seq(from = 0, to = 10, length.out = 8 ))
+                     Peloton = c(0, 25, 30, 35, 40, 45, 50, 100),
+                     Difficulty = seq(from = 0, to = 10, length.out = 8 ))
 
 conv_table_long <- conv_table %>% 
   gather(C6, Peloton, key = "Bike", value = "Resistance")
@@ -88,5 +89,79 @@ plot
 ![Final plot](featured.png)
 
 
+
+## Update!  
+
+I was scrolling through aforementioned [r/SchwinnIC4_BowflexC6](https://www.reddit.com/r/SchwinnIC4_BowflexC6/) and found a post by another data person!  
+
+The conversion formula [u/raintower579](https://www.reddit.com/user/raintower579/) found is below  
+
+$$ y = 0.0171x^2 - 0.64x + 9.1429 $$   
+where `x` is the Peloton resistance and `y` is the C6 resistance.  
+
+
+```r
+pelo_conversion <- function(x){
+  (0.0171*x^2) - (0.64*x) + 9.1429
+}
+```
+
+To estimate the equivalence beyond 50, we can create a new tibble and apply the function to a sequence of Peloton resistance settings. Instructors don't tend to call out any value below 20, so we can start there.  
+
+
+```r
+tibble(peloton_resistance = seq(20,100,5)) %>%  # create Peloton resistance sequence, 20-100 by 5s
+  mutate(c6_resistance = round(pelo_conversion(peloton_resistance), 1))
+#> # A tibble: 17 x 2
+#>    peloton_resistance c6_resistance
+#>                 <dbl>         <dbl>
+#>  1                 20           3.2
+#>  2                 25           3.8
+#>  3                 30           5.3
+#>  4                 35           7.7
+#>  5                 40          10.9
+#>  6                 45          15  
+#>  7                 50          19.9
+#>  8                 55          25.7
+#>  9                 60          32.3
+#> 10                 65          39.8
+#> 11                 70          48.1
+#> 12                 75          57.3
+#> 13                 80          67.4
+#> 14                 85          78.3
+#> 15                 90          90.1
+#> 16                 95         103. 
+#> 17                100         116.
+```
+By this table, I've been making my classes much harder than necessary.  
+
+We can plot this function, as shown below.  
+
+
+```r
+ggplot(data = conv_table,
+       aes(x = Peloton,
+           y = C6)) +
+  geom_function( 
+    fun = pelo_conversion,
+    color = "white") +
+  stat_function(
+    fun = pelo_conversion,
+    geom = "point",
+    color = pelo_red,
+    size = 2, 
+    n = 17) +
+  scale_x_continuous(limits = c(20, 100)) +
+  scale_y_continuous(limits = c(0, 100)) +
+  labs(title = "Peloton to Bowflex C6 resistance conversion",
+       x = "Peloton",
+       y = "Bowflex C6",
+       caption = "@LizRoten 2021 | Data r/pelotoncycle | Model u/raintower579") +
+  my_theme2
+```
+
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+
+The big, flashing caveat here is that every bike is calibrated just *slightly* differently, so this might not be correct for the machine in my bedroom. 
 
 
