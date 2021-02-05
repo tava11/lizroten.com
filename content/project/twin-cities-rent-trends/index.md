@@ -3,15 +3,20 @@ title: Twin Cities Rent Trends
 summary: Visualize rent and vacancy trends for cities, townships, and neighborhoods in the Twin Cities
 tags:
 - Metropolitan Council
-- Housing
-- Shiny
+- housing
+- shiny
+- golem
+- rent
+- interactive
+- visualization
+
 date: "2020-10-23T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
 
 image:
-  # caption: Photo by rawpixel on Unsplash
+  caption: Liz Roten for Metropolitan Council, 2020
   focal_point: Smart
 
 links:
@@ -33,12 +38,5 @@ I built the app based on the [`{golem}`](https://github.com/ThinkR-open/golem) f
 
 ## Screenshots  
 
-St. Paul rent and vacancy  
-![Vacancy map and plots](costar_vacancy.PNG)  
-
-Lynnhurst neighborhood rent  
-![Rent map and plots](zillow_neighborhood.PNG)  
-
-Data download page  
-![Data download page](data_download.PNG)
+{{< gallery album="gallery" >}}
 
