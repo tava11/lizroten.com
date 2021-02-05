@@ -7,7 +7,8 @@ tags:
 - cartography
 - covid
 - transportation
-- ggplot2
+- static
+- visualization
 date: "2020-07-15T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).

@@ -4,8 +4,11 @@ summary: Visualize high activity areas within Como Regional Park and seasonal tr
 tags:
 - Metropolitan Council
 - StreetLight Data
-- Parks
+- parks
 - Tableau
+- interactive
+- visualization
+
 date: "2019-06-21T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).

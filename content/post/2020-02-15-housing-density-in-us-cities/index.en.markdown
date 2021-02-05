@@ -272,8 +272,7 @@ Next, we can look at “zoning\_ztype.”
 head(unique(austin$zoning_ztype))
 ```
 
-    ## [1] "SF-3-NCCD-NP" "MF-2"         "RR"           "SF-1"         "MF-3-NP"     
-    ## [6] "SF-2"
+    ## [1] "SF-2-CO" "P-CO"    "MF-3"    "SF-3-NP" "SF-1-NP" "SF-2"
 
 YIKES. Looks like we need a data dictionary.
 

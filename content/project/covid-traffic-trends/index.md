@@ -3,7 +3,11 @@ title: COVID Traffic Trends
 summary: Monitoring social distance guideline adherence with traffic data
 tags:
 - Metropolitan Council
-- Shiny
+- shiny
+- golem
+- interactive
+- visualization
+
 date: "2020-05-22T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
