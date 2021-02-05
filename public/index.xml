@@ -5,12 +5,47 @@
     <link>lizroten.com/</link>
       <atom:link href="lizroten.com/index.xml" rel="self" type="application/rss+xml" />
     <description>Liz Roten</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Fri, 05 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_512x512_fill_lanczos_center_2.png</url>
       <title>Liz Roten</title>
       <link>lizroten.com/</link>
     </image>
+    
+    <item>
+      <title>Regional Parks and the American Community Survey</title>
+      <link>lizroten.com/project/regional-parks-acs/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/regional-parks-acs/</guid>
+      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;In May 2019, I completed an R Shiny app visualizing regional parks and trails in context with American Community Survey (ACS) demographic data. The project&amp;rsquo;s first iteration was built as a mini-app to be used in workshop sessions with regional parks implementing agencies. Later, I re-structured the backend to follow the &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; framework&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Regional Parks and the American Community Survey is a mini-app designed for use by Regional Parks implementing agencies to assist in their progressing toward a more equitable use of regional parks. The app complements the Regional Parks Equity Toolkit, a set of questions and a process to clarify how regional park projects are advancing equity. The app facilitates direct examination of regional parks and trails system and the demographic characteristics of the census tracts surrounding them.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;After I transitioned to my split between Community Development (CD) and Metropolitan Transportation Services (MTS) divisions, another team member took the project on. I supported that person in building skills in &lt;code&gt;{shiny}&lt;/code&gt; and &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; and used GitHub to manage app enhancements and document workflow.&lt;/p&gt;
+&lt;p&gt;Now, the app boasts a sophisticated modeling component, estimating the demographic characteristics of populations within a given distance, or buffer, from the park or trail.&lt;/p&gt;
+&lt;h2 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>{councilR}</title>
+      <link>lizroten.com/project/councilr-package/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/councilr-package/</guid>
+      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>{tc.sensors}</title>
+      <link>lizroten.com/project/tc-sensors/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/tc-sensors/</guid>
+      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;Here is some background information&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Converting Peloton resistance to Bowflex C6 resistance</title>
@@ -251,12 +286,63 @@ final_map
       <description>&lt;p&gt;&lt;em&gt;Twin Cities Rent Trends&lt;/em&gt; is a dashboard for analyzing rental housing market trends in the seven-county Twin Cities region. Rent data can be difficult and costly to obtain, and different sources can yield significantly different values. This app allows users to compare each source and view the data at different geographic levels. Users can view rent trends, including absolute rent price, rents adjusted for inflation, and year-over-year percent change. Users can also visualize the relationship between rent and vacancy rates (not available for all data sources).&lt;/p&gt;
 &lt;p&gt;I built the app based on the &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; framework, which builds the app repository as an R package. The result is a robust Shiny app, complete with testing and modular elements. The app integrates other package I&amp;rsquo;ve developed, including &lt;a href=&#34;https://github.com/Metropolitan-Council/council.skeleton&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{council.skeleton}&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/Metropolitan-Council/councilR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{councilR}&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h2&gt;
-&lt;p&gt;St. Paul rent and vacancy&lt;br&gt;
-&lt;img src=&#34;costar_vacancy.PNG&#34; alt=&#34;Vacancy map and plots&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Lynnhurst neighborhood rent&lt;br&gt;
-&lt;img src=&#34;zillow_neighborhood.PNG&#34; alt=&#34;Rent map and plots&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Data download page&lt;br&gt;
-&lt;img src=&#34;data_download.PNG&#34; alt=&#34;Data download page&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;gallery&#34;&gt;
+
+  
+  
+  
+  
+    
+    
+    
+    
+    
+  &lt;a data-fancybox=&#34;gallery-gallery&#34; href=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/costar_vacancy.PNG&#34; &gt;
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/costar_vacancy_huc792cfefd3b7fa975dbd88c4549745e2_401009_0x190_resize_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;255&#34; height=&#34;190&#34;&gt;
+  &lt;/a&gt;
+  
+    
+    
+    
+    
+    
+  &lt;a data-fancybox=&#34;gallery-gallery&#34; href=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/data_download.PNG&#34; &gt;
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/data_download_hue2a3431dd02d014d62df9fd797e1e963_85462_0x190_resize_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;422&#34; height=&#34;190&#34;&gt;
+  &lt;/a&gt;
+  
+    
+    
+    
+    
+    
+  &lt;a data-fancybox=&#34;gallery-gallery&#34; href=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/home.PNG&#34; &gt;
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/home_hu3ebdb204b5f4ede06cbf9f0321482f54_386558_0x190_resize_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;251&#34; height=&#34;190&#34;&gt;
+  &lt;/a&gt;
+  
+    
+    
+    
+    
+    
+  &lt;a data-fancybox=&#34;gallery-gallery&#34; href=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/zillow_neighborhood.PNG&#34; &gt;
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/zillow_neighborhood_hue6f110d4aa210dd53bbcb02bd250c7a3_540348_0x190_resize_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;248&#34; height=&#34;190&#34;&gt;
+  &lt;/a&gt;
+  
+
+  
+&lt;/div&gt;
 </description>
     </item>
     
@@ -445,6 +531,16 @@ final_map
     </item>
     
     <item>
+      <title>{use.estimates}</title>
+      <link>lizroten.com/project/regional-parks-use-estimates/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/regional-parks-use-estimates/</guid>
+      <description>&lt;p&gt;You can see the published reports &lt;a href=&#34;https://metrocouncil.org/Parks/Research/Annual-Use-Estimates.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
       <title>COVID Traffic Trends</title>
       <link>lizroten.com/project/covid-traffic-trends/</link>
       <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
@@ -503,63 +599,63 @@ head(search_result)
 #&amp;gt; # A tibble: 6 x 7
 #&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
 #&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
-#&amp;gt; 1 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
-#&amp;gt; 2 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
-#&amp;gt; 3 TRUE  1009293 Wohin?    wohin             17216 Caoua Coffee   &amp;lt;df[,59] [2 x ~
-#&amp;gt; 4 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
-#&amp;gt; 5 FALSE  927223 Love Note love-note         45502 tincanknits    &amp;lt;df[,59] [2 x ~
-#&amp;gt; 6 FALSE 1020039 Braidalot braidalot         97793 Dots Dabbles   &amp;lt;df[,59] [2 x ~&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt; 1 FALSE 1110908 Sleepwalk sleepwalk-2      121142 Tricot Nomade  &amp;lt;df[,59] [1 x ~
+#&amp;gt; 2 TRUE  1110993 Gravitat~ gravitatio~       76259 Nick Davis     &amp;lt;df[,59] [1 x ~
+#&amp;gt; 3 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       &amp;lt;df[,59] [2 x ~
+#&amp;gt; 4 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
+#&amp;gt; 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
+#&amp;gt; 6 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The fourth result is even my old friend, “Hermione’s Everyday Socks!”&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;search_result[4, ] # get the fourth row in the table
 #&amp;gt; # A tibble: 1 x 7
-#&amp;gt;   free      id name      permalink   designer.id designer.name   pattern_sources
-#&amp;gt;   &amp;lt;lgl&amp;gt;  &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;           &amp;lt;list&amp;gt;         
-#&amp;gt; 1 TRUE  580119 Rose Cit~ rose-city-~       82613 Mara Catherine~ &amp;lt;df[,59] [1 x ~&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt;   free      id name      permalink designer.id designer.name pattern_sources   
+#&amp;gt;   &amp;lt;lgl&amp;gt;  &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;           &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;list&amp;gt;            
+#&amp;gt; 1 TRUE  891114 Rye Light rye-light       45502 tincanknits   &amp;lt;df[,59] [3 x 59]&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets take a look at the actual pattern from the search results using &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hermione &amp;lt;- get_patterns(ids = search_result[4, ]$id)
 str(hermione, max.level = 2)
 #&amp;gt; tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
-#&amp;gt;  $ comments_count         : int 76
-#&amp;gt;  $ created_at             : chr &amp;quot;2015/05/16 13:27:58 -0400&amp;quot;
+#&amp;gt;  $ comments_count         : int 52
+#&amp;gt;  $ created_at             : chr &amp;quot;2019/01/01 08:11:00 -0500&amp;quot;
 #&amp;gt;  $ currency               : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ difficulty_average     : num 2.15
-#&amp;gt;  $ difficulty_count       : int 2460
+#&amp;gt;  $ difficulty_average     : num 2.43
+#&amp;gt;  $ difficulty_count       : int 727
 #&amp;gt;  $ downloadable           : logi TRUE
-#&amp;gt;  $ favorites_count        : int 24978
+#&amp;gt;  $ favorites_count        : int 14262
 #&amp;gt;  $ free                   : logi TRUE
 #&amp;gt;  $ gauge                  : num 32
 #&amp;gt;  $ gauge_divisor          : int 4
-#&amp;gt;  $ gauge_pattern          : chr &amp;quot;Stockinette stitch in the round&amp;quot;
-#&amp;gt;  $ generally_available    : chr &amp;quot;2015/05/01 00:00:00 -0400&amp;quot;
-#&amp;gt;  $ id                     : int 580119
-#&amp;gt;  $ name                   : chr &amp;quot;Rose City Rollers&amp;quot;
+#&amp;gt;  $ gauge_pattern          : chr &amp;quot;stockinette stitch with larger needles&amp;quot;
+#&amp;gt;  $ generally_available    : chr &amp;quot;2018/12/01 00:00:00 -0500&amp;quot;
+#&amp;gt;  $ id                     : int 891114
+#&amp;gt;  $ name                   : chr &amp;quot;Rye Light&amp;quot;
 #&amp;gt;  $ pdf_url                : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ permalink              : chr &amp;quot;rose-city-rollers&amp;quot;
+#&amp;gt;  $ permalink              : chr &amp;quot;rye-light&amp;quot;
 #&amp;gt;  $ price                  : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ projects_count         : int 12594
-#&amp;gt;  $ published              : chr &amp;quot;2015/05/01&amp;quot;
-#&amp;gt;  $ queued_projects_count  : int 4398
-#&amp;gt;  $ rating_average         : num 4.8
-#&amp;gt;  $ rating_count           : int 2605
-#&amp;gt;  $ row_gauge              : num 40
-#&amp;gt;  $ updated_at             : chr &amp;quot;2015/07/28 18:30:11 -0400&amp;quot;
-#&amp;gt;  $ url                    : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ yardage                : int 200
-#&amp;gt;  $ yardage_max            : int 350
+#&amp;gt;  $ projects_count         : int 3354
+#&amp;gt;  $ published              : chr &amp;quot;2018/12/01&amp;quot;
+#&amp;gt;  $ queued_projects_count  : int 2061
+#&amp;gt;  $ rating_average         : num 4.81
+#&amp;gt;  $ rating_count           : int 749
+#&amp;gt;  $ row_gauge              : num 46
+#&amp;gt;  $ updated_at             : chr &amp;quot;2020/08/18 17:29:12 -0400&amp;quot;
+#&amp;gt;  $ url                    : chr &amp;quot;http://tincanknits.com/pattern-SC-ryelight.html&amp;quot;
+#&amp;gt;  $ yardage                : int 120
+#&amp;gt;  $ yardage_max            : int 480
 #&amp;gt;  $ personal_attributes    : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ sizes_available        : chr &amp;quot;S, M, L&amp;quot;
-#&amp;gt;  $ product_id             : int 273690
+#&amp;gt;  $ sizes_available        : chr &amp;quot;Baby (Toddler, Child, Adult S, M, L)&amp;quot;
+#&amp;gt;  $ product_id             : int 504649
 #&amp;gt;  $ currency_symbol        : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ ravelry_download       : logi TRUE
 #&amp;gt;  $ download_location      :List of 1
 #&amp;gt;  $ pdf_in_library         : logi FALSE
 #&amp;gt;  $ volumes_in_library     : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ gauge_description      : chr &amp;quot;32 stitches and 40 rows = 4 inches in Stockinette stitch in the round&amp;quot;
+#&amp;gt;  $ gauge_description      : chr &amp;quot;32 stitches and 46 rows = 4 inches in stockinette stitch with larger needles&amp;quot;
 #&amp;gt;  $ yarn_weight_description: chr &amp;quot;Fingering (14 wpi)&amp;quot;
-#&amp;gt;  $ yardage_description    : chr &amp;quot;200 - 350 yards&amp;quot;
+#&amp;gt;  $ yardage_description    : chr &amp;quot;120 - 480 yards&amp;quot;
 #&amp;gt;  $ pattern_needle_sizes   :List of 1
-#&amp;gt;  $ notes_html             : chr &amp;quot;\n&amp;lt;p&amp;gt;Easy, roll-top ankle socks perfect for summer knitting and wearing. These socks are knit from the top down&amp;quot;| __truncated__
-#&amp;gt;  $ notes                  : chr &amp;quot;Easy, roll-top ankle socks perfect for summer knitting and wearing. These socks are knit from the top down, wit&amp;quot;| __truncated__
+#&amp;gt;  $ notes_html             : chr &amp;quot;&amp;lt;hr /&amp;gt;&amp;lt;hr /&amp;gt;\n&amp;lt;h1 id=\&amp;quot;rye_light__by_tin_can_knits\&amp;quot;&amp;gt;&amp;lt;strong&amp;gt;Rye Light&amp;lt;/strong&amp;gt; - by Tin Can Knits&amp;lt;/h1&amp;gt;\n&amp;lt;hr /&amp;gt;&amp;quot;| __truncated__
+#&amp;gt;  $ notes                  : chr &amp;quot;--------------------------------------------------------\r\n---------------------------------------------------&amp;quot;| __truncated__
 #&amp;gt;  $ packs                  :List of 1
 #&amp;gt;  $ printings              :List of 1
 #&amp;gt;  $ yarn_weight            :List of 1
@@ -571,23 +667,23 @@ str(hermione, max.level = 2)
 #&amp;gt;  $ pattern_type           :List of 1
 str(hermione$pattern_attributes)
 #&amp;gt; List of 1
-#&amp;gt;  $ : tibble [7 x 2] (S3: tbl_df/tbl/data.frame)
-#&amp;gt;   ..$ id       : int [1:7] 3 10 23 26 200 286 300
-#&amp;gt;   ..$ permalink: chr [1:7] &amp;quot;unisex&amp;quot; &amp;quot;adult&amp;quot; &amp;quot;top-cuff-down&amp;quot; &amp;quot;heel-flap&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt;  $ : tibble [16 x 2] (S3: tbl_df/tbl/data.frame)
+#&amp;gt;   ..$ id       : int [1:16] 3 4 7 8 9 10 23 26 64 70 ...
+#&amp;gt;   ..$ permalink: chr [1:16] &amp;quot;unisex&amp;quot; &amp;quot;baby&amp;quot; &amp;quot;toddler&amp;quot; &amp;quot;child&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hermione$difficulty_count # how many reviews rated a difficulty?
-#&amp;gt; [1] 2460
+#&amp;gt; [1] 727
 hermione$difficulty_average # what is the average difficulty?
-#&amp;gt; [1] 2.149187&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt; [1] 2.429161&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;slip_it_search &amp;lt;- search_patterns(query = &amp;quot;slip it simple sock&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Next, take the &lt;code&gt;id&lt;/code&gt; column and feed it into &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;slip_it &amp;lt;- get_patterns(ids = slip_it_search$id)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;What is our difficulty?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;slip_it$difficulty_count
-#&amp;gt; [1] 68
+#&amp;gt; [1] 69
 slip_it$difficulty_average
-#&amp;gt; [1] 2&lt;/code&gt;&lt;/pre&gt;
+#&amp;gt; [1] 2.014493&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;There are fewer reviews, but the difficulty is super low.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;refining-our-search&#34; class=&#34;section level2&#34;&gt;
@@ -608,11 +704,11 @@ slip_it$difficulty_average
 #&amp;gt; # A tibble: 6 x 7
 #&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
 #&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
-#&amp;gt; 1 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
-#&amp;gt; 2 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
-#&amp;gt; 3 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
-#&amp;gt; 4 TRUE   315418 Vanilla ~ vanilla-la~       53376 Virginia Rose~ &amp;lt;df[,59] [1 x ~
-#&amp;gt; 5 FALSE  720294 Mina&amp;#39;s V~ minas-vani~       81846 Knitting Expa~ &amp;lt;df[,59] [2 x ~
+#&amp;gt; 1 FALSE 1110908 Sleepwalk sleepwalk-2      121142 Tricot Nomade  &amp;lt;df[,59] [1 x ~
+#&amp;gt; 2 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       &amp;lt;df[,59] [2 x ~
+#&amp;gt; 3 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
+#&amp;gt; 4 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
+#&amp;gt; 5 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
 ...&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Another trick is to go look at the URL when I am searching on Ravelry itself. This gives me an idea of what search terms I can add to &lt;code&gt;search_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;refined_search &amp;lt;- search_patterns(
@@ -1066,8 +1162,7 @@ pitt_water &amp;lt;- read_sf(&amp;quot;http://openac-alcogis.opendata.arcgis.com
 &lt;p&gt;Next, we can look at “zoning_ztype.”&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(unique(austin$zoning_ztype))
 &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;SF-3-NCCD-NP&amp;quot; &amp;quot;MF-2&amp;quot;         &amp;quot;RR&amp;quot;           &amp;quot;SF-1&amp;quot;         &amp;quot;MF-3-NP&amp;quot;     
-## [6] &amp;quot;SF-2&amp;quot;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;SF-2-CO&amp;quot; &amp;quot;P-CO&amp;quot;    &amp;quot;MF-3&amp;quot;    &amp;quot;SF-3-NP&amp;quot; &amp;quot;SF-1-NP&amp;quot; &amp;quot;SF-2&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;YIKES. Looks like we need a data dictionary.&lt;/p&gt;
 &lt;p&gt;I would love to say that I elegantly extracted the zoning codes from the &lt;a href=&#34;http://www.austintexas.gov/page/zoning-districts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;city’s website&lt;/a&gt;, but I ended up copying the HTML table to Excel and manipulating the columns from there. The text-to-columns tool is very useful fo instances like this. I also added codes “SF-4” and “MF,” which weren’t explicitly provided.&lt;/p&gt;

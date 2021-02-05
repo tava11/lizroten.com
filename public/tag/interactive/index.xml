@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>interactive | Liz Roten</title>
+    <link>lizroten.com/tag/interactive/</link>
+      <atom:link href="lizroten.com/tag/interactive/index.xml" rel="self" type="application/rss+xml" />
+    <description>interactive</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Fri, 05 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_512x512_fill_lanczos_center_2.png</url>
+      <title>interactive</title>
+      <link>lizroten.com/tag/interactive/</link>
+    </image>
+    
+    <item>
+      <title>Regional Parks and the American Community Survey</title>
+      <link>lizroten.com/project/regional-parks-acs/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/regional-parks-acs/</guid>
+      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;In May 2019, I completed an R Shiny app visualizing regional parks and trails in context with American Community Survey (ACS) demographic data. The project&amp;rsquo;s first iteration was built as a mini-app to be used in workshop sessions with regional parks implementing agencies. Later, I re-structured the backend to follow the &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; framework&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Regional Parks and the American Community Survey is a mini-app designed for use by Regional Parks implementing agencies to assist in their progressing toward a more equitable use of regional parks. The app complements the Regional Parks Equity Toolkit, a set of questions and a process to clarify how regional park projects are advancing equity. The app facilitates direct examination of regional parks and trails system and the demographic characteristics of the census tracts surrounding them.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;After I transitioned to my split between Community Development (CD) and Metropolitan Transportation Services (MTS) divisions, another team member took the project on. I supported that person in building skills in &lt;code&gt;{shiny}&lt;/code&gt; and &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; and used GitHub to manage app enhancements and document workflow.&lt;/p&gt;
+&lt;p&gt;Now, the app boasts a sophisticated modeling component, estimating the demographic characteristics of populations within a given distance, or buffer, from the park or trail.&lt;/p&gt;
+&lt;h2 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Twin Cities Rent Trends</title>
+      <link>lizroten.com/project/twin-cities-rent-trends/</link>
+      <pubDate>Fri, 23 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/twin-cities-rent-trends/</guid>
+      <description>&lt;p&gt;&lt;em&gt;Twin Cities Rent Trends&lt;/em&gt; is a dashboard for analyzing rental housing market trends in the seven-county Twin Cities region. Rent data can be difficult and costly to obtain, and different sources can yield significantly different values. This app allows users to compare each source and view the data at different geographic levels. Users can view rent trends, including absolute rent price, rents adjusted for inflation, and year-over-year percent change. Users can also visualize the relationship between rent and vacancy rates (not available for all data sources).&lt;/p&gt;
+&lt;p&gt;I built the app based on the &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; framework, which builds the app repository as an R package. The result is a robust Shiny app, complete with testing and modular elements. The app integrates other package I&amp;rsquo;ve developed, including &lt;a href=&#34;https://github.com/Metropolitan-Council/council.skeleton&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{council.skeleton}&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/Metropolitan-Council/councilR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{councilR}&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h2&gt;
+
+
+
+
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;gallery&#34;&gt;
+
+  
+  
+  
+  
+    
+    
+    
+    
+    
+  &lt;a data-fancybox=&#34;gallery-gallery&#34; href=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/costar_vacancy.PNG&#34; &gt;
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/costar_vacancy_huc792cfefd3b7fa975dbd88c4549745e2_401009_0x190_resize_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;255&#34; height=&#34;190&#34;&gt;
+  &lt;/a&gt;
+  
+    
+    
+    
+    
+    
+  &lt;a data-fancybox=&#34;gallery-gallery&#34; href=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/data_download.PNG&#34; &gt;
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/data_download_hue2a3431dd02d014d62df9fd797e1e963_85462_0x190_resize_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;422&#34; height=&#34;190&#34;&gt;
+  &lt;/a&gt;
+  
+    
+    
+    
+    
+    
+  &lt;a data-fancybox=&#34;gallery-gallery&#34; href=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/home.PNG&#34; &gt;
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/home_hu3ebdb204b5f4ede06cbf9f0321482f54_386558_0x190_resize_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;251&#34; height=&#34;190&#34;&gt;
+  &lt;/a&gt;
+  
+    
+    
+    
+    
+    
+  &lt;a data-fancybox=&#34;gallery-gallery&#34; href=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/zillow_neighborhood.PNG&#34; &gt;
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/twin-cities-rent-trends/gallery/zillow_neighborhood_hue6f110d4aa210dd53bbcb02bd250c7a3_540348_0x190_resize_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;248&#34; height=&#34;190&#34;&gt;
+  &lt;/a&gt;
+  
+
+  
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>COVID Traffic Trends</title>
+      <link>lizroten.com/project/covid-traffic-trends/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/covid-traffic-trends/</guid>
+      <description>&lt;p&gt;In early 2020, the transportation and modeling team at the Metropolitan Council began using traffic data from the Minnesota Department of Transportation (MnDOT) to evaluate the impact of recent physical distancing efforts on regional and statewide travel. I developed an accompanying R Shiny app  with sections for visualizing the model results, downloading tabular data, and explaining the model. Individual items include an interactive plot showing the percent difference from expected traffic levels and an interactive map displaying the change in expected traffic at individual traffic sensors across the Twin Cities metro area and Rochester area.&lt;/p&gt;
+&lt;p&gt;I built the app based on the &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; framework, which builds the app repository as an R package. The result is a robust Shiny app, complete with testing and modularized elements. The app integrates other package I&amp;rsquo;ve developed, including &lt;a href=&#34;https://github.com/Metropolitan-Council/council.skeleton&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{council.skeleton}&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/Metropolitan-Council/councilR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{councilR}&lt;/code&gt;&lt;/a&gt;. The first iteration of the app was published within a week of starting on it.&lt;/p&gt;
+&lt;h2 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h2&gt;
+&lt;p&gt;The plot shows the daily relative decrease in freeway travel over time across the Twin Cities metropolitan region after March 1. Points that fall below the zero-line represent decreases in travel relative to typical travel on that day of the year and day of the week. Typical travel is estimated using a statistical analysis of traffic volumes from 2018, 2019, and 2020 prior to March 1.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;covid_plot.PNG&#34; alt=&#34;This plot shows the daily relative decrease in freeway travel over time across the Twin Cities metropolitan region after March 1. Points that fall below the zero-line represent decreases in travel relative to typical travel on that day of the year and day of the week. Typical travel is estimated using a statistical analysis of traffic volumes from 2018, 2019, and 2020 prior to March 1.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The map shows the decreases in travel at individual traffic monitoring sites across the Twin Cities Metropolitan area. Traffic monitoring is performed by the Minnesota Department of Transportation (MnDOT) using detectors built into the infrastructure of the roads. These detectors are usually used to estimate congestion along Metro area highways.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;covid_map.PNG&#34; alt=&#34;The map shows the decreases in travel at individual traffic monitoring sites across the Twin Cities Metropolitan area. Traffic monitoring is performed by the Minnesota Department of Transportation (MnDOT) using detectors built into the infrastructure of the roads. These detectors are usually used to estimate congestion along Metro area highways.&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;relevent-links&#34;&gt;Relevent links&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://metrocouncil.org/Transportation/Planning-2/Transit-Plans,-Studies-Reports/Highways-Roads/COVID-19.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Official news release&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://metrotransitmn.shinyapps.io/covid-traffic-trends/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Live app site (updated regularly)&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://github.com/Metropolitan-Council/loop-sensor-trends&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub repository&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Como Regional Park Hex Grid StreetLight Analysis</title>
+      <link>lizroten.com/project/como-hex-streetlight-parks/</link>
+      <pubDate>Fri, 21 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/como-hex-streetlight-parks/</guid>
+      <description>&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;To better understand activity within Como Regional Park and how that activity shifts with the seasons, I created a hexagon grid over the park and then used aggregated and anonymized location-based services data provided by &lt;a href=&#34;https://www.streetlightdata.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;StreetLight Data&lt;/a&gt; to measure relative activity in each hexagon.&lt;/p&gt;
+&lt;p&gt;This project was my first endeavor with Tableau and was used as a pilot before we dedicated additional resources to using StreetLight Data for parks research.&lt;/p&gt;
+&lt;h2 id=&#34;details&#34;&gt;Details&lt;/h2&gt;
+&lt;h3 id=&#34;streetlight-data&#34;&gt;StreetLight Data&lt;/h3&gt;
+&lt;p&gt;Data in this data visualization comes from StreetLight, an independent data provider which cleans, processes and assimilates millions of spatial data points from a combination of mobile phone Location-Based Services (LBS) data and GPS data. The data is anonymized, aggregated, and accessed only through specific analyses.&lt;/p&gt;
+&lt;p&gt;This viz draws on LBS data. Cell phone apps that use LBS collect the device&amp;rsquo;s location in space and time. StreetLight detects trips, a movement with clear start and stop locations. StreetLight uses trips to create the StreetLight Traffic Index, which is a normalized measure of the relative traffic, or activity, in an area. The data’s spatial precision is 65ft or better and StreetLight estimates a 23% penetration rate for the combined US and Canada adult population.&lt;/p&gt;
+&lt;h3 id=&#34;analysis&#34;&gt;Analysis&lt;/h3&gt;
+&lt;p&gt;For this viz, we made a hexagon grid over Como Regional Park. We then ran a StreetLight analysis to measure the relative traffic in each hexagon and repeated the analysis for Winter (November 2017 - February 2018), Summer (May 2018 - August 2018), and all 2018. StreetLight returns a Traffic Index value for each hexagon for every trip intersection type, day type, and day part configuration.&lt;/p&gt;
+&lt;h3 id=&#34;interactive-map&#34;&gt;Interactive Map&lt;/h3&gt;
+&lt;p&gt;In the Tableau viz, you can view the analysis results. Each hexagon on the map changes color according to its Traffic Index, or activity level. The darker the color, the higher the traffic. You can view the exact Traffic Index value of any hexagon by hovering over it. Use the map tools in the upper left corner to pan, zoom, and adjust the map view. We suggest you view this story in full screen for the best display.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

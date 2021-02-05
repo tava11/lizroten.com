@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Parks | Liz Roten</title>
+    <title>parks | Liz Roten</title>
     <link>lizroten.com/tag/parks/</link>
       <atom:link href="lizroten.com/tag/parks/index.xml" rel="self" type="application/rss+xml" />
-    <description>Parks</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Tue, 08 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <description>parks</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Fri, 05 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_512x512_fill_lanczos_center_2.png</url>
-      <title>Parks</title>
+      <title>parks</title>
       <link>lizroten.com/tag/parks/</link>
     </image>
+    
+    <item>
+      <title>Regional Parks and the American Community Survey</title>
+      <link>lizroten.com/project/regional-parks-acs/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/regional-parks-acs/</guid>
+      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;In May 2019, I completed an R Shiny app visualizing regional parks and trails in context with American Community Survey (ACS) demographic data. The project&amp;rsquo;s first iteration was built as a mini-app to be used in workshop sessions with regional parks implementing agencies. Later, I re-structured the backend to follow the &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; framework&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Regional Parks and the American Community Survey is a mini-app designed for use by Regional Parks implementing agencies to assist in their progressing toward a more equitable use of regional parks. The app complements the Regional Parks Equity Toolkit, a set of questions and a process to clarify how regional park projects are advancing equity. The app facilitates direct examination of regional parks and trails system and the demographic characteristics of the census tracts surrounding them.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;After I transitioned to my split between Community Development (CD) and Metropolitan Transportation Services (MTS) divisions, another team member took the project on. I supported that person in building skills in &lt;code&gt;{shiny}&lt;/code&gt; and &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; and used GitHub to manage app enhancements and document workflow.&lt;/p&gt;
+&lt;p&gt;Now, the app boasts a sophisticated modeling component, estimating the demographic characteristics of populations within a given distance, or buffer, from the park or trail.&lt;/p&gt;
+&lt;h2 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>{use.estimates}</title>
+      <link>lizroten.com/project/regional-parks-use-estimates/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/regional-parks-use-estimates/</guid>
+      <description>&lt;p&gt;You can see the published reports &lt;a href=&#34;https://metrocouncil.org/Parks/Research/Annual-Use-Estimates.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+</description>
+    </item>
     
     <item>
       <title>Using location-based services to locate high activity areas within Twin Cities regional parks</title>

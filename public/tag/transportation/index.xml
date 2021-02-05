@@ -5,12 +5,22 @@
     <link>lizroten.com/tag/transportation/</link>
       <atom:link href="lizroten.com/tag/transportation/index.xml" rel="self" type="application/rss+xml" />
     <description>transportation</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Wed, 15 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Fri, 05 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_512x512_fill_lanczos_center_2.png</url>
       <title>transportation</title>
       <link>lizroten.com/tag/transportation/</link>
     </image>
+    
+    <item>
+      <title>{tc.sensors}</title>
+      <link>lizroten.com/project/tc-sensors/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/tc-sensors/</guid>
+      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;Here is some background information&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Minimum distance to COVID-19 testing facilities</title>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pkgdown | Liz Roten</title>
+    <link>lizroten.com/tag/pkgdown/</link>
+      <atom:link href="lizroten.com/tag/pkgdown/index.xml" rel="self" type="application/rss+xml" />
+    <description>pkgdown</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Fri, 05 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_512x512_fill_lanczos_center_2.png</url>
+      <title>pkgdown</title>
+      <link>lizroten.com/tag/pkgdown/</link>
+    </image>
+    
+    <item>
+      <title>{councilR}</title>
+      <link>lizroten.com/project/councilr-package/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/councilr-package/</guid>
+      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>{tc.sensors}</title>
+      <link>lizroten.com/project/tc-sensors/</link>
+      <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/tc-sensors/</guid>
+      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;Here is some background information&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>{use.estimates}</title>
+      <link>lizroten.com/project/regional-parks-use-estimates/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/regional-parks-use-estimates/</guid>
+      <description>&lt;p&gt;You can see the published reports &lt;a href=&#34;https://metrocouncil.org/Parks/Research/Annual-Use-Estimates.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
