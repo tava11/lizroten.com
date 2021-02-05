@@ -10,8 +10,8 @@ tags:
   - peloton
   - personal
 subtitle: 'Visualizing spin bike difficulty'
-summary: ''
-authors: [admin]
+summary: 'Not all magnetic resistance systems are created the same'
+authors: []
 lastmod: '2021-01-26T19:48:04-06:00'
 featured: no
 image:
