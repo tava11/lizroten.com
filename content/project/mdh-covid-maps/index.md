@@ -1,11 +1,13 @@
 ---
 title: Minimum distance to COVID-19 testing facilities
-summary: 
+summary: A map series analyzing how COVID-19 testing centers are distributed across Minnesota  
 tags:
 - Metropolitan Council
 - health
 - cartography
 - covid
+- transportation
+- ggplot2
 date: "2020-07-15T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
@@ -28,7 +30,11 @@ url_video: ""
 
 ---
 
+{{% callout warning %}}
+The maps in this series were last updated July 15, 2020. Since then, the state has opened additional testing locations and implemented new testing options, including [no cost home testing](https://www.health.state.mn.us/diseases/coronavirus/testsites/athome.html). For the most recent information regarding COVID-19 testing in Minnesota, please see the [Minnesota Department of Health website](https://www.health.state.mn.us/diseases/coronavirus/testsites/index.html).  
+{{% /callout %}}
 
+The COVID-19 response effort requires all hands on deck, and my team at the Metropolitan Council has been working with folks at the State of Minnesota to help answer transportation-related questions. In summer 2020, we got a request for analyzing how COVID-19 testing centers are distributed across the state so as to inform where more resources may be needed. I created a series of maps visualizing the nearest distance (by travel duration/network distance and linear distance) between random points across the state and COVID-19 testing facilities. I created maps for the entire state, as well as specific regions across the state. 
 
 
 ## Method   
@@ -37,11 +43,9 @@ I designated all federally qualified health centers in Minnesota as testing cent
 
 Both distance and estimated duration were calculated using the same method. I generated a 0.5 square mile hexagon grid over the entire state and then chose a random point within each hex. I calculated the network distance and estimated travel duration from the point to the three nearest (by linear distance) testing centers. Rather than calculating distance from all 300+ testing centers, I narrowed it down to just the three nearest to reduce computing time. Of those three nearest centers, I found the shortest possible distance in miles and shortest possible travel duration in minutes and applied that to the entire hexagon. 
 
-Distance and estimated duration were calculated using Open Source Routing Machine (OSRM), a well-established open source project which utilizes OpenStreetMap (OSM) road network data. OSM is crowd-sourced but has proven very reliable and accurate in academic studies and is used for a variety of applications across public and private sectors, including several projects at the Council. OSRM is cited as “Copyright © Project OSRM contributors”. You can see the full license for OSRM here. 
+Distance and estimated duration were calculated using Open Source Routing Machine (OSRM), a well-established open source project which utilizes OpenStreetMap (OSM) road network data. OSM is crowd-sourced but has proven very reliable and accurate in academic studies and is used for a variety of applications across public and private sectors, including several projects at the Council. OSRM is cited as “Copyright © Project OSRM contributors”. 
 
-The first zipped folder contains the network-based distance in miles analysis we discussed last week. To distinguish the methods used between these maps and the ones sent previously, I used a different color palette; the color changes from purple to white to orange as distance increases. I have included state-wide PDFs for the map and distance distribution, in addition to regional maps in PDF and PNG formats. 
-
-The second zipped folder contains the same network analysis but displays the estimated travel duration to the nearest testing center or federally qualified health center. The color palette goes from green to white to pink as duration increases. Again, I have included state-wide PDFs for the map and duration distribution, in addition to regional maps in PDF and PNG formats. Note that this is an estimated general travel duration that does not consider congestion at different times of day, days of the week, weather conditions, roadway conditions, and other factors that affect travel time. 
+Note that this is an estimated general travel duration that does not consider congestion at different times of day, days of the week, weather conditions, roadway conditions, and other factors that affect travel time. 
 
 
 ## Minnesota region-specific maps  
