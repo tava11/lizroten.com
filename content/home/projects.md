@@ -31,7 +31,7 @@ subtitle = "They paid me to do this"
   
   [[content.filter_button]]
     name = "Shiny"
-    tag = "Shiny"
+    tag = "shiny"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.
