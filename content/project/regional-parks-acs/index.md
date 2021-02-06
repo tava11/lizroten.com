@@ -15,7 +15,7 @@ date: "2021-02-05T00:00:00Z"
 external_link: ""
 
 image:
-  # caption: Photo by rawpixel on Unsplash
+  caption: Liz Roten for Metropolitan Council, 2021
   focal_point: Smart
 
 links:
@@ -37,12 +37,13 @@ In May 2019, I completed an R Shiny app visualizing regional parks and trails in
 > Regional Parks and the American Community Survey is a mini-app designed for use by Regional Parks implementing agencies to assist in their progressing toward a more equitable use of regional parks. The app complements the Regional Parks Equity Toolkit, a set of questions and a process to clarify how regional park projects are advancing equity. The app facilitates direct examination of regional parks and trails system and the demographic characteristics of the census tracts surrounding them.
 
 
-After I transitioned to my split between Community Development (CD) and Metropolitan Transportation Services (MTS) divisions, another team member took the project on. I supported that person in building skills in `{shiny}` and [`{golem}`](https://github.com/ThinkR-open/golem) and used GitHub to manage app enhancements and document workflow. 
+## New developments  
 
-Now, the app boasts a sophisticated modeling component, estimating the demographic characteristics of populations within a given distance, or buffer, from the park or trail. 
+After I transitioned to my split between Community Development (CD) and Metropolitan Transportation Services (MTS) divisions, another team member took the project on. I supported that person in building skills in `{shiny}` and [`{golem}`](https://github.com/ThinkR-open/golem). I also used GitHub to manage app enhancements and document workflow. 
+
+Now, the app boasts a sophisticated modeling component, estimating the demographic characteristics of populations within a given distance, or buffer, around the park or trail. We expect the update to roll out around Q2 2021.  
 
 
-## Screenshots  
-
+{{< gallery album="png" >}}
 
 
