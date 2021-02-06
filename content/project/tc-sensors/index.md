@@ -17,11 +17,15 @@ image:
   focal_point: Smart
 
 links:
+- icon: github
+  icon_pack: fab
+  name: Code
+  url: https://github.com/Metropolitan-Council/tc.sensors
 - icon: file
   icon_pack: fa
   name: Documentation
   url: https://metropolitan-council.github.io/tc.sensors/
-url_code: "https://github.com/Metropolitan-Council/tc.sensors"
+url_code: ""
 url_pdf: ""
 url_slides: ""
 url_video: ""
@@ -29,9 +33,8 @@ url_video: ""
 # projects: ["covid-traffic-trends"]
 ---
 
-## Background  
 
-Here is some background information 
+An R package for pulling data for Minnesota Department of Transportation (MnDOT) loop detectors installed on the Minnesota Freeway system in 30-second interval measurements of occupancy and volume, data which are pushed daily to a public JSON feed.  
 
 
 
