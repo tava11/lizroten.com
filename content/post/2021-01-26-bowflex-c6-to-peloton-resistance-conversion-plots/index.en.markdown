@@ -12,6 +12,7 @@ tags:
 subtitle: 'Visualizing spin bike difficulty'
 summary: 'Not all magnetic resistance systems are created the same'
 authors: []
+toc: true
 lastmod: '2021-01-26T19:48:04-06:00'
 featured: no
 image:
@@ -29,8 +30,10 @@ Around the holidays, my partner and I decided to bring a stationary exercise bik
 As I kept going along in my classes, all I could think was "What does this look like on a plot? What is the distribution?" Here is the result. 
 
 
-```r
+## Load packages  
 
+
+```r
 ## load packages
 library(dplyr)
 library(tidyr)
@@ -43,6 +46,8 @@ pelo_red <- "#df1c2f"
 ```
 
 
+## Create tibble
+
 Create data table.  
 
 
@@ -54,6 +59,8 @@ conv_table <- tibble(C6 = c(0, 5, 9, 17, 25, 33, 49, 100),
 conv_table_long <- conv_table %>% 
   gather(C6, Peloton, key = "Bike", value = "Resistance")
 ```
+
+## Plot
 
 Make the plot.    
 

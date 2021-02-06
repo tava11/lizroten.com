@@ -15,6 +15,7 @@ tags:
 subtitle: 'Mapping my travel patterns and mental health from 2015-2017'
 summary: ''
 authors: []
+toc: true
 lastmod: '2021-01-24T15:10:18-06:00'
 featured: no
 image:

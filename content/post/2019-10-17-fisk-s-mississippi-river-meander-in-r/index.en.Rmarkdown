@@ -14,6 +14,7 @@ summary: ''
 authors: []
 lastmod: '2021-01-25T10:13:25-06:00'
 featured: no
+toc: true
 image:
   caption: ''
   focal_point: ''

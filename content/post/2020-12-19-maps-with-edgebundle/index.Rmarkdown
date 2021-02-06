@@ -13,6 +13,7 @@ tags:
 subtitle: 'Mapping US flight networks'
 summary: 'Replicating a snappy map'
 authors: []
+toc: true
 lastmod: '2020-12-19T13:53:43-06:00'
 featured: yes
 image:

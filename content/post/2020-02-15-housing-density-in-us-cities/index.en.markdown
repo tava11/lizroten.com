@@ -14,6 +14,7 @@ tags:
   - R Markdown
 subtitle: ''
 summary: ''
+toc: true
 authors: []
 lastmod: '2021-01-24T15:19:50-06:00'
 featured: no
@@ -144,7 +145,9 @@ my_theme <- function(...) {
 }
 ```
 
-## Pittsburgh
+## Investigate cities
+
+### Pittsburgh
 
 So, what are our column names?
 
@@ -254,7 +257,7 @@ ggplot() +
 
 <img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
-## Austin
+### Austin
 
 Lets look at the column names for Austin.
 
@@ -272,7 +275,8 @@ Next, we can look at “zoning\_ztype.”
 head(unique(austin$zoning_ztype))
 ```
 
-    ## [1] "SF-2-CO" "P-CO"    "MF-3"    "SF-3-NP" "SF-1-NP" "SF-2"
+    ## [1] "P-CO"       "MF-3"       "MF-2"       "SF-1-NP"    "CS-1-CO-NP"
+    ## [6] "SF-2"
 
 YIKES. Looks like we need a data dictionary.
 
@@ -330,7 +334,7 @@ ggplot()  +
 
 <img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
-## Boston
+### Boston
 
 Lets check our column names.
 
