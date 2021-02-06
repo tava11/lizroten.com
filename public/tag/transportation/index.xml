@@ -17,8 +17,7 @@
       <link>lizroten.com/project/tc-sensors/</link>
       <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
       <guid>lizroten.com/project/tc-sensors/</guid>
-      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
-&lt;p&gt;Here is some background information&lt;/p&gt;
+      <description>&lt;p&gt;An R package for pulling data for Minnesota Department of Transportation (MnDOT) loop detectors installed on the Minnesota Freeway system in 30-second interval measurements of occupancy and volume, data which are pushed daily to a public JSON feed.&lt;/p&gt;
 </description>
     </item>
     

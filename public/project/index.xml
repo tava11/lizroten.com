@@ -22,9 +22,48 @@
 &lt;blockquote&gt;
 &lt;p&gt;Regional Parks and the American Community Survey is a mini-app designed for use by Regional Parks implementing agencies to assist in their progressing toward a more equitable use of regional parks. The app complements the Regional Parks Equity Toolkit, a set of questions and a process to clarify how regional park projects are advancing equity. The app facilitates direct examination of regional parks and trails system and the demographic characteristics of the census tracts surrounding them.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;After I transitioned to my split between Community Development (CD) and Metropolitan Transportation Services (MTS) divisions, another team member took the project on. I supported that person in building skills in &lt;code&gt;{shiny}&lt;/code&gt; and &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt; and used GitHub to manage app enhancements and document workflow.&lt;/p&gt;
-&lt;p&gt;Now, the app boasts a sophisticated modeling component, estimating the demographic characteristics of populations within a given distance, or buffer, from the park or trail.&lt;/p&gt;
-&lt;h2 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h2&gt;
+&lt;h2 id=&#34;new-developments&#34;&gt;New developments&lt;/h2&gt;
+&lt;p&gt;After I transitioned to my split between Community Development (CD) and Metropolitan Transportation Services (MTS) divisions, another team member took the project on. I supported that person in building skills in &lt;code&gt;{shiny}&lt;/code&gt; and &lt;a href=&#34;https://github.com/ThinkR-open/golem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{golem}&lt;/code&gt;&lt;/a&gt;. I also used GitHub to manage app enhancements and document workflow.&lt;/p&gt;
+&lt;p&gt;Now, the app boasts a sophisticated modeling component, estimating the demographic characteristics of populations within a given distance, or buffer, around the park or trail. We expect the update to roll out around Q2 2021.&lt;/p&gt;
+
+
+
+
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;gallery&#34;&gt;
+
+  
+  
+  
+  
+    
+    
+    
+    
+    
+  &lt;a data-fancybox=&#34;gallery-png&#34; href=&#34;lizroten.com/lizroten.com/project/regional-parks-acs/png/percent_asian.PNG&#34; &gt;
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/regional-parks-acs/png/percent_asian_hu91fa393d83e942f451387bae7d725cbb_564277_0x190_resize_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;309&#34; height=&#34;190&#34;&gt;
+  &lt;/a&gt;
+  
+    
+    
+    
+    
+    
+  &lt;a data-fancybox=&#34;gallery-png&#34; href=&#34;lizroten.com/lizroten.com/project/regional-parks-acs/png/percent_hispanic.PNG&#34; &gt;
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/regional-parks-acs/png/percent_hispanic_hu86c047115c69d4975b43b4dc31611b28_805849_0x190_resize_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;309&#34; height=&#34;190&#34;&gt;
+  &lt;/a&gt;
+  
+
+  
+&lt;/div&gt;
 </description>
     </item>
     
@@ -33,8 +72,7 @@
       <link>lizroten.com/project/councilr-package/</link>
       <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
       <guid>lizroten.com/project/councilr-package/</guid>
-      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
-</description>
+      <description></description>
     </item>
     
     <item>
@@ -42,8 +80,7 @@
       <link>lizroten.com/project/tc-sensors/</link>
       <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
       <guid>lizroten.com/project/tc-sensors/</guid>
-      <description>&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
-&lt;p&gt;Here is some background information&lt;/p&gt;
+      <description>&lt;p&gt;An R package for pulling data for Minnesota Department of Transportation (MnDOT) loop detectors installed on the Minnesota Freeway system in 30-second interval measurements of occupancy and volume, data which are pushed daily to a public JSON feed.&lt;/p&gt;
 </description>
     </item>
     
