@@ -65,8 +65,8 @@ ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "
   [markup.highlight]
     codeFences = false  # Disable Hugo's code highlighter as it conflicts with Academic's highligher.
   [markup.tableOfContents]
-    startLevel = 0
-    endLevel = 5
+    endLevel = 6
+    startLevel = 2
 
 [imaging]
   resampleFilter = "lanczos"
