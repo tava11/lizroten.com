@@ -1,0 +1,1543 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  
+  
+  <meta name="generator" content="Wowchemy 4.8.0 for Hugo">
+  
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Liz Roten">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Since I got back from #rstudioconf, I’ve started to warm up to the idea of sharing my code, even if it isn’t perfect. There may be typos, the blog post may be short, but sharing my work is beneficial for the greater #rstats community, and supports open-source data science.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="lizroten.com/blog/housing-density-in-us-cities/">
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#1565c0">
+  
+
+  
+  
+  
+  <script src="/lizroten.com/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous">
+    
+
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/2.9.0/instantsearch.min.css" integrity="sha256-ZtmLe16p4jS4/2wPwwH6NzJt460SJzgLmhKrYo5yn7g=" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/2.10.2/instantsearch-theme-algolia.min.css" integrity="sha256-uL8LUd3zkI/lXvc/Hv/oOu8ld6RJcOZiUY/8c+I+3/o=" crossorigin="anonymous">
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" integrity="sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/lizroten.com/css/wowchemy.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/lizroten.com/index.webmanifest">
+  <link rel="icon" type="image/png" href="/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="lizroten.com/blog/housing-density-in-us-cities/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@LizRoten">
+  <meta property="twitter:creator" content="@LizRoten">
+  
+  <meta property="og:site_name" content="Liz Roten">
+  <meta property="og:url" content="lizroten.com/blog/housing-density-in-us-cities/">
+  <meta property="og:title" content="Housing Density in US Cities | Liz Roten">
+  <meta property="og:description" content="Since I got back from #rstudioconf, I’ve started to warm up to the idea of sharing my code, even if it isn’t perfect. There may be typos, the blog post may be short, but sharing my work is beneficial for the greater #rstats community, and supports open-source data science."><meta property="og:image" content="/lizroten.com/blog/housing-density-in-us-cities/featured.png">
+  <meta property="twitter:image" content="/lizroten.com/blog/housing-density-in-us-cities/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-02-15T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2021-02-06T15:12:53-06:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "lizroten.com/blog/housing-density-in-us-cities/"
+  },
+  "headline": "Housing Density in US Cities",
+  
+  "image": [
+    "/lizroten.com/blog/housing-density-in-us-cities/featured.png"
+  ],
+  
+  "datePublished": "2020-02-15T00:00:00Z",
+  "dateModified": "2021-02-06T15:12:53-06:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Liz Roten"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Liz Roten",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Since I got back from #rstudioconf, I’ve started to warm up to the idea of sharing my code, even if it isn’t perfect. There may be typos, the blog post may be short, but sharing my work is beneficial for the greater #rstats community, and supports open-source data science."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Housing Density in US Cities | Liz Roten</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class=" ">
+
+  
+  
+  
+  
+    <script>const isSiteThemeDark = false;</script>
+  
+  
+  <script src="/lizroten.com/js/load-theme.js"></script>
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/lizroten.com/">Liz Roten</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/lizroten.com/">Liz Roten</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lizroten.com/#hero"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lizroten.com/#posts"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lizroten.com/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lizroten.com/#talks"><span>Talks</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lizroten.com/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+
+  
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+          </ul>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#import-data">Import data</a></li>
+    <li><a href="#investigate-cities">Investigate cities</a>
+      <ul>
+        <li><a href="#pittsburgh">Pittsburgh</a></li>
+        <li><a href="#austin">Austin</a></li>
+        <li><a href="#boston">Boston</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        
+        </div>
+          <main class="col-12 col-md-0 col-xl-10 py-md-3 pl-md-5 docs-content" role="main">
+            
+          <article class="article">
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Housing Density in US Cities</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    2021-02-06
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    7 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="lizroten.com/blog/housing-density-in-us-cities/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="lizroten.com/category/tutorial/">tutorial</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 711px;">
+  <div style="position: relative">
+    <img src="/lizroten.com/blog/housing-density-in-us-cities/featured_hueac5afa59e1e9c49f5928c1daca78e92_394168_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+          <div class="article-container">
+            <div class="article-style">
+              <script src="lizroten.com/blog/housing-density-in-us-cities/index.en_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="lizroten.com/blog/housing-density-in-us-cities/index.en_files/jquery/jquery.min.js"></script>
+<link href="lizroten.com/blog/housing-density-in-us-cities/index.en_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="lizroten.com/blog/housing-density-in-us-cities/index.en_files/datatables-binding/datatables.js"></script>
+<link href="lizroten.com/blog/housing-density-in-us-cities/index.en_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="lizroten.com/blog/housing-density-in-us-cities/index.en_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="lizroten.com/blog/housing-density-in-us-cities/index.en_files/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="lizroten.com/blog/housing-density-in-us-cities/index.en_files/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="lizroten.com/blog/housing-density-in-us-cities/index.en_files/crosstalk/js/crosstalk.min.js"></script>
+<p>Since I got back from #rstudioconf, I’ve started to warm up to the idea of sharing my code, even if it isn’t perfect. There may be typos, the blog post may be short, but sharing my work is beneficial for the greater #rstats community, and supports open-source data science.</p>
+<p>So this belated post is inspired by <a href="https://www.nytimes.com/interactive/2019/06/18/upshot/cities-across-america-question-single-family-zoning.html" target="_blank" rel="noopener">Cities Start to Question an American Ideal: A House With a Yard on Every Lot</a>, in which the NY Times examines residential zoning patterns in different cities. Residential areas are split into two categories, single-family detached homes and all other housing such as townhomes, duplexes, and apartments. This is especially relevant given the current housing shortage across the US.</p>
+<h2 id="import-data">Import data</h2>
+<p>First, lets import our packages.</p>
+<pre><code class="language-r"># spatial packages 
+library(sf)
+library(geojsonsf)
+library(rgdal)
+library(lwgeom)
+
+# data cleaning
+library(dplyr)
+library(janitor)
+library(fuzzyjoin)
+library(stringr)
+
+# plotting
+library(ggplot2)
+library(showtext)
+library(DT)
+</code></pre>
+<p>Next, lets import our data. <code>read_sf()</code> is super useful here, because it will read in an <code>sf</code> object from a link to the spatial file we want. In this case, the link comes from each city’s open data portal</p>
+<p>When you go to the data portal and find the dataset you want, right click the link to download the GeoJSON and copy the link. Then, paste it into <code>read_sf()</code> and you’re good to go! Say goodbye to massive data folders!</p>
+<p>For this post, I’ve chosen (somewhat randomly) <a href="https://data.wprdc.org/dataset/zoning1" target="_blank" rel="noopener">Pittsburgh, PA</a>, <a href="https://data.austintexas.gov/Locations-and-Maps/Land-Use-Inventory-Detailed/fj9m-h5qy" target="_blank" rel="noopener">Austin, TX</a>, and <a href="https://data.boston.gov/dataset/zoning-subdistricts" target="_blank" rel="noopener">Boston, MA</a>.</p>
+<pre><code class="language-r">pitts &lt;- read_sf(&quot;http://pghgis-pittsburghpa.opendata.arcgis.com/datasets/e67592c2904b497b83ccf876fced7979_0.geojson&quot;)
+
+boston &lt;- read_sf(&quot;http://bostonopendata-boston.opendata.arcgis.com/datasets/b601516d0af44d1c9c7695571a7dca80_0.geojson?outSR={%22latestWkid%22:2249,%22wkid%22:102686}&quot;)
+
+austin &lt;- read_sf(&quot;https://data.austintexas.gov/api/geospatial/5rzy-nm5e?method=export&amp;format=GeoJSON&quot;)
+</code></pre>
+<p>Here is the styling I’m using on the maps.</p>
+<pre><code class="language-r">showtext_auto()
+
+font_add(&quot;Lato&quot;, &quot;Lato-Regular.ttf&quot;)
+font_add(&quot;Open Sans Light&quot;, &quot;OpenSans-Light.ttf&quot;)
+font_add(&quot;PT Sans&quot;, &quot;PTSans-Regular.ttf&quot;)
+font_add(&quot;PT Serif&quot;, &quot;PTSerif-Regular.ttf&quot;)
+
+
+## font sizes --------------------------------------------
+size_header &lt;- 14*3.4
+size_subtitle &lt;- 12*3.4
+size_axis_title &lt;- 12*3.4
+size_legend_title &lt;- 12*3.4
+size_axis_text &lt;- 8*3.4
+size_legend_text &lt;- 8*3.4
+size_caption &lt;- 6*3.4
+
+## color -------------------------------------------------
+background_color &lt;- &quot;#ffffff&quot;
+
+blue &lt;- &quot;#66b2a9&quot;
+pink &lt;- &quot;#dd2292&quot;
+
+my_colors &lt;- c(
+  &quot;#9BABBF&quot;,
+  &quot;#8C694A&quot;,
+  &quot;#6C733C&quot;,
+  &quot;#D9B991&quot;
+)
+## theme function -----------------------------------------
+my_theme &lt;- function(...) {
+  theme_void() +
+    theme(
+      ### plot and panel-----------------------------------
+      plot.background = element_rect(
+        fill = background_color,
+        linetype = 0,
+        colour = NA
+      ),
+      panel.background = element_rect(
+        fill = background_color,
+        linetype = 0,
+        color = NA
+      ),
+      panel.grid = element_blank(),
+      plot.margin = margin(rep(10, 4), unit = &quot;pt&quot;),
+      panel.border = element_blank(),
+      ### title and caption -------------------------------
+      title = element_text(family = &quot;PT Serif&quot;,
+                           size = size_header),
+      plot.caption = element_text(size = size_caption),
+      # plot.caption.position = &quot;plot&quot;,
+      ### axis and strip text ------------------------------
+      strip.text = element_blank(),
+      axis.title = element_text(size = size_axis_title),
+      axis.text = element_blank(),
+      ## legend text ----------------------------------------
+      legend.text = element_text(
+        family = &quot;Open Sans Light&quot;,
+        size = size_legend_text
+      )
+      # legend.position = &quot;bottom&quot;
+    )
+}
+</code></pre>
+<h2 id="investigate-cities">Investigate cities</h2>
+<h3 id="pittsburgh">Pittsburgh</h3>
+<p>So, what are our column names?</p>
+<pre><code class="language-r">names(pitts)
+</code></pre>
+<pre><code>##  [1] &quot;objectid&quot;         &quot;area&quot;             &quot;perimeter&quot;        &quot;zoning_&quot;         
+##  [5] &quot;zoning_id&quot;        &quot;zon_new&quot;          &quot;shape_leng&quot;       &quot;correctionlabel&quot; 
+##  [9] &quot;full_zoning_type&quot; &quot;legendtype&quot;       &quot;municode&quot;         &quot;status&quot;          
+## [13] &quot;created_user&quot;     &quot;created_date&quot;     &quot;last_edited_user&quot; &quot;last_edited_date&quot;
+## [17] &quot;Shape__Area&quot;      &quot;Shape__Length&quot;    &quot;geometry&quot;
+</code></pre>
+<p>We are most interested in the “legendtype” column.</p>
+<pre><code class="language-r">unique(pitts$legendtype)
+</code></pre>
+<pre><code>##  [1] &quot;Parks&quot;                            &quot;Local Neighborhood Commercial &quot;  
+##  [3] &quot;Highway Commercial&quot;               &quot;Single-Unit Detached Residential&quot;
+##  [5] &quot;Urban Industrial&quot;                 &quot;Planned Unit Development&quot;        
+##  [7] &quot;Neighborhood Industrial&quot;          &quot;Two-Unit Residential&quot;            
+##  [9] &quot;Multi-Unit Residential&quot;           &quot;Hillside  &quot;                      
+## [11] &quot;Single-Unit Attached Residential&quot; &quot;Mount Oliver Borough&quot;            
+## [13] &quot;Three-Unit Residential&quot;           &quot;General Industrial  &quot;            
+## [15] &quot;Oakland Public Realm&quot;             &quot;Specially Planned&quot;               
+## [17] &quot;Golden Triangle &quot;                 &quot;Neighborhood Office&quot;             
+## [19] &quot;Educational/Medical Institution&quot;  &quot;Urban Neighborhood Commercial&quot;   
+## [21] &quot;Grandview Public Realm&quot;           &quot;Uptown Public Realm&quot;             
+## [23] &quot;Riverfront&quot;
+</code></pre>
+<p>These are useful descriptions! We will re-code them into three categories: single-family detached, not single-family detached, and non-residential.</p>
+<pre><code class="language-r">pitts_clean &lt;- pitts %&gt;% 
+  rowwise() %&gt;% 
+  mutate(zone_simple = if(legendtype %in% c(&quot;Single-Unit Attached Residential&quot;,
+                                            &quot;Two-Unit Residential&quot;, 
+                                            &quot;Three-Unit Residential&quot;,
+                                            &quot;Multi-Unit Residential&quot;)){
+    zone_simple = &quot;non_sfd&quot;
+  } else if (legendtype == &quot;Single-Unit Detached Residential&quot;){
+    zone_simple = &quot;sfd&quot;
+  } else {
+    zone_simple = &quot;non_res&quot;
+  }) %&gt;% 
+  st_as_sf()
+</code></pre>
+<p>Now for the map!</p>
+<p>For the caption, we can take advantage of the “last_edited_date” column and automatically put in the correct date!</p>
+<pre><code class="language-r">ggplot() +
+  geom_sf(data = pitts_clean,
+          aes(fill = zone_simple),
+          color = &quot;#C8C8C8&quot;,
+          size = 0.2,
+          alpha = 0.5) +
+  labs(title = &quot;Pittsburgh&quot;,
+       subtitle = &quot;Residential zoning&quot;,
+       fill = &quot;&quot;,
+       caption = paste(&quot;@LizRoten | City of Pittsburgh,&quot;,
+                       lubridate::year(pitts_clean$last_edited_date))) + 
+  my_theme() +
+  scale_fill_manual(values = c(&quot;whitesmoke&quot;, blue, pink),
+                    labels = c(&quot;Non-residential&quot;,
+                               &quot;Non-single family&quot;,
+                               &quot;Single family&quot;)) 
+</code></pre>
+<p><img src="lizroten.com/blog/housing-density-in-us-cities/index.en_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>This map looks like its missing something, so I’m going to add in <a href="https://data.wprdc.org/dataset/allegheny-county-hydrology-areas" target="_blank" rel="noopener">hydrology features.</a></p>
+<pre><code class="language-r"># import &quot;Allegheny County Hydrology Areas&quot; 
+
+pitt_water &lt;- read_sf(&quot;http://openac-alcogis.opendata.arcgis.com/datasets/9ff3941e47f74c609057cb60f4992852_0.geojson&quot;) %&gt;% 
+  sf::st_make_valid() %&gt;% 
+  st_intersection(sf::st_make_valid(pitts)) # instersect with city limits
+</code></pre>
+<pre><code class="language-r">ggplot() +
+  geom_sf(data = pitts_clean,
+          aes(fill = zone_simple),
+          color = &quot;#C8C8C8&quot;,
+          size = 0.2,
+          alpha = 0.5) +
+  labs(title = &quot;Pittsburgh&quot;,
+       subtitle = &quot;Residential zoning&quot;,
+       fill = &quot;&quot;,
+       caption = paste(&quot;@LizRoten | City of Pittsburgh,&quot;,
+                       format(pitts_clean$last_edited_date, &quot;%Y&quot;))) + 
+  my_theme() +
+  scale_fill_manual(values = c(&quot;whitesmoke&quot;, blue, pink),
+                    labels = c(&quot;Non-residential&quot;,
+                               &quot;Non-single family&quot;,
+                               &quot;Single family&quot;)) +
+  geom_sf(data = pitt_water,
+          fill = &quot;lightblue&quot;, 
+          color = &quot;NA&quot;)
+</code></pre>
+<p><img src="lizroten.com/blog/housing-density-in-us-cities/index.en_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<h3 id="austin">Austin</h3>
+<p>Lets look at the column names for Austin.</p>
+<pre><code class="language-r">names(austin)
+</code></pre>
+<pre><code>##  [1] &quot;created_by&quot;    &quot;shape_area&quot;    &quot;created_date&quot;  &quot;zoning_ztype&quot; 
+##  [5] &quot;objectid&quot;      &quot;shape_length&quot;  &quot;modified_by&quot;   &quot;modified_date&quot;
+##  [9] &quot;zoning_id&quot;     &quot;geometry&quot;
+</code></pre>
+<p>Next, we can look at “zoning_ztype.”</p>
+<pre><code class="language-r">head(unique(austin$zoning_ztype))
+</code></pre>
+<pre><code>## [1] &quot;P-CO&quot;       &quot;MF-3&quot;       &quot;MF-2&quot;       &quot;SF-1-NP&quot;    &quot;CS-1-CO-NP&quot;
+## [6] &quot;SF-2&quot;
+</code></pre>
+<p>YIKES. Looks like we need a data dictionary.</p>
+<p>I would love to say that I elegantly extracted the zoning codes from the <a href="http://www.austintexas.gov/page/zoning-districts" target="_blank" rel="noopener">city’s website</a>, but I ended up copying the HTML table to Excel and manipulating the columns from there. The text-to-columns tool is very useful fo instances like this. I also added codes “SF-4” and “MF,” which weren’t explicitly provided.</p>
+<pre><code class="language-r">austin_desc &lt;- read.csv(&quot;data/zoning_descriptions.csv&quot;) %&gt;% 
+  clean_names()
+
+DT::datatable(austin_desc, rownames = FALSE)
+</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","data":[["LA","SF-4B","MF-1","MF-4","MH","MF-2","GO","GR","DMU","CS-1","MI","DR","PUD","NBG","MF-5","SF-6","MF-3","MF-6","MF","NO","CR","L","W/LO","CH","LI","AV","P","ERC","SF-2","RR","SF-3","SF-5","SF-1","SF-4","LO","LR","CBD","CS","IP","R&amp;D","AG","TOD","TND","CO","NCCD","CVC","PDA","WO","MU","CURE","CDZ","CAZ","PSZ","DPZ","DCZ","SF-4A"],["Lake Austin Residence   ","Single Family Residence - Condominium ","Multi-Family Residence - Limited Density ","Multi-Family Residence - Moderate-High Density ","Mobile Home Residence   ","Multi-Family Residence - Low Density ","General Office    ","Community Commercial    ","Downtown Mixed Use   ","Commercial-Liquor Sales    ","Major Industry    ","Development Reserve    ","Planned Unit Development   ","North Burnet/Gateway District   ","Multi-Family Residence - High Density ","Townhouse &amp; Condominium Residence  ","Multi-Family Residence - Medium Density ","Multi-Family Residence - Highest Density ","Multifamily Residence","Neighborhood Office    ","Commercial Recreation    ","Lake Commercial    ","Warehouse Limited Office   ","Commercial Highway    ","Limited Industrial Services   ","Aviation Services    ","Public     ","East Riverside Corridor   ","Single Family Residence - Standard Lot","Rural Residence    ","Family Residence    ","Urban Family Residence   ","Single Family Residence - Large Lot","Single Family Residence","Limited Office    ","Neighborhood Commercial    ","Central Business District   ","General Commercial Services   ","Industrial Park    ","Research and Development   ","Agricultural     ","Transit-Oriented Development    ","Traditional Neighborhood District   ","Conditional overlay","Neighborhood Conservation Combining District ","Capitol View Corridor Combining District ","Planned Development Area Combining District","Waterfront Overlay Combining District","Mixed Use","Central Urban Redevelopment","Capitol Dominance Combining District","Congress Avenue Combining District","Sixth/Pecan Street Combining District","Downtown Parks Combining District","Downtown Creeks Combining District","Single Family Residence - Small Lot"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>code<\/th>\n      <th>description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>We are going to break up Austin into two separate datasets: one with residential zones, and the other with non-residential zones.</p>
+<p>We will join our spatial data with the code descriptions using “zoning_ztype,” then add a column for residential zoning type using <code>str_detect()</code>.</p>
+<pre><code class="language-r">austin_w_desc &lt;- left_join(austin, 
+                           austin_desc,
+                           by = c(&quot;zoning_ztype&quot; = &quot;code&quot;))
+
+austin_coded &lt;- austin_w_desc %&gt;% 
+  group_by(objectid) %&gt;% 
+  mutate(residence_zone = # detect key character sequences and add 
+           case_when(stringr::str_detect(zoning_ztype, &quot;SF&quot;) ~ &quot;Single family&quot;,
+                     stringr::str_detect(zoning_ztype, &quot;MH&quot;) ~ &quot;Non-single family&quot;,
+                     stringr::str_detect(zoning_ztype, &quot;MF&quot;) ~ &quot;Non-single family&quot;,
+                     stringr::str_detect(zoning_ztype, &quot;LA&quot;) ~ &quot;Non-single family&quot;,
+                     stringr::str_detect(zoning_ztype, &quot;RR&quot;) ~ &quot;Non-single family&quot;,
+                     TRUE ~ &quot;Non-residential&quot;))
+</code></pre>
+<p>Now, lets map it! I adjusted the fill color for non-residential zones because the scale is much smaller than Pittsburgh.</p>
+<pre><code class="language-r">ggplot()  +
+  geom_sf(data = austin_coded,
+          mapping = aes(fill = residence_zone),
+          color = NA,
+          alpha = 0.5) +
+  scale_fill_manual(values = c(&quot;snow3&quot;, blue, pink),
+                    labels = c(&quot;Non-residential&quot;,
+                               &quot;Non-single family&quot;,
+                               &quot;Single family&quot;)) +
+  labs(title = &quot;Austin&quot;,
+       subtitle = &quot;Residential zoning&quot;,
+       fill = &quot;&quot;,
+       caption = paste(&quot;@LizRoten | City of Austin,&quot;,
+                       format(austin_coded$modified_date, &quot;%Y&quot;))) +
+  my_theme()
+</code></pre>
+<p><img src="lizroten.com/blog/housing-density-in-us-cities/index.en_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<h3 id="boston">Boston</h3>
+<p>Lets check our column names.</p>
+<pre><code class="language-r">names(boston) 
+</code></pre>
+<pre><code>##  [1] &quot;OBJECTID&quot;         &quot;ZONE_&quot;            &quot;DISTRICT&quot;         &quot;MAPNO&quot;           
+##  [5] &quot;ARTICLE&quot;          &quot;SUBDISTRIC&quot;       &quot;Unique_Code&quot;      &quot;FAR&quot;             
+##  [9] &quot;Shape_STArea__&quot;   &quot;Shape_STLength__&quot; &quot;Zone_Desc&quot;        &quot;geometry&quot;
+</code></pre>
+<p>And then the “Zone_Desc” column.</p>
+<pre><code class="language-r">head(unique(boston$Zone_Desc))
+</code></pre>
+<pre><code>## [1] &quot;Community Commercial&quot;          &quot;Waterfront Manufacturing&quot;     
+## [3] &quot;Restricted Manufacturing&quot;      &quot;Neighborhood Development Area&quot;
+## [5] &quot;Local Industrial&quot;              &quot;Waterfront Commercial&quot;
+</code></pre>
+<p>HA! Sweet, sweet human-readable descriptions!</p>
+<p>To make things a little easier, we can break out the entire dataset into residential and non-residential groups, and then <code>rbind()</code> them back together.</p>
+<pre><code class="language-r">boston_res &lt;- boston %&gt;% 
+  filter(SUBDISTRIC == &quot;Residential&quot;) %&gt;% 
+  rowwise() %&gt;% 
+  mutate(category = if(Zone_Desc == &quot;One-Family Residential&quot;){
+    category = &quot;Single Family&quot;
+  } else {
+    category = &quot;Non-single family&quot;
+  }) %&gt;% 
+  st_as_sf()
+</code></pre>
+<p>Now create the non-residential and bind the two back together.</p>
+<pre><code class="language-r">boston_non_res &lt;- boston %&gt;% 
+  filter(SUBDISTRIC != &quot;Residential&quot;, 
+         SUBDISTRIC != &quot;Open Space&quot;, # remove primarily water features
+         DISTRICT != &quot;Boston Harbor&quot;,
+         DISTRICT != &quot;Harborpark: Dorchester Bay/Neponset River Waterfront&quot;) %&gt;% 
+  mutate(category = &quot;Non-residential&quot;)
+
+
+boston_all &lt;- rbind(boston_res, boston_non_res)
+</code></pre>
+<p>Finally, map!</p>
+<pre><code class="language-r">ggplot()  +
+  geom_sf(data = boston_all,
+          mapping = aes(fill = category),
+          color = &quot;#c8c8c8&quot;,
+          size = 0.1, 
+          alpha = 0.5) +
+  scale_fill_manual(values = c(&quot;snow3&quot;, blue, pink),
+                    labels = c(&quot;Non-residential&quot;,
+                               &quot;Non-single family&quot;,
+                               &quot;Single family&quot;)) +
+  labs(title = &quot;Boston&quot;,
+       subtitle = &quot;Residential zoning&quot;,
+       fill = &quot;&quot;,
+       caption = &quot;@LizRoten | City of Boston, 2020&quot;) +
+  my_theme()
+</code></pre>
+<p><img src="lizroten.com/blog/housing-density-in-us-cities/index.en_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+
+            </div>
+              
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="lizroten.com/tag/ggplot2/">ggplot2</a>
+  
+  <a class="badge badge-light" href="lizroten.com/tag/tutorial/">tutorial</a>
+  
+  <a class="badge badge-light" href="lizroten.com/tag/spatial/">spatial</a>
+  
+  <a class="badge badge-light" href="lizroten.com/tag/maps/">maps</a>
+  
+  <a class="badge badge-light" href="lizroten.com/tag/sf/">sf</a>
+  
+  <a class="badge badge-light" href="lizroten.com/tag/r-markdown/">R Markdown</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=lizroten.com/blog/housing-density-in-us-cities/&amp;text=Housing%20Density%20in%20US%20Cities" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=lizroten.com/blog/housing-density-in-us-cities/&amp;t=Housing%20Density%20in%20US%20Cities" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Housing%20Density%20in%20US%20Cities&amp;body=lizroten.com/blog/housing-density-in-us-cities/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=lizroten.com/blog/housing-density-in-us-cities/&amp;title=Housing%20Density%20in%20US%20Cities" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="lizroten.com/"><img class="avatar mr-3 avatar-circle" src="/lizroten.com/author/liz-roten/avatar_huf68b575c4c99e0c923dd46889fc37e3e_342912_270x270_fill_q100_lanczos_center.jpg" alt="Liz Roten"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="lizroten.com/">Liz Roten</a></h5>
+      <h6 class="card-subtitle">Data Scientist &amp; Cartographer</h6>
+      <p class="card-text">My favorite food is eggplant.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/lizroten.com/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/LizRoten" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/eroten" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/eroten" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+<section id="comments">
+  
+    
+
+  
+</section>
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="lizroten.com/blog/fisk-s-mississippi-river-meander-in-r/">Fisk&#39;s &#39;Mississippi River Meander&#39; in R</a></li>
+      
+      <li><a href="lizroten.com/blog/bowflex-c6-to-peloton-resistance-conversion-plots/">Converting Peloton resistance to Bowflex C6 resistance</a></li>
+      
+      <li><a href="lizroten.com/blog/maps-with-edgebundle/">Maps with {edgebundle}</a></li>
+      
+      <li><a href="lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/">Finding the perfect sock pattern with {ravelRy}</a></li>
+      
+      <li><a href="lizroten.com/blog/3-years-of-mental-health-a-quantified-self-story/">3 Years of Mental Health: A quantified-self story</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+            </div>
+              </article>
+              
+            </main>
+              </div>
+              </div>
+              
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.8.0/mermaid.min.js" integrity="sha512-ja+hSBi4JDtjSqc4LTBsSwuBT3tdZ3oKYKd07lTVYmCnTCor56AnRql00ssqnTOR9Ss4gOP/ROGB3SfcJnZkeg==" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/css.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/javascript.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/markdown.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/lizroten.com/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-algolia-template" type="text/html">
+      <div class="search-hit">
+        <div class="search-hit-content">
+          <div class="search-hit-name">
+            <a href="{{relpermalink}}">{{{_highlightResult.title.value}}}</a>
+          </div>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{{_highlightResult.summary.value}}}</p>
+        </div>
+      </div>
+    </script>
+    
+
+    
+    
+
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/2.10.2/instantsearch.min.js" integrity="sha256-gFCtPk/sonctyfwYOgjrPoWApQ0rqB6ezBBZ7p32yGc=" crossorigin="anonymous"></script>
+    
+    <script>
+      const algoliaConfig = {
+        appId: "",
+        apiKey: "",
+        indexName: "",
+        poweredBy:  false 
+      };
+    </script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/lizroten.com/js/wowchemy.min.2cf22daa889b9efca253cd7525f6d0a4.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Liz Roten 2021
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    Published with
+    <a href="https://wowchemy.com" target="_blank" rel="noopener">Wowchemy</a>  —
+    the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">
+    open source</a> website builder that empowers creators.
+    
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
