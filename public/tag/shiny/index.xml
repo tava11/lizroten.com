@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Shiny | Liz Roten</title>
+    <title>shiny | Liz Roten</title>
     <link>lizroten.com/tag/shiny/</link>
       <atom:link href="lizroten.com/tag/shiny/index.xml" rel="self" type="application/rss+xml" />
-    <description>Shiny</description>
+    <description>shiny</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Fri, 05 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_512x512_fill_lanczos_center_2.png</url>
-      <title>Shiny</title>
+      <title>shiny</title>
       <link>lizroten.com/tag/shiny/</link>
     </image>
     
@@ -151,19 +151,6 @@
 &lt;p&gt;&lt;a href=&#34;https://metrocouncil.org/Transportation/Planning-2/Transit-Plans,-Studies-Reports/Highways-Roads/COVID-19.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Official news release&lt;/a&gt;&lt;br&gt;
 &lt;a href=&#34;https://metrotransitmn.shinyapps.io/covid-traffic-trends/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Live app site (updated regularly)&lt;/a&gt;&lt;br&gt;
 &lt;a href=&#34;https://github.com/Metropolitan-Council/loop-sensor-trends&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub repository&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>3 Years of Mental Health: A quantified-self story</title>
-      <link>lizroten.com/blog/3-years-of-mental-health-a-quantified-self-story/</link>
-      <pubDate>Mon, 30 Oct 2017 00:00:00 +0000</pubDate>
-      <guid>lizroten.com/blog/3-years-of-mental-health-a-quantified-self-story/</guid>
-      <description>&lt;h2 id=&#34;about-the-process&#34;&gt;About the Process&lt;/h2&gt;
-&lt;p&gt;I use &lt;a href=&#34;https://emoodtracker.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;eMoods&lt;/a&gt; to track my mental health from day to day. For this viz, I used eMoods data, as well as my Google Location History data, to display my life between February 2015 and October 2017. I used ggplot2 in R Studio to generate the radial bar charts on the far rights, and Adobe Illustrator to construct the bar graphs in the bottom left corner. For the heatmaps, I first attempted to use ArcGIS to view data I downloaded from my Google account directly but quickly found that software to be limiting for the goals of this project  I forked and modified &lt;a href=&#34;https://locationhistoryvisualizer.com/heatmap/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Location History Visualizer&lt;/a&gt; using JavaScript, HTML, and CSS to use my own color scheme and preferred base map.  I assembled the images in Adobe Illustrator and presented this work for my class.&lt;/p&gt;
-&lt;p&gt;I worked with geospatial data in formats I was unfamiliar with, such as KML, JSON, and tar.gz zipped files. I also had no prior experience in Adobe Illustrator, JavaScript, HTML, and CSS. This piece not only demonstrates my skill in these areas but also my persistence and commitment to telling my story.&lt;/p&gt;
-&lt;p&gt;During my Spring 2018 independent project, I also used R Shiny to take a simple, interactive look at the polar coordinate bar graphs. You can see this app on its own &lt;a href=&#34;https://eroten.shinyapps.io/independentFP&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; and the updated version &lt;a href=&#34;https://eroten.shinyapps.io/01_shiny/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;iframe src=&#34;https://eroten.shinyapps.io/independentFP/&#34; width=&#34;100%&#34; height=&#34;650&#34; style=&#34;border-color: transparent;&#34;&gt;&lt;/iframe&gt;&lt;br /&gt;&lt;/p&gt;
 </description>
     </item>
     
