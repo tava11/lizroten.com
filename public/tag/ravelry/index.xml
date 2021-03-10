@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ravelry | Liz Roten</title>
+    <link>lizroten.com/tag/ravelry/</link>
+      <atom:link href="lizroten.com/tag/ravelry/index.xml" rel="self" type="application/rss+xml" />
+    <description>ravelry</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Wed, 08 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_512x512_fill_lanczos_center_2.png</url>
+      <title>ravelry</title>
+      <link>lizroten.com/tag/ravelry/</link>
+    </image>
+    
+    <item>
+      <title>Finding the perfect sock pattern with {ravelRy}</title>
+      <link>lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/</link>
+      <pubDate>Wed, 08 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/</guid>
+      <description>&lt;p&gt;I am a knitter. Knitting is a calming, fulfilling practice that keep my hands busy and require &lt;em&gt;just&lt;/em&gt; enough brain power to keep my mind from wandering too far. Over the past winter, I conquered my fear of making socks, and now I profess that I am a sock knitter. I made socks for Christmas gifts, and churned out four pairs during my evenings, bus commutes, long work meetings, lectures, coffee and tea shop visits (basically everywhere). I&amp;rsquo;m comfortable with the standard stockinette sock, and I even ventured out into other patterns from Ravelry (&lt;em&gt;the&lt;/em&gt; social medium for yarn folks), like &lt;a href=&#34;https://www.ravelry.com/patterns/library/hermiones-everyday-socks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hermione&amp;rsquo;s Everyday Socks&lt;/a&gt; and the &lt;a href=&#34;https://www.ravelry.com/patterns/library/slip-it-simple-sock&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Slip It Simple Socks&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;But, even as the weather is warming here in Minnesota, working from home means that I don&amp;rsquo;t have a commute and COVID-19 means that I have plenty of spare angst, so I&amp;rsquo;ve decided to make a new pair of socks, and work with a new pattern.&lt;/p&gt;
+&lt;p&gt;And, just when I was starting to glaze over scrolling through endless Ravelry pages and reviews, I found &lt;a href=&#34;https://github.com/walkerkq/ravelRy&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ravelRy&lt;/a&gt;, an R package that interfaces seamlessly with Ravelry&amp;rsquo;s &lt;a href=&#34;https://www.ravelry.com/api&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;API&lt;/a&gt;. And its even on CRAN!&lt;/p&gt;
+&lt;p&gt;Lets install, and get going!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;ravelRy&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(ravelRy)
+library(tidyverse)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;authentication&#34;&gt;Authentication&lt;/h2&gt;
+&lt;p&gt;As with most APIs, you need to authenticate somehow. I&amp;rsquo;ll use my Ravelry account credentials (you&amp;rsquo;ll need a &lt;a href=&#34;https://www.ravelry.com/pro/developer&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;free, pro account&lt;/a&gt; to access the API).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ravelRy::ravelry_auth(key = &amp;quot;username&amp;quot;)
+ravelRy::ravelry_auth(key = &amp;quot;password&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;search-for-a-sock-pattern&#34;&gt;Search for a sock pattern!&lt;/h2&gt;
+&lt;p&gt;Lets start simple, and just look for the first 20 results for &amp;ldquo;sock&amp;rdquo; that are available as a Ravelry download.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;search_result &amp;lt;- search_patterns(
+  query = &amp;quot;sock&amp;quot;,
+  page_size = 20,
+  craft = &amp;quot;knitting&amp;quot;, # knitting or crochet
+  fit = &amp;quot;adult&amp;quot;, # adult, baby, etc.
+  ravelry_download = TRUE
+)
+
+head(search_result)
+#&amp;gt; # A tibble: 6 x 7
+#&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
+#&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
+#&amp;gt; 1 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  &amp;lt;df[,59] [2 x ~
+#&amp;gt; 2 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       &amp;lt;df[,59] [2 x ~
+#&amp;gt; 3 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ &amp;lt;df[,59] [2 x ~
+#&amp;gt; 4 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
+#&amp;gt; 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
+#&amp;gt; 6 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The fourth result is even my old friend, &amp;ldquo;Hermione&amp;rsquo;s Everyday Socks!&amp;rdquo;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;search_result[4, ] # get the fourth row in the table
+#&amp;gt; # A tibble: 1 x 7
+#&amp;gt;   free      id name      permalink designer.id designer.name pattern_sources   
+#&amp;gt;   &amp;lt;lgl&amp;gt;  &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;           &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;list&amp;gt;            
+#&amp;gt; 1 TRUE  891114 Rye Light rye-light       45502 tincanknits   &amp;lt;df[,59] [3 x 59]&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets take a look at the actual pattern from the search results using &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hermione &amp;lt;- get_patterns(ids = search_result[4, ]$id)
+str(hermione, max.level = 2)
+#&amp;gt; tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
+#&amp;gt;  $ comments_count         : int 55
+#&amp;gt;  $ created_at             : chr &amp;quot;2019/01/01 08:11:00 -0500&amp;quot;
+#&amp;gt;  $ currency               : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ difficulty_average     : num 2.42
+#&amp;gt;  $ difficulty_count       : int 770
+#&amp;gt;  $ downloadable           : logi TRUE
+#&amp;gt;  $ favorites_count        : int 14945
+#&amp;gt;  $ free                   : logi TRUE
+#&amp;gt;  $ gauge                  : num 32
+#&amp;gt;  $ gauge_divisor          : int 4
+#&amp;gt;  $ gauge_pattern          : chr &amp;quot;stockinette stitch with larger needles&amp;quot;
+#&amp;gt;  $ generally_available    : chr &amp;quot;2018/12/01 00:00:00 -0500&amp;quot;
+#&amp;gt;  $ id                     : int 891114
+#&amp;gt;  $ name                   : chr &amp;quot;Rye Light&amp;quot;
+#&amp;gt;  $ pdf_url                : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ permalink              : chr &amp;quot;rye-light&amp;quot;
+#&amp;gt;  $ price                  : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ projects_count         : int 3550
+#&amp;gt;  $ published              : chr &amp;quot;2018/12/01&amp;quot;
+#&amp;gt;  $ queued_projects_count  : int 2126
+#&amp;gt;  $ rating_average         : num 4.81
+#&amp;gt;  $ rating_count           : int 795
+#&amp;gt;  $ row_gauge              : num 46
+#&amp;gt;  $ updated_at             : chr &amp;quot;2020/08/18 17:29:12 -0400&amp;quot;
+#&amp;gt;  $ url                    : chr &amp;quot;http://tincanknits.com/pattern-SC-ryelight.html&amp;quot;
+#&amp;gt;  $ yardage                : int 120
+#&amp;gt;  $ yardage_max            : int 480
+#&amp;gt;  $ personal_attributes    : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ sizes_available        : chr &amp;quot;Baby (Toddler, Child, Adult S, M, L)&amp;quot;
+#&amp;gt;  $ product_id             : int 504649
+#&amp;gt;  $ currency_symbol        : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ ravelry_download       : logi TRUE
+#&amp;gt;  $ download_location      :List of 1
+#&amp;gt;  $ pdf_in_library         : logi FALSE
+#&amp;gt;  $ volumes_in_library     : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ gauge_description      : chr &amp;quot;32 stitches and 46 rows = 4 inches in stockinette stitch with larger needles&amp;quot;
+#&amp;gt;  $ yarn_weight_description: chr &amp;quot;Fingering (14 wpi)&amp;quot;
+#&amp;gt;  $ yardage_description    : chr &amp;quot;120 - 480 yards&amp;quot;
+#&amp;gt;  $ pattern_needle_sizes   :List of 1
+#&amp;gt;  $ notes_html             : chr &amp;quot;&amp;lt;hr /&amp;gt;&amp;lt;hr /&amp;gt;\n&amp;lt;h1 id=\&amp;quot;rye_light__by_tin_can_knits\&amp;quot;&amp;gt;&amp;lt;strong&amp;gt;Rye Light&amp;lt;/strong&amp;gt; - by Tin Can Knits&amp;lt;/h1&amp;gt;\n&amp;lt;hr /&amp;gt;&amp;quot;| __truncated__
+#&amp;gt;  $ notes                  : chr &amp;quot;--------------------------------------------------------\r\n---------------------------------------------------&amp;quot;| __truncated__
+#&amp;gt;  $ packs                  :List of 1
+#&amp;gt;  $ printings              :List of 1
+#&amp;gt;  $ yarn_weight            :List of 1
+#&amp;gt;  $ craft                  :List of 1
+#&amp;gt;  $ pattern_categories     :List of 1
+#&amp;gt;  $ pattern_attributes     :List of 1
+#&amp;gt;  $ pattern_author         :List of 1
+#&amp;gt;  $ photos                 :List of 1
+#&amp;gt;  $ pattern_type           :List of 1
+str(hermione$pattern_attributes)
+#&amp;gt; List of 1
+#&amp;gt;  $ : tibble [16 x 2] (S3: tbl_df/tbl/data.frame)
+#&amp;gt;   ..$ id       : int [1:16] 3 4 7 8 9 10 23 26 64 70 ...
+#&amp;gt;   ..$ permalink: chr [1:16] &amp;quot;unisex&amp;quot; &amp;quot;baby&amp;quot; &amp;quot;toddler&amp;quot; &amp;quot;child&amp;quot; ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hermione$difficulty_count # how many reviews rated a difficulty?
+#&amp;gt; [1] 770
+hermione$difficulty_average # what is the average difficulty?
+#&amp;gt; [1] 2.420779
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;slip_it_search &amp;lt;- search_patterns(query = &amp;quot;slip it simple sock&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, take the &lt;code&gt;id&lt;/code&gt; column and feed it into  &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;slip_it &amp;lt;- get_patterns(ids = slip_it_search$id)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What is our difficulty?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;slip_it$difficulty_count
+#&amp;gt; [1] 71
+slip_it$difficulty_average
+#&amp;gt; [1] 2.084507
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are fewer reviews, but the difficulty is super low.&lt;/p&gt;
+&lt;h2 id=&#34;refining-our-search&#34;&gt;Refining our search&lt;/h2&gt;
+&lt;p&gt;We can use the pattern table for &lt;code&gt;hermione&lt;/code&gt; and &lt;code&gt;slip_it&lt;/code&gt; to narrow our search further.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(search_patterns(
+  query = &amp;quot;sock&amp;quot;,
+  page_size = 20,
+  craft = &amp;quot;knitting&amp;quot;, # knitting or crochet
+  fit = &amp;quot;adult&amp;quot;, # adult, baby, etc.
+  ravelry_download = TRUE,
+  pattern_needle_sizes = 1,
+  weight = &amp;quot;fingering&amp;quot;, # yarn weight
+  type = &amp;quot;sock&amp;quot;,
+  colors = 1
+))
+...
+#&amp;gt; # A tibble: 6 x 7
+#&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
+#&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
+#&amp;gt; 1 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  &amp;lt;df[,59] [2 x ~
+#&amp;gt; 2 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       &amp;lt;df[,59] [2 x ~
+#&amp;gt; 3 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ &amp;lt;df[,59] [2 x ~
+#&amp;gt; 4 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
+#&amp;gt; 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Another trick is to go look at the URL when I am searching on Ravelry itself. This gives me an idea of what search terms I can add to &lt;code&gt;search_patterns()&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;refined_search &amp;lt;- search_patterns(
+  query = &amp;quot;socks&amp;quot;,
+  pc = &amp;quot;mid-calf&amp;quot;,
+  page_size = 100,
+  craft = &amp;quot;knitting&amp;quot;, # knitting or crochet
+  # fit = &amp;quot;adult&amp;quot;, # adult, baby, etc.
+  ravelry_download = TRUE,
+  pattern_needle_sizes = 1,
+  weight = &amp;quot;fingering&amp;quot;, # yarn weight
+  type = &amp;quot;sock&amp;quot;,
+  colors = 1,
+  diff = &amp;quot;3.5%7C8&amp;quot;,
+  language = &amp;quot;en&amp;quot;,
+  sort = &amp;quot;projects&amp;quot;,
+  photo = &amp;quot;yes&amp;quot;
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;review-refined-search-results&#34;&gt;Review refined search results&lt;/h2&gt;
+&lt;p&gt;Now that I&amp;rsquo;ve picked out 100 patterns to consider/make fun plots with, lets review them in more detail.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;refined_patterns &amp;lt;- get_patterns(ids = refined_search$id) # this might take a while
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To start plotting, I will import my theme and &lt;a href=&#34;https://github.com/EdwinTh/dutchmasters&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{dutchmasters}&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;source(&amp;quot;my_sock_theme.R&amp;quot;)
+library(dutchmasters)
+ggplot() +
+  geom_density(refined_patterns,
+    mapping = aes(
+      x = comments_count,
+      fill = free
+    ),
+    alpha = 0.7,
+    color = &amp;quot;gray&amp;quot;
+  ) +
+  dutchmasters::scale_fill_dutchmasters(palette = &amp;quot;pearl_earring&amp;quot;) +
+  labs(
+    title = &amp;quot;Pattern Comment Density&amp;quot;,
+    x = &amp;quot;Comment count&amp;quot;,
+    y = &amp;quot;Density&amp;quot;,
+    caption = my_caption
+  ) +
+  my_theme()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/comment_density-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Next, we&amp;rsquo;ll make a density plot series comparing the average difficulty rating for each pattern attribute (check out &lt;a href=&#34;https://github.com/walkerkq/ravelRy/blob/master/man/example_files/example_eda.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this example&lt;/a&gt; for this plot&amp;rsquo;s inspiration).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;pattern_details_attributes &amp;lt;- refined_patterns %&amp;gt;%
+  unnest(cols = &amp;quot;pattern_attributes&amp;quot;, names_sep = &amp;quot;_&amp;quot;)
+
+
+top_attributes &amp;lt;- pattern_details_attributes %&amp;gt;%
+  filter(difficulty_count &amp;gt;= 20) %&amp;gt;%
+  count(pattern_attributes_permalink) %&amp;gt;%
+  filter(n &amp;gt;= 20)
+
+attributes_long &amp;lt;- pattern_details_attributes %&amp;gt;%
+  filter(pattern_attributes_permalink %in% top_attributes$pattern_attributes_permalink) %&amp;gt;%
+  mutate(pattern_attributes_permalink = stringr::str_to_title(pattern_attributes_permalink)) %&amp;gt;% 
+  select(id, pattern_attributes_permalink, difficulty_average, rating_average)
+
+plot_diff_by_att &amp;lt;- attributes_long %&amp;gt;%
+  ggplot() +
+  geom_density(aes(x = difficulty_average),
+    fill = dutchmasters::dutchmasters$pearl_earring[4],
+    color = &amp;quot;gray&amp;quot;,
+    outline.type = &amp;quot;full&amp;quot;
+  ) +
+  facet_grid(reorder(
+    pattern_attributes_permalink,
+    difficulty_average, median
+  ) ~ .,
+  switch = &amp;quot;y&amp;quot;, scales = &amp;quot;free_y&amp;quot;
+  ) +
+  scale_x_continuous(limits = c(2, 7)) +
+  labs(
+    title = &amp;quot;Average difficulty rating by pattern attribute&amp;quot;,
+    # subtitle = &amp;quot;Sock knitting patterns&amp;quot;,
+    y = &amp;quot;&amp;quot;, x = &amp;quot;Average difficulty&amp;quot;,
+        caption = my_caption
+
+  ) +
+  my_theme() +
+  theme(
+    panel.spacing.y = unit(0, &amp;quot;lines&amp;quot;),
+    panel.grid = element_blank(),
+    panel.grid.major.y = element_blank(),
+    strip.text.y.left = element_text(angle = 0),
+    strip.background = element_rect(fill = NA, color = NA),
+    axis.text.y = element_blank())
+
+plot_diff_by_att
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/plot_difficulty_by_attribute-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;narrow-down-results&#34;&gt;Narrow down results&lt;/h2&gt;
+&lt;p&gt;I want to use a pattern with high ratings and a high number of projects. What do these distributions look like?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(cowplot)
+
+project_count &amp;lt;- ggplot(data = refined_patterns) +
+  geom_density(
+    mapping = aes(x = projects_count),
+    fill = dutchmasters::dutchmasters$pearl_earring[2],
+    alpha = 0.8,
+    color = &amp;quot;gray&amp;quot;
+  ) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = &amp;quot;Project Count&amp;quot;,
+    x = &amp;quot;Projects&amp;quot;,
+    y = &amp;quot;&amp;quot;
+  ) +
+  my_theme()
+
+rating_count &amp;lt;- ggplot(data = refined_patterns) +
+  geom_density(
+    mapping = aes(x = rating_count),
+    fill = dutchmasters::dutchmasters$pearl_earring[3],
+    alpha = 0.8,
+    color = &amp;quot;gray&amp;quot;
+  ) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = &amp;quot;Rating Count&amp;quot;,
+    x = &amp;quot;Ratings&amp;quot;,
+    y = &amp;quot;&amp;quot;,
+        caption = my_caption
+
+  ) +
+  my_theme()
+
+
+cowplot::plot_grid(project_count, rating_count)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;It looks like there is a big drop-off around 1,000 project and 500 ratings.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;project_rating_patterns &amp;lt;- refined_patterns %&amp;gt;%
+  filter(
+    projects_count &amp;gt;= 1000,
+    rating_count &amp;gt;= 500
+  )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That &lt;code&gt;filter()&lt;/code&gt; took us from 100 patterns to 11. Progress!&lt;/p&gt;
+&lt;p&gt;Now, lets look at the ratings and difficulty. We will also separate these out by availability.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot(project_rating_patterns) +
+  geom_point(
+    mapping = aes(
+      x = difficulty_average,
+      y = rating_average,
+      color = free
+    ),
+    size = 4
+  ) +
+  dutchmasters::scale_color_dutchmasters(palette = &amp;quot;pearl_earring&amp;quot;) +
+  labs(
+    title = &amp;quot;Average Rating and Average Difficulty&amp;quot;,
+    x = &amp;quot;Average difficulty&amp;quot;,
+    y = &amp;quot;Average Rating&amp;quot;,
+    caption = my_caption
+  ) +
+  my_theme()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/average_rating_avg_difficulty-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Nothing too informative here. What are the top pattern attributes?&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;project_rating_patterns %&amp;gt;%
+  unnest(cols = &amp;quot;pattern_attributes&amp;quot;, names_sep = &amp;quot;_&amp;quot;) %&amp;gt;%
+  count(pattern_attributes_permalink) %&amp;gt;%
+  filter(n &amp;gt; 5) %&amp;gt;%
+  arrange(desc(n)) %&amp;gt;%
+  ggplot() +
+  geom_col(aes(
+    x = pattern_attributes_permalink,
+    y = n
+  ),
+  fill = dutchmasters::dutchmasters$pearl_earring[9]
+  ) +
+  labs(
+    title = &amp;quot;Top pattern attributes&amp;quot;,
+    x = &amp;quot;Pattern attribute&amp;quot;,
+    y = &amp;quot;&amp;quot;,
+    caption = my_caption
+
+  ) +
+  my_theme()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/top-pattern-attributes-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Another thing that makes patterns easy to follow is if they are downloadable (as opposed to linked to another web page). Lets &lt;code&gt;filter()&lt;/code&gt; for that, and have a difficulty at least above 4.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter(
+  project_rating_patterns, downloadable == TRUE,
+  difficulty_average &amp;gt;= 4
+) %&amp;gt;%
+  arrange(-rating_average)
+...
+#&amp;gt;   comments_count                created_at currency difficulty_average
+#&amp;gt; 1              8 2010/10/25 09:23:15 -0400      USD           4.252446
+#&amp;gt; 2             27 2007/01/12 00:51:53 -0500      USD           4.903895
+#&amp;gt; 3            131 2010/02/11 12:07:46 -0500                    4.434030
+#&amp;gt; 4             22 2007/09/07 11:54:33 -0400                    4.520376
+#&amp;gt;   difficulty_count downloadable favorites_count  free gauge gauge_divisor
+#&amp;gt; 1              511         TRUE            4027 FALSE    32             4
+#&amp;gt; 2             2362         TRUE           11155  TRUE     8             1
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;fetch-images&#34;&gt;Fetch images&lt;/h2&gt;
+&lt;p&gt;Now that we only have four left, lets fetch the images!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;photo_links &amp;lt;- filter(
+  project_rating_patterns, downloadable == TRUE,
+  difficulty_average &amp;gt;= 4
+) %&amp;gt;%
+  unnest(cols = photos, names_sep = &amp;quot;_&amp;quot;) %&amp;gt;%
+  filter(photos_sort_order == 4) %&amp;gt;%
+  select(id, name, photos_medium_url)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, we will use &lt;a href=&#34;https://github.com/dahtah/imager&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;{imager}&lt;/code&gt;&lt;/a&gt; to fetch the data and plot it.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(imager)
+photo_links$name
+#&amp;gt; [1] &amp;quot;Pointelle&amp;quot;   &amp;quot;Firestarter&amp;quot; &amp;quot;Pomatomus&amp;quot;   &amp;quot;Skew&amp;quot;
+
+map(photo_links$photos_medium_url, load.image) %&amp;gt;%
+  map(plot, axes = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/images-1.png&#34; width=&#34;672&#34; /&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/images-2.png&#34; width=&#34;672&#34; /&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/images-3.png&#34; width=&#34;672&#34; /&gt;&lt;img src=&#34;lizroten.com/blog/finding-the-perfect-sock-pattern-with-ravelry/index_files/figure-html/images-4.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; [[1]]
+#&amp;gt; Image. Width: 425 pix Height: 500 pix Depth: 1 Colour channels: 3 
+#&amp;gt; 
+#&amp;gt; [[2]]
+#&amp;gt; Image. Width: 500 pix Height: 381 pix Depth: 1 Colour channels: 3 
+#&amp;gt; 
+#&amp;gt; [[3]]
+#&amp;gt; Image. Width: 500 pix Height: 500 pix Depth: 1 Colour channels: 3 
+#&amp;gt; 
+#&amp;gt; [[4]]
+#&amp;gt; Image. Width: 348 pix Height: 500 pix Depth: 1 Colour channels: 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;and-the-winner-is&#34;&gt;And the winner is&amp;hellip;.&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ravelry.com/patterns/library/pomatomus&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Pomatomus&lt;/a&gt;! I mean, look at those gorgeous waves!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://images4-f.ravelrycache.com/uploads/GoldenIris/304984815/webp/DSC_0135_medium2.webp#jpg&#34; alt=&#34;Pomatomus socks from the front&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I have a lovely merino/nylon blend by &lt;a href=&#34;https://www.instagram.com/sunvalleyfibers/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sun Valley Fibers&lt;/a&gt; waiting for me. I hope you enjoyed this little journey!&lt;/p&gt;
+&lt;h2 id=&#34;credits&#34;&gt;Credits&lt;/h2&gt;
+&lt;p&gt;I followed along &lt;a href=&#34;https://github.com/walkerkq/ravelRy/blob/master/man/example_files/example_eda.md&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this example&lt;/a&gt; by the ravelRy package author, &lt;a href=&#34;https://www.kaylinpavlik.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Kaylin Pavlik&lt;/a&gt;. I used colors from &lt;a href=&#34;https://edwinth.github.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Edwin Thoen&lt;/a&gt;&amp;rsquo;s R package,  &lt;a href=&#34;https://github.com/EdwinTh/dutchmasters&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dutchmasters&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

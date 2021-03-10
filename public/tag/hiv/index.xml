@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HIV | Liz Roten</title>
+    <link>lizroten.com/tag/hiv/</link>
+      <atom:link href="lizroten.com/tag/hiv/index.xml" rel="self" type="application/rss+xml" />
+    <description>HIV</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Thu, 09 Nov 2017 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/lizroten.com/images/icon_hu60df135bf842dc5418bf3059ce11d10e_23219_512x512_fill_lanczos_center_2.png</url>
+      <title>HIV</title>
+      <link>lizroten.com/tag/hiv/</link>
+    </image>
+    
+    <item>
+      <title>HIV and African American Populations in the US</title>
+      <link>lizroten.com/blog/hiv-and-african-american-populations-in-the-us/</link>
+      <pubDate>Thu, 09 Nov 2017 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/blog/hiv-and-african-american-populations-in-the-us/</guid>
+      <description>&lt;p&gt;A map I made during my time at Macalester College.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
