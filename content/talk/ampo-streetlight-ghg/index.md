@@ -1,7 +1,7 @@
 ---
 title: Using location-based services data for calculating the transportation greenhouse gas emissions of communities in Minnesota's Metropolitan Region
-event: AMPO 2020
-event_url: https://ampo.org/events/2020-ampo-annual-conference/
+event: Multiple
+# event_url: https://ampo.org/events/2020-ampo-annual-conference/
 
 # date: "2020-10-281T13:00:00Z"
 
@@ -24,7 +24,7 @@ tags: ["Metropolitan Council", "StreetLight Data", "Climate", "Conference"]
 featured: true
 
 image:
-  caption: 'Liz Roten for Metropolitan Council, 2019'
+  caption: 'Liz Roten for Metropolitan Council, 2021'
   focal_point: Smart
 
 links:
@@ -54,3 +54,11 @@ projects: ["greenhouse-gas-inventory"]
 # Enable math on this page?
 math: false
 ---
+
+## Conferences  
+
+We've had the pleasure of presenting this project at multiple conferences. See the list below.  
+
+- [AMPO 2020 (October 2020)](https://ampo.org/events/2020-ampo-annual-conference/)  
+- [Minnesota's Transportation Conference (March 2021)](https://ccaps.umn.edu/mn-transportation-conference)  
+
