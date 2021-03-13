@@ -1,0 +1,11 @@
+# Font style metadata
+name = "Liz"
+
+# Optional Google font URL
+google_fonts = "family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Roboto+Mono&family=Poppins:wght@300;700&family=Nunito"
+
+# Font families
+heading_font = "Cormorant Garamond"
+body_font = "Nunito"
+nav_font = "Poppins"
+mono_font = "Roboto Mono"

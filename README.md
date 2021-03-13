@@ -3,3 +3,18 @@
 
 
 Whoop-de-doo a new website!  
+
+
+## Relevant resources  
+
+- [7 Ways You Can Further Customize the Hugo Academic Theme by Isabella Benabaye](https://isabella-b.com/blog/hugo-academic-customization/)  
+- [Connor Rothschild's blog GH](https://github.com/connorrothschild/v2)
+- [Alison Presmanes Hill website GH](https://github.com/rbind/apreshill)
+
+### Neat blogdown sites  
+- [Jason Lengstorf](https://www.jason.af/)  
+- [Silvia P. Canelón](https://silvia.rbind.io/)
+  - Really love the blue/yellow color scheme
+- [DESIRÉE DE LEON](https://desiree.rbind.io/)  
+  - So clean, so classy
+- 

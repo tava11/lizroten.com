@@ -1,0 +1,31 @@
+# Theme metadata
+name = "Liz"
+
+# Is theme light or dark?
+light = true
+
+# Primary
+primary = "#19535F"
+
+# Menu
+menu_primary = "#F0F3F5"
+menu_text = "#34495e"
+menu_text_active = "#994636"
+menu_title = "#2b2b2b"
+
+# Home sections
+home_section_odd = "rgb(255, 255, 255)"
+home_section_even = "#F1DEDE"
+
+link = "#19535F"
+link_hover = "#994636"
+
+[dark]
+link = "#19535F"
+link_hover = "#994636"
+
+# #19535F # midnight eagle green
+# #f0f3f5 # Cultured
+# #7B2D26 # falu red
+# #F1DEDE # misty rose
+# #80727B # old lavender

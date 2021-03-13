@@ -645,9 +645,9 @@ head(search_result)
 #&amp;gt; # A tibble: 6 x 7
 #&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
 #&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
-#&amp;gt; 1 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  &amp;lt;df[,59] [2 x ~
-#&amp;gt; 2 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       &amp;lt;df[,59] [2 x ~
-#&amp;gt; 3 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ &amp;lt;df[,59] [2 x ~
+#&amp;gt; 1 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ &amp;lt;df[,59] [2 x ~
+#&amp;gt; 2 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  &amp;lt;df[,59] [2 x ~
+#&amp;gt; 3 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       &amp;lt;df[,59] [2 x ~
 #&amp;gt; 4 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
 #&amp;gt; 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
 #&amp;gt; 6 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ &amp;lt;df[,59] [1 x ~
@@ -667,9 +667,9 @@ str(hermione, max.level = 2)
 #&amp;gt;  $ created_at             : chr &amp;quot;2019/01/01 08:11:00 -0500&amp;quot;
 #&amp;gt;  $ currency               : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ difficulty_average     : num 2.42
-#&amp;gt;  $ difficulty_count       : int 770
+#&amp;gt;  $ difficulty_count       : int 771
 #&amp;gt;  $ downloadable           : logi TRUE
-#&amp;gt;  $ favorites_count        : int 14945
+#&amp;gt;  $ favorites_count        : int 14997
 #&amp;gt;  $ free                   : logi TRUE
 #&amp;gt;  $ gauge                  : num 32
 #&amp;gt;  $ gauge_divisor          : int 4
@@ -680,11 +680,11 @@ str(hermione, max.level = 2)
 #&amp;gt;  $ pdf_url                : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ permalink              : chr &amp;quot;rye-light&amp;quot;
 #&amp;gt;  $ price                  : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ projects_count         : int 3550
+#&amp;gt;  $ projects_count         : int 3564
 #&amp;gt;  $ published              : chr &amp;quot;2018/12/01&amp;quot;
-#&amp;gt;  $ queued_projects_count  : int 2126
+#&amp;gt;  $ queued_projects_count  : int 2125
 #&amp;gt;  $ rating_average         : num 4.81
-#&amp;gt;  $ rating_count           : int 795
+#&amp;gt;  $ rating_count           : int 797
 #&amp;gt;  $ row_gauge              : num 46
 #&amp;gt;  $ updated_at             : chr &amp;quot;2020/08/18 17:29:12 -0400&amp;quot;
 #&amp;gt;  $ url                    : chr &amp;quot;http://tincanknits.com/pattern-SC-ryelight.html&amp;quot;
@@ -721,9 +721,9 @@ str(hermione$pattern_attributes)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hermione$difficulty_count # how many reviews rated a difficulty?
-#&amp;gt; [1] 770
+#&amp;gt; [1] 771
 hermione$difficulty_average # what is the average difficulty?
-#&amp;gt; [1] 2.420779
+#&amp;gt; [1] 2.42153
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;slip_it_search &amp;lt;- search_patterns(query = &amp;quot;slip it simple sock&amp;quot;)
@@ -733,9 +733,9 @@ hermione$difficulty_average # what is the average difficulty?
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;What is our difficulty?&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;slip_it$difficulty_count
-#&amp;gt; [1] 71
+#&amp;gt; [1] 72
 slip_it$difficulty_average
-#&amp;gt; [1] 2.084507
+#&amp;gt; [1] 2.111111
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;There are fewer reviews, but the difficulty is super low.&lt;/p&gt;
 &lt;h2 id=&#34;refining-our-search&#34;&gt;Refining our search&lt;/h2&gt;
@@ -755,9 +755,9 @@ slip_it$difficulty_average
 #&amp;gt; # A tibble: 6 x 7
 #&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
 #&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
-#&amp;gt; 1 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  &amp;lt;df[,59] [2 x ~
-#&amp;gt; 2 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       &amp;lt;df[,59] [2 x ~
-#&amp;gt; 3 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ &amp;lt;df[,59] [2 x ~
+#&amp;gt; 1 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ &amp;lt;df[,59] [2 x ~
+#&amp;gt; 2 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  &amp;lt;df[,59] [2 x ~
+#&amp;gt; 3 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       &amp;lt;df[,59] [2 x ~
 #&amp;gt; 4 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,59] [3 x ~
 #&amp;gt; 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,59] [2 x ~
 ...
@@ -2030,6 +2030,22 @@ Three
 &lt;/div&gt;
 &lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
 </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>lizroten.com/home/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/home/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>lizroten.com/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/projects/</guid>
+      <description></description>
     </item>
     
   </channel>
