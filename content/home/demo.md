@@ -12,22 +12,27 @@ headless: true
 # Order that this section appears on the page.
 weight: 15
 
-title: Its pronounced day-ta
-subtitle: I do things
+title: 
+subtitle: 
 
 design:
   columns: "1"
   background:
-    image: url(https://desiree.rbind.io/img/hello1.jpg)
-    image_darken: 0.6
+    image: headers/countoursArtboard 1.png
+    image_darken: 0
     image_parallax: true
-    image_position: center
-    image_size: cover
-    text_color_light: true
+    image_position: top
+    text_color_light: false
   spacing:
     padding: ["20px", "0", "20px", "0"]
+  height: 1077px
 ---
-
+<br>
+<br>
+<br>
+<br>
+  
+# Liz Roten  
 
 
 

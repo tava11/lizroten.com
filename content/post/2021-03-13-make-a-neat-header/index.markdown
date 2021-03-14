@@ -1,0 +1,96 @@
+---
+title: Make a neat header image
+author: Liz Roten
+date: '2021-03-13'
+slug: make-a-neat-header
+categories:
+  - cartography
+tags:
+  - cartography
+  - parks
+  - illustrator
+subtitle: ''
+summary: ''
+authors: []
+toc: yes
+lastmod: '2021-03-13T17:48:52-06:00'
+featured: no
+draft: yes
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+I made a pretty neat header image for this site. 
+
+
+```r
+library(sf)
+library(ggplot2)
+library(dplyr)
+library(Cairo)
+```
+
+
+```r
+## base geometries -------------------------------------------------------------
+temp <- tempfile()
+download.file("ftp://ftp.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip",
+  destfile = temp
+)
+
+square_lake <- sf::read_sf(unzip(temp, "plan_parks_regional.gpkg")) %>%
+  filter(STATUS == "Existing") %>%
+  filter(PARKNAME == "Square Lake") %>%
+  group_by(PARKNAME, AGENCY) %>%
+  sf::st_union() %>%
+  st_as_sf() %>%
+  st_transform(4326)
+
+fs::file_delete("plan_parks_regional.gpkg")
+
+# load 3 meter contours over the Square Lake area
+
+contour <- readRDS("contours.RDS") %>%
+  st_transform(4326) %>%
+  sf::st_crop(xmin = -92.7854633,
+              ymin = 45.1497518,
+              xmax = -92.8007197,
+              ymax = 45.1568488)
+
+# saveRDS(contour, "contours.RDS")
+```
+
+
+
+```r
+ggplot() +
+  geom_sf(
+      data = contour,
+      color = "gray75",
+      lwd = 0.2
+    ) +
+  theme_void()
+```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+
+
+
+```r
+Cairo::CairoPDF(file = "contours.pdf", 
+                onefile = TRUE, width = 12, height = 10, bg = "transparent")
+ggplot() +
+  geom_sf(
+      data = contour,
+      color = "gray75",
+      lwd = 0.2
+    ) +
+  theme_void()
+dev.off()
+
+```
+

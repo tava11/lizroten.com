@@ -8440,7 +8440,7 @@ ul.share li:hover i {
 
 .home-section {
   position: relative;
-  background-color: white;
+  background-color: #F0F3F5;
   padding: 110px 0 110px 0;
   animation: intro 0.3s both;
   animation-delay: 0.15s; }
@@ -8500,7 +8500,7 @@ ul.share li:hover i {
   padding-top: 50px; }
 
 .home-section:nth-of-type(even) {
-  background-color: #F1DEDE; }
+  background-color: #F0F3F5; }
 
 .dark .home-section {
   background-color: #272935; }
@@ -9266,3 +9266,6 @@ html {
   font-weight: normal;
   position: relative;
   z-index: 1030; }
+
+#demo {
+  height: 1077px; }
