@@ -1,9 +1,47 @@
+/*----NAV LINK HOVER ANIMATION -----*/
+// https://github.com/dcossyleon/blogdown_desiree/blob/master/assets/scss/custom.scss
+
+.nav-link:hover {
+  color: black !important;
+}
+
+
+/* stroke */
+
+a.nav-link,
+a.nav-link:after,
+a.nav-link:before {
+  transition: all .5s;
+}
+
+a.nav-link {
+  position: relative;
+}
+
+a.nav-link:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.'; /* make invisible, dot beneath links */
+  color: transparent;
+  background: #999999;
+  height: 2px;
+}
+
+a.nav-link:hover:after {
+  width: 70%;
+}
+
+/*----------------------------------*/
+
+
 .navbar {
   height: 70px;
   background-image: transparent !important;
   background: $sta-menu-primary;
-  background-image: linear-gradient(to bottom, rgba(252, 252, 252, 1), rgba(252,252,252,0)) !important;
-/* this is the part that takes out the shadow & the only edit */
   box-shadow: none;
   font-size: 18px;
   position: fixed;
