@@ -7148,13 +7148,13 @@ a.text-dark:hover, a.text-dark:focus {
  **************************************************/
 html {
   font-family: "Nunito", sans-serif;
-  font-size: 16.17px;
+  font-size: 13.86px;
   color: rgba(0, 0, 0, 0.8);
   line-height: 1.65; }
 
 @media screen and (min-width: 58em) {
   html {
-    font-size: 21px; } }
+    font-size: 18px; } }
 
 body {
   font-family: inherit;
@@ -7700,7 +7700,7 @@ footer a.back-to-top i {
   height: 70px;
   background: #F0F3F5;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.11);
-  font-size: 16.17px;
+  font-size: 13.86px;
   position: fixed;
   top: 0;
   right: 0;
@@ -7729,7 +7729,7 @@ footer a.back-to-top i {
         font-weight: bold !important;
         color: #994636 !important; }
   .navbar .dropdown-menu {
-    font-size: 16.17px; }
+    font-size: 13.86px; }
   .navbar .dropdown-item.active,
   .navbar .dropdown-item-active {
     font-weight: bold;
@@ -9242,12 +9242,40 @@ div.mermaid {
 html[dir="rtl"] body {
   text-align: right; }
 
+/*----NAV LINK HOVER ANIMATION -----*/
+.nav-link:hover {
+  color: black !important; }
+
+/* stroke */
+a.nav-link,
+a.nav-link:after,
+a.nav-link:before {
+  transition: all .5s; }
+
+a.nav-link {
+  position: relative; }
+
+a.nav-link:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  /* make invisible, dot beneath links */
+  color: transparent;
+  background: #999999;
+  height: 2px; }
+
+a.nav-link:hover:after {
+  width: 70%; }
+
+/*----------------------------------*/
 .navbar {
   height: 70px;
   background-image: transparent !important;
   background: #F0F3F5;
-  background-image: linear-gradient(to bottom, #fcfcfc, rgba(252, 252, 252, 0)) !important;
-  /* this is the part that takes out the shadow & the only edit */
   box-shadow: none;
   font-size: 18px;
   position: fixed;
@@ -9269,3 +9297,8 @@ html {
 
 #demo {
   height: 1077px; }
+
+.home-section.wg-about {
+  padding-top: 0;
+  margin-top: -30px;
+  box-shadow: 0 -50px 50px 50px #F0F3F5; }
