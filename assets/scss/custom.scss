@@ -52,6 +52,7 @@ a.nav-link:hover:after {
   padding: 0 1rem;
 }
 
+
 html {
   scroll-behavior: smooth;
 }
@@ -65,5 +66,11 @@ html {
 }
 
 #demo {
-height: 1077px;
+  height: 1077px;
+}
+
+.home-section.wg-about {
+	padding-top: 0;
+	margin-top: -30px;
+	box-shadow: 0 -50px 50px 50px #F0F3F5;
 }
