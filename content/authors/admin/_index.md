@@ -18,9 +18,8 @@ bio: My favorite food is eggplant.
 
 # Interests to show in About widget
 interests:
-- Data Visualization
-- Data Science for Good
-- Interactive Data Viz
+- Data visualization
+- Data science for public good
 
 # Education to show in About widget
 education:
@@ -64,9 +63,14 @@ highlight_name: false
 #   Remove this if you are not using the People widget.
 # user_groups:
 # - Principal Investigators
+# {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+
 ---
 
-I am a data scientist and cartographer based out of St. Paul, Minnesota. I primarily work in R, cleaning and organizing data, developing organization specific R packages, and developing R Shiny interactive data visualizations.
+I am a highly motivated data scientist and cartographer with a passion for data visualization. I find novel ways of making complex topics easy to understand using compelling visual design. My static and interactive visualizations are attractive and powerful tools for decision making.  
+
+Behind the plots and maps, I’ve successfully built organization-specific R packages for processing gigabytes of information quickly, managing consistent visual identity across products, and standardizing data cleaning practices.
 
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+
+
