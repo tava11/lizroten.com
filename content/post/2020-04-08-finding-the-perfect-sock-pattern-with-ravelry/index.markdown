@@ -72,14 +72,14 @@ search_result <- search_patterns(
 
 head(search_result)
 #> # A tibble: 6 x 7
-#>   free       id name      permalink   designer.id designer.name  pattern_sources
-#>   <lgl>   <int> <chr>     <chr>             <int> <chr>          <list>         
-#> 1 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ <df[,59] [2 x ~
-#> 2 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  <df[,59] [2 x ~
-#> 3 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       <df[,59] [2 x ~
-#> 4 TRUE   891114 Rye Light rye-light         45502 tincanknits    <df[,59] [3 x ~
-#> 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   <df[,59] [2 x ~
-#> 6 TRUE   580119 Rose Cit~ rose-city-~       82613 Mara Catherin~ <df[,59] [1 x ~
+#>   free       id name      permalink    designer.id designer.name pattern_sources
+#>   <lgl>   <int> <chr>     <chr>              <int> <chr>         <list>         
+#> 1 FALSE 1121082 Senbonza~ senbonzakura       31024 Natalia Vasi~ <df[,60] [2 x ~
+#> 2 FALSE 1105021 Curling ~ curling-mis~       32124 Helen Stewart <df[,60] [2 x ~
+#> 3 FALSE 1109817 Pink Lem~ pink-lemona~       72078 Amy Rapp      <df[,60] [2 x ~
+#> 4 TRUE   891114 Rye Light rye-light          45502 tincanknits   <df[,60] [3 x ~
+#> 5 FALSE 1120396 Picnic B~ picnic-blan~       32124 Helen Stewart <df[,60] [2 x ~
+#> 6 TRUE   130787 Hermione~ hermiones-e~       14789 Erica Lueder  <df[,60] [2 x ~
 ```
 
 The fourth result is even my old friend, "Hermione's Everyday Socks!"
@@ -90,7 +90,7 @@ search_result[4, ] # get the fourth row in the table
 #> # A tibble: 1 x 7
 #>   free      id name      permalink designer.id designer.name pattern_sources   
 #>   <lgl>  <int> <chr>     <chr>           <int> <chr>         <list>            
-#> 1 TRUE  891114 Rye Light rye-light       45502 tincanknits   <df[,59] [3 x 59]>
+#> 1 TRUE  891114 Rye Light rye-light       45502 tincanknits   <df[,60] [3 x 60]>
 ```
 
 Lets take a look at the actual pattern from the search results using `get_patterns()`.  
@@ -104,9 +104,9 @@ str(hermione, max.level = 2)
 #>  $ created_at             : chr "2019/01/01 08:11:00 -0500"
 #>  $ currency               : chr ""
 #>  $ difficulty_average     : num 2.42
-#>  $ difficulty_count       : int 771
+#>  $ difficulty_count       : int 786
 #>  $ downloadable           : logi TRUE
-#>  $ favorites_count        : int 14997
+#>  $ favorites_count        : int 15196
 #>  $ free                   : logi TRUE
 #>  $ gauge                  : num 32
 #>  $ gauge_divisor          : int 4
@@ -117,11 +117,11 @@ str(hermione, max.level = 2)
 #>  $ pdf_url                : chr ""
 #>  $ permalink              : chr "rye-light"
 #>  $ price                  : chr ""
-#>  $ projects_count         : int 3564
+#>  $ projects_count         : int 3631
 #>  $ published              : chr "2018/12/01"
-#>  $ queued_projects_count  : int 2125
+#>  $ queued_projects_count  : int 2148
 #>  $ rating_average         : num 4.81
-#>  $ rating_count           : int 797
+#>  $ rating_count           : int 812
 #>  $ row_gauge              : num 46
 #>  $ updated_at             : chr "2020/08/18 17:29:12 -0400"
 #>  $ url                    : chr "http://tincanknits.com/pattern-SC-ryelight.html"
@@ -162,9 +162,9 @@ I thought the Hermione sock was fairly straightforward. What is the average diff
 
 ```r
 hermione$difficulty_count # how many reviews rated a difficulty?
-#> [1] 771
+#> [1] 786
 hermione$difficulty_average # what is the average difficulty?
-#> [1] 2.42153
+#> [1] 2.422392
 ```
 
 Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.
@@ -186,9 +186,9 @@ What is our difficulty?
 
 ```r
 slip_it$difficulty_count
-#> [1] 72
+#> [1] 74
 slip_it$difficulty_average
-#> [1] 2.111111
+#> [1] 2.148649
 ```
 There are fewer reviews, but the difficulty is super low.  
 
@@ -213,11 +213,11 @@ head(search_patterns(
 #> # A tibble: 6 x 7
 #>   free       id name      permalink   designer.id designer.name  pattern_sources
 #>   <lgl>   <int> <chr>     <chr>             <int> <chr>          <list>         
-#> 1 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ <df[,59] [2 x ~
-#> 2 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  <df[,59] [2 x ~
-#> 3 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       <df[,59] [2 x ~
-#> 4 TRUE   891114 Rye Light rye-light         45502 tincanknits    <df[,59] [3 x ~
-#> 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   <df[,59] [2 x ~
+#> 1 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ <df[,60] [2 x ~
+#> 2 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  <df[,60] [2 x ~
+#> 3 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       <df[,60] [2 x ~
+#> 4 TRUE   891114 Rye Light rye-light         45502 tincanknits    <df[,60] [3 x ~
+#> 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   <df[,60] [2 x ~
 ...
 ```
 
