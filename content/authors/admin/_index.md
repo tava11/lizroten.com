@@ -17,16 +17,17 @@ organizations:
 bio: My favorite food is eggplant. 
 
 # Interests to show in About widget
-interests:
-- Data visualization
-- Data science for public good
+# interests:
+# - Data visualization
+# - Interactive data storytelling 
+# - Data science for public good
 
 # Education to show in About widget
-education:
-  courses:
-  - course: Bachelor of Arts in Geography, Data Science, and Community and Global Health
-    institution: Macalester College
-    year: 2018
+# education:
+#   courses:
+#   - course: Bachelor of Arts in Geography, Data Science, and Community and Global Health
+#     institution: Macalester College
+#     year: 2018
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
@@ -49,9 +50,9 @@ social:
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/media/resume.pdf`, enable `ai` icons in `params.toml`, 
 # and uncomment the lines below.
-# - icon: cv
-#   icon_pack: ai
-#   link: media/resume.pdf
+- icon: cv
+  icon_pack: ai
+  link: https://raw.githubusercontent.com/eroten/cv/master/cv.pdf
 
 # Email for Contact widget or Gravatar
 email: ""
@@ -67,10 +68,11 @@ highlight_name: false
 
 ---
 
-I am a highly motivated data scientist and cartographer with a passion for data visualization. I find novel ways of making complex topics easy to understand using compelling visual design. My static and interactive visualizations are attractive and powerful tools for decision making.  
+I am a highly motivated data scientist and cartographer with a passion for data visualization. I make complex topics easy to understand using compelling visual design. My static and interactive visualizations are attractive and powerful tools for decision making.  
 
 Behind the plots and maps, I’ve successfully built organization-specific R packages for processing gigabytes of information quickly, managing consistent visual identity across products, and standardizing data cleaning practices.
 
+{{< icon name="download" pack="fas" >}} View and download my {{< staticref "cv/cv.html" "newtab" >}}CV{{< /staticref >}}.
 
 
 
