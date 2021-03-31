@@ -392,5 +392,22 @@
 </description>
     </item>
     
+    <item>
+      <title>3 Years of Mental Health: A quantified-self story</title>
+      <link>lizroten.com/project/3-years-of-mental-health-a-quantified-self-story/</link>
+      <pubDate>Mon, 30 Oct 2017 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/3-years-of-mental-health-a-quantified-self-story/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    View a higher resolution of this viz &lt;a href=&#34;lizroten.com/lizroten.com/docs/svp_final.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;about-the-process&#34;&gt;About the Process&lt;/h2&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://emoodtracker.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;eMoods&lt;/a&gt; to track my mental health from day to day. For this viz, I used eMoods data, as well as my Google Location History data, to display my life between February 2015 and October 2017. I used ggplot2 in R Studio to generate the radial bar charts on the far rights, and Adobe Illustrator to construct the bar graphs in the bottom left corner. For the heatmaps, I first attempted to use ArcGIS to view data I downloaded from my Google account directly but quickly found that software to be limiting for the goals of this project  I forked and modified &lt;a href=&#34;https://locationhistoryvisualizer.com/heatmap/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Location History Visualizer&lt;/a&gt; using JavaScript, HTML, and CSS to use my own color scheme and preferred base map.  I assembled the images in Adobe Illustrator and presented this work for my class.&lt;/p&gt;
+&lt;p&gt;I worked with geospatial data in formats I was unfamiliar with, such as KML, JSON, and tar.gz zipped files. I also had no prior experience in Adobe Illustrator, JavaScript, HTML, and CSS. This piece not only demonstrates my skill in these areas but also my persistence and commitment to telling my story.&lt;/p&gt;
+&lt;p&gt;During my Spring 2018 independent project, I also used R Shiny to take a simple, interactive look at the polar coordinate bar graphs. You can see this app on its own &lt;a href=&#34;https://eroten.shinyapps.io/independentFP&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; and the updated version &lt;a href=&#34;https://eroten.shinyapps.io/01_shiny/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
