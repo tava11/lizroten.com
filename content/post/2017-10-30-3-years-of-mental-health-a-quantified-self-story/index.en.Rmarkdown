@@ -27,6 +27,12 @@ reading_time: false
 ---
 
 
+{{% callout note %}}
+View a higher resolution of this viz {{% staticref "docs/svp_final.pdf" "newtab" %}}here{{% /staticref %}}
+
+{{% /callout %}}
+
+
 ## About the Process   
 
 I use [eMoods](https://emoodtracker.com/) to track my mental health from day to day. For this viz, I used eMoods data, as well as my Google Location History data, to display my life between February 2015 and October 2017. I used ggplot2 in R Studio to generate the radial bar charts on the far rights, and Adobe Illustrator to construct the bar graphs in the bottom left corner. For the heatmaps, I first attempted to use ArcGIS to view data I downloaded from my Google account directly but quickly found that software to be limiting for the goals of this project  I forked and modified [Location History Visualizer](https://locationhistoryvisualizer.com/heatmap/) using JavaScript, HTML, and CSS to use my own color scheme and preferred base map.  I assembled the images in Adobe Illustrator and presented this work for my class.
