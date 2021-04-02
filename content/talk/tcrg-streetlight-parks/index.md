@@ -18,7 +18,7 @@ abstract: "StreetLight Data provides aggregated cell phone location data for tra
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-date: "2019-06-08"
+# date: "2019-06-08"
 # date_end: "2030-06-01T15:00:00Z"
 all_day: false
 
