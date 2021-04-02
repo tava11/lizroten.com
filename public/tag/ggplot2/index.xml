@@ -5,12 +5,162 @@
     <link>lizroten.com/tag/ggplot2/</link>
       <atom:link href="lizroten.com/tag/ggplot2/index.xml" rel="self" type="application/rss+xml" />
     <description>ggplot2</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Fri, 02 Apr 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/lizroten.com/images/icon_hu9684a0c7728a1791553eb63a20e70951_11434_512x512_fill_lanczos_center_2.png</url>
       <title>ggplot2</title>
       <link>lizroten.com/tag/ggplot2/</link>
     </image>
+    
+    <item>
+      <title>Radial rtistry</title>
+      <link>lizroten.com/blog/rtistry-with-contour/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/blog/rtistry-with-contour/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve been obsessed with &lt;a href=&#34;https://twitter.com/ijeamaka_a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ijeamaka Anyene&amp;rsquo;s&lt;/a&gt; art for months now. She recently published an R package, so here is my first go!&lt;/p&gt;
+&lt;h2 id=&#34;install-package&#34;&gt;Install package&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;remotes::install_github(&amp;quot;Ijeamakaanyene/contouR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(contouR)
+library(tidyverse)
+set.seed(246153)
+
+library(showtext)
+showtext_auto()
+file &amp;lt;- sysfonts::font_files()
+
+font_add(&amp;quot;Nunito Light&amp;quot;, &amp;quot;Nunito-Light.ttf&amp;quot;)
+font_add(&amp;quot;Cormorant Garamond&amp;quot;, &amp;quot;CormorantGaramond-Regular.ttf&amp;quot;)
+
+my_caption &amp;lt;- &amp;quot;Liz Roten | @LizRoten&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;first-example&#34;&gt;First Example&lt;/h2&gt;
+&lt;p&gt;Copy/pasted from the &lt;code&gt;{contouR}&lt;/code&gt; &lt;a href=&#34;https://github.com/Ijeamakaanyene/contouR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub repo&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#set up your data
+setup = contour_grid(grid_size = 30, point_dist = .25, 
+                     z_method = &amp;quot;runif&amp;quot;, z = 1, z_span = 3) %&amp;gt;%
+  contour_shape(radius = 10.2, 
+                x_center = 7, y_center = 7) 
+
+# plot your data
+contour_plot(setup$grid_shape) +
+  ggplot2::xlim(1, 30) +
+  ggplot2::ylim(1, 30)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/rtistry-with-contour/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;
+Now, we play!&lt;/p&gt;
+&lt;h2 id=&#34;freestyle&#34;&gt;Freestyle&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;lines &amp;lt;- tibble(
+  x = seq(0, 29, by = 0.2),
+  xend = rep(0,146),
+  y = runif(146, min = 5, max = 9),
+  yend = rep(0,146),
+  speed = 3
+)
+
+
+ggplot() +
+  geom_segment(data = lines,
+               aes(x = x,
+                   y = y,
+                   xend = xend,
+                   yend = yend),
+               color = &amp;quot;white&amp;quot;,
+               alpha = 0.5) +
+  geom_point(data = lines, 
+             aes(x = x,
+                 y = y),
+             color = &amp;quot;white&amp;quot;) +
+  coord_polar() +
+  scale_x_continuous(limits = c(0, 29)) +
+  # scale_y_continuous(limits = c(-1, 10)) +
+  labs(caption = my_caption) +
+  theme_void() +
+  theme(plot.background = element_rect(fill = &amp;quot;#14342B&amp;quot;,
+                                       color = NA),
+        panel.background = element_rect(fill = &amp;quot;#14342B&amp;quot;,
+                                        color = NA),
+        plot.caption = element_text(family = &amp;quot;Nunito Light&amp;quot;,
+                                    color = &amp;quot;white&amp;quot;,
+                                    size = 12),
+        plot.margin = unit(c(.5, .5, .2, .5), &amp;quot;cm&amp;quot;)
+  )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/rtistry-with-contour/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;I fell in love with the opening slide in Ijeamaka Anyene&amp;rsquo;s talk at &lt;a href=&#34;https://github.com/Ijeamakaanyene/aRt_ggplot&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RLadies Johannesburg&lt;/a&gt;, so I wanted to give it a try!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;set.seed(246153)
+
+burst &amp;lt;- tibble(
+  x = seq(0, 10, by = 0.3),
+  xend = seq(0,10, by = 0.3),
+  y =  0,
+  yend = 0.4,
+  yend_jitt = jitter(yend, 2.6),
+  yend_jitt_point = yend_jitt
+  
+)
+
+
+plot_burst &amp;lt;- ggplot() +
+  geom_segment(data = burst,
+               aes(x = x,
+                   y = y,
+                   xend = xend,
+                   yend = yend_jitt),
+               color = &amp;quot;#F4AC32&amp;quot;,
+               # alpha = 1,
+               lwd = 0.5) +
+  geom_point(data = burst, 
+             aes(x = x,
+                 y = yend_jitt),
+             color = &amp;quot;#F4AC32&amp;quot;,
+             size = 1.5
+  ) +
+  coord_polar() +
+  theme_void()
+
+bursts &amp;lt;- quote(expr = {cowplot::draw_plot(plot_burst,
+                                           scale = runif(1, min = 1.2, max = 3),
+                                           x = runif(1, min = 0, max = 10),
+                                           y = runif(1, min = 0, max = 5))})
+
+
+plot_all &amp;lt;- cowplot::ggdraw(xlim = c(0,12),
+                            ylim = c(0,6)) +
+  eval(bursts) +
+  eval(bursts) +
+  eval(bursts) +
+  eval(bursts) +
+  eval(bursts) +
+  eval(bursts) +
+  eval(bursts) +
+  eval(bursts) +
+  eval(bursts) +
+  labs(caption = my_caption) +
+  theme(plot.background = element_rect(fill = &amp;quot;#565254&amp;quot;,
+                                       color = NA,
+                                       size = 0),
+        panel.background = element_rect(fill = &amp;quot;#565254&amp;quot;,
+                                        color = NA,
+                                        size = 0),
+        plot.caption = element_text(family = &amp;quot;Nunito Light&amp;quot;,
+                                    color = &amp;quot;white&amp;quot;,
+                                    hjust = 1,
+                                    size = 14),
+        plot.caption.position = &amp;quot;plot&amp;quot;,
+        plot.margin = unit(c(.5, .5, .5, .5), &amp;quot;cm&amp;quot;)
+  )
+
+plot_all
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/rtistry-with-contour/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;see-also&#34;&gt;See also&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Ijeamaka Anyene&amp;rsquo;s fantastic &lt;a href=&#34;https://ijeamaka-anyene.netlify.app/posts/2021-01-04-radial-patterns-in-ggplot2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;zine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Colors via &lt;a href=&#34;https://coolors.co/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://coolors.co/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Converting Peloton resistance to Bowflex C6 resistance</title>

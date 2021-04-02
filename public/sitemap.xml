@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>lizroten.com/categories/</loc>
+    <lastmod>2021-04-02T18:14:59-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/ggplot2/</loc>
+    <lastmod>2021-04-02T18:14:59-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/</loc>
+    <lastmod>2021-04-02T18:14:59-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/blog/rtistry-with-contour/</loc>
+    <lastmod>2021-04-02T18:14:59-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/rtistry/</loc>
+    <lastmod>2021-04-02T18:14:59-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tags/</loc>
+    <lastmod>2021-04-02T18:14:59-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/category/tutorial/</loc>
+    <lastmod>2021-04-02T18:14:59-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>lizroten.com/tag/visualization/</loc>
+    <lastmod>2021-04-02T18:14:59-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>lizroten.com/tag/blog/</loc>
     <lastmod>2021-02-23T17:20:05-06:00</lastmod>
   </url>
@@ -13,23 +53,8 @@
   </url>
   
   <url>
-    <loc>lizroten.com/</loc>
-    <lastmod>2021-03-27T16:57:36-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>lizroten.com/project/</loc>
-    <lastmod>2021-02-23T17:20:05-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tags/</loc>
-    <lastmod>2021-03-27T16:49:46-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tag/visualization/</loc>
-    <lastmod>2021-02-23T17:20:05-06:00</lastmod>
+    <lastmod>2021-03-31T09:27:40-05:00</lastmod>
   </url>
   
   <url>
@@ -54,7 +79,7 @@
   
   <url>
     <loc>lizroten.com/tag/metropolitan-council/</loc>
-    <lastmod>2021-03-10T13:17:08-06:00</lastmod>
+    <lastmod>2021-04-02T18:14:11-05:00</lastmod>
   </url>
   
   <url>
@@ -64,7 +89,7 @@
   
   <url>
     <loc>lizroten.com/tag/parks/</loc>
-    <lastmod>2021-02-05T22:23:30-06:00</lastmod>
+    <lastmod>2021-04-02T18:14:11-05:00</lastmod>
   </url>
   
   <url>
@@ -79,7 +104,7 @@
   
   <url>
     <loc>lizroten.com/tag/shiny/</loc>
-    <lastmod>2021-03-10T13:17:19-06:00</lastmod>
+    <lastmod>2021-03-31T09:27:40-05:00</lastmod>
   </url>
   
   <url>
@@ -98,18 +123,8 @@
   </url>
   
   <url>
-    <loc>lizroten.com/categories/</loc>
-    <lastmod>2021-03-27T16:49:46-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>lizroten.com/blog/bowflex-c6-to-peloton-resistance-conversion-plots/</loc>
     <lastmod>2021-03-10T13:17:19-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/tag/ggplot2/</loc>
-    <lastmod>2021-03-27T16:49:46-05:00</lastmod>
   </url>
   
   <url>
@@ -119,12 +134,7 @@
   
   <url>
     <loc>lizroten.com/tag/personal/</loc>
-    <lastmod>2021-03-10T13:17:19-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>lizroten.com/category/tutorial/</loc>
-    <lastmod>2021-03-27T16:49:46-05:00</lastmod>
+    <lastmod>2021-03-31T09:27:40-05:00</lastmod>
   </url>
   
   <url>
@@ -134,7 +144,7 @@
   
   <url>
     <loc>lizroten.com/category/cartography/</loc>
-    <lastmod>2021-03-10T13:17:19-06:00</lastmod>
+    <lastmod>2021-03-31T09:27:40-05:00</lastmod>
   </url>
   
   <url>
@@ -154,7 +164,7 @@
   
   <url>
     <loc>lizroten.com/authors/</loc>
-    <lastmod>2021-03-27T16:57:36-05:00</lastmod>
+    <lastmod>2021-04-02T18:14:11-05:00</lastmod>
   </url>
   
   <url>
@@ -194,7 +204,7 @@
   
   <url>
     <loc>lizroten.com/tag/streetlight-data/</loc>
-    <lastmod>2021-03-10T13:17:08-06:00</lastmod>
+    <lastmod>2021-04-02T18:14:11-05:00</lastmod>
   </url>
   
   <url>
@@ -289,7 +299,7 @@
   
   <url>
     <loc>lizroten.com/tag/arcgis/</loc>
-    <lastmod>2021-03-10T13:17:19-06:00</lastmod>
+    <lastmod>2021-03-31T09:27:40-05:00</lastmod>
   </url>
   
   <url>
@@ -314,7 +324,7 @@
   
   <url>
     <loc>lizroten.com/talk/tcrg-streetlight-parks/</loc>
-    <lastmod>2021-01-30T14:36:03-06:00</lastmod>
+    <lastmod>2021-04-02T18:14:11-05:00</lastmod>
   </url>
   
   <url>
@@ -354,7 +364,7 @@
   
   <url>
     <loc>lizroten.com/tag/design/</loc>
-    <lastmod>2021-03-10T13:17:19-06:00</lastmod>
+    <lastmod>2021-03-31T09:27:40-05:00</lastmod>
   </url>
   
   <url>
@@ -384,17 +394,17 @@
   
   <url>
     <loc>lizroten.com/blog/3-years-of-mental-health-a-quantified-self-story/</loc>
-    <lastmod>2021-03-10T13:17:19-06:00</lastmod>
+    <lastmod>2021-03-31T09:27:40-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/project/3-years-of-mental-health-a-quantified-self-story/</loc>
-    <lastmod>2021-01-24T15:10:18-06:00</lastmod>
+    <lastmod>2021-03-31T09:27:40-05:00</lastmod>
   </url>
   
   <url>
     <loc>lizroten.com/tag/illustrator/</loc>
-    <lastmod>2021-03-10T13:17:19-06:00</lastmod>
+    <lastmod>2021-03-31T09:27:40-05:00</lastmod>
   </url>
   
   <url>
