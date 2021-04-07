@@ -36,17 +36,13 @@ knitr::opts_chunk$set(
 ```
 
 
-I've been obsessed with [Ijeamaka Anyene's](https://twitter.com/ijeamaka_a) art for months now. She recently published an R package, so here is my first go!   
+I've been obsessed with [Ijeamaka Anyene's](https://twitter.com/ijeamaka_a) art for months now. Her [zine](https://ijeamaka-anyene.netlify.app/posts/2021-01-04-radial-patterns-in-ggplot2/) is gorgeous, and I've been antsy to try some of the techniques out.  
 
-## Install package  
-
-```{r eval = FALSE}
-remotes::install_github("Ijeamakaanyene/contouR")
-```
+## Setup
 
 ```{r}
-library(contouR)
 library(tidyverse)
+library(colorspace)
 set.seed(246153)
 
 library(showtext)
@@ -60,26 +56,11 @@ my_caption <- "Liz Roten | @LizRoten"
 
 ```
 
-## First Example  
-
-Copy/pasted from the `{contouR}` [GitHub repo](https://github.com/Ijeamakaanyene/contouR)
-
-```{r}
-#set up your data
-setup = contour_grid(grid_size = 30, point_dist = .25, 
-                     z_method = "runif", z = 1, z_span = 3) %>%
-  contour_shape(radius = 10.2, 
-                x_center = 7, y_center = 7) 
-
-# plot your data
-contour_plot(setup$grid_shape) +
-  ggplot2::xlim(1, 30) +
-  ggplot2::ylim(1, 30)
-```
-Now, we play!  
 
 
-## Freestyle  
+## Spokes: Pattern 01 Variants   
+
+See original [here](https://ijeamakaanyene.github.io/patterns/zine/zine_radial_patterns.html#4).  
 
 ```{r}
 lines <- tibble(
@@ -119,6 +100,118 @@ ggplot() +
   )
 ```
 
+
+## Spokes: Pattern 10 Variants  
+
+See original [here](https://ijeamakaanyene.github.io/patterns/zine/zine_radial_patterns.html#6).  
+
+```{r}
+increment = .05
+
+circle_1 = tibble(
+  x = seq(from = 0, to = 5, by = increment),
+  xend = seq(from = 0, to = 5, by = increment),
+  y = 0, 
+  yend = 1.4,
+  type = LETTERS[1])
+
+circle_2 = tibble(
+  x = seq(from = 0, to = 5, by = increment  + increment),
+  xend = seq(from = 0, to = 5, by = increment + increment),
+  y = 1.5,
+  yend = 2.9,
+  type = LETTERS[2])
+
+circle_3 = tibble(
+  x = seq(from = 0, to = 5, by = increment ),
+  xend = seq(from = 0, to = 5, by = increment  ),
+  y = 3,
+  yend = 4.5,
+  type = LETTERS[3])
+
+palette_values = c("#94524A", "#8d667e", "#39355c")
+
+
+bind_rows(circle_1, circle_2, circle_3) %>%
+  ggplot(.) + 
+  geom_segment(aes(x = x, 
+                   y = y,
+                   xend = xend, 
+                   yend = yend,
+                   color = type),
+               show.legend = F) +
+  scale_color_manual(values = palette_values) +
+  labs(caption = my_caption) +
+  coord_polar() +
+  theme_void() +
+    theme(
+      # plot.background = element_rect(fill = "#565254",
+      #                                  color = NA,
+      #                                  size = 0),
+      #   panel.background = element_rect(fill = "#565254",
+      #                                   color = NA,
+      #                                   size = 0),
+        plot.caption = element_text(family = "Nunito Light",
+                                    color = "black",
+                                    hjust = 1,
+                                    size = 14),
+        plot.caption.position = "plot",
+        plot.margin = unit(c(.5, .5, .5, .5), "cm")
+  )
+```
+```{r}
+increment = .05
+
+circle_1 = tibble(
+  x = seq(from = 0, to = 5, by = increment),
+  xend = seq(from = 0, to = 5, by = increment),
+  y = 0, 
+  yend = 1.5,
+  type = LETTERS[1])
+
+circle_2 = tibble(
+  x = seq(from = 0, to = 5, by = increment),
+  xend = seq(from = 0, to = 5, by = increment),
+  y = 1.5,
+  yend = 3,
+  type = LETTERS[2])
+
+circle_3 = tibble(
+  x = seq(from = 0, to = 5, by = increment ),
+  xend = seq(from = 0, to = 5, by = increment  ),
+  y = 3,
+  yend = 4.5,
+  type = LETTERS[3])
+
+palette_values = c("#7A443E",
+                   colorspace::lighten("#7A443E", 0.5),
+                   colorspace::lighten("#7A443E", 0.8))
+
+bind_rows(circle_1, circle_2, circle_3) %>%
+  ggplot(.) + 
+  geom_segment(aes(x = x, 
+                   y = y,
+                   xend = xend, 
+                   yend = yend,
+                   color = type),
+               show.legend = F) +
+  scale_color_manual(values = palette_values) +
+  labs(caption = my_caption) +
+  coord_polar() +
+  theme_void() +
+    theme(
+        plot.caption = element_text(family = "Nunito Light",
+                                    color = "black",
+                                    hjust = 1,
+                                    size = 14),
+        plot.caption.position = "plot",
+        plot.margin = unit(c(.5, .5, .5, .5), "cm")
+  )
+```
+
+
+## Florals  
+
 I fell in love with the opening slide in Ijeamaka Anyene's talk at [RLadies Johannesburg](https://github.com/Ijeamakaanyene/aRt_ggplot), so I wanted to give it a try!  
 
 ```{r}
@@ -142,7 +235,6 @@ plot_burst <- ggplot() +
                    xend = xend,
                    yend = yend_jitt),
                color = "#F4AC32",
-               # alpha = 1,
                lwd = 0.5) +
   geom_point(data = burst, 
              aes(x = x,
@@ -198,6 +290,8 @@ ggsave(plot_all,
        # units = "in"
        )
 ```
+
+
 
 ## See also  
 
