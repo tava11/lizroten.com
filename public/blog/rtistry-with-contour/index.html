@@ -622,9 +622,10 @@
           </ul>
           <nav id="TableOfContents">
   <ul>
-    <li><a href="#install-package">Install package</a></li>
-    <li><a href="#first-example">First Example</a></li>
-    <li><a href="#freestyle">Freestyle</a></li>
+    <li><a href="#setup">Setup</a></li>
+    <li><a href="#spokes-pattern-01-variants">Spokes: Pattern 01 Variants</a></li>
+    <li><a href="#spokes-pattern-10-variants">Spokes: Pattern 10 Variants</a></li>
+    <li><a href="#florals">Florals</a></li>
     <li><a href="#see-also">See also</a></li>
   </ul>
 </nav>
@@ -692,7 +693,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    3 min read
+    4 min read
   </span>
   
 
@@ -737,12 +738,10 @@
 
           <div class="article-container">
             <div class="article-style">
-              <p>I&rsquo;ve been obsessed with <a href="https://twitter.com/ijeamaka_a" target="_blank" rel="noopener">Ijeamaka Anyene&rsquo;s</a> art for months now. She recently published an R package, so here is my first go!</p>
-<h2 id="install-package">Install package</h2>
-<pre><code class="language-r">remotes::install_github(&quot;Ijeamakaanyene/contouR&quot;)
-</code></pre>
-<pre><code class="language-r">library(contouR)
-library(tidyverse)
+              <p>I&rsquo;ve been obsessed with <a href="https://twitter.com/ijeamaka_a" target="_blank" rel="noopener">Ijeamaka Anyene&rsquo;s</a> art for months now. Her <a href="https://ijeamaka-anyene.netlify.app/posts/2021-01-04-radial-patterns-in-ggplot2/" target="_blank" rel="noopener">zine</a> is gorgeous, and I&rsquo;ve been antsy to try some of the techniques out.</p>
+<h2 id="setup">Setup</h2>
+<pre><code class="language-r">library(tidyverse)
+library(colorspace)
 set.seed(246153)
 
 library(showtext)
@@ -754,22 +753,8 @@ font_add(&quot;Cormorant Garamond&quot;, &quot;CormorantGaramond-Regular.ttf&quo
 
 my_caption &lt;- &quot;Liz Roten | @LizRoten&quot;
 </code></pre>
-<h2 id="first-example">First Example</h2>
-<p>Copy/pasted from the <code>{contouR}</code> <a href="https://github.com/Ijeamakaanyene/contouR" target="_blank" rel="noopener">GitHub repo</a></p>
-<pre><code class="language-r">#set up your data
-setup = contour_grid(grid_size = 30, point_dist = .25, 
-                     z_method = &quot;runif&quot;, z = 1, z_span = 3) %&gt;%
-  contour_shape(radius = 10.2, 
-                x_center = 7, y_center = 7) 
-
-# plot your data
-contour_plot(setup$grid_shape) +
-  ggplot2::xlim(1, 30) +
-  ggplot2::ylim(1, 30)
-</code></pre>
-<p><img src="lizroten.com/blog/rtistry-with-contour/index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
-Now, we play!</p>
-<h2 id="freestyle">Freestyle</h2>
+<h2 id="spokes-pattern-01-variants">Spokes: Pattern 01 Variants</h2>
+<p>See original <a href="https://ijeamakaanyene.github.io/patterns/zine/zine_radial_patterns.html#4" target="_blank" rel="noopener">here</a>.</p>
 <pre><code class="language-r">lines &lt;- tibble(
   x = seq(0, 29, by = 0.2),
   xend = rep(0,146),
@@ -806,7 +791,119 @@ ggplot() +
         plot.margin = unit(c(.5, .5, .2, .5), &quot;cm&quot;)
   )
 </code></pre>
+<p><img src="lizroten.com/blog/rtistry-with-contour/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<h2 id="spokes-pattern-10-variants">Spokes: Pattern 10 Variants</h2>
+<p>See original <a href="https://ijeamakaanyene.github.io/patterns/zine/zine_radial_patterns.html#6" target="_blank" rel="noopener">here</a>.</p>
+<pre><code class="language-r">increment = .05
+
+circle_1 = tibble(
+  x = seq(from = 0, to = 5, by = increment),
+  xend = seq(from = 0, to = 5, by = increment),
+  y = 0, 
+  yend = 1.4,
+  type = LETTERS[1])
+
+circle_2 = tibble(
+  x = seq(from = 0, to = 5, by = increment  + increment),
+  xend = seq(from = 0, to = 5, by = increment + increment),
+  y = 1.5,
+  yend = 2.9,
+  type = LETTERS[2])
+
+circle_3 = tibble(
+  x = seq(from = 0, to = 5, by = increment ),
+  xend = seq(from = 0, to = 5, by = increment  ),
+  y = 3,
+  yend = 4.5,
+  type = LETTERS[3])
+
+palette_values = c(&quot;#94524A&quot;, &quot;#8d667e&quot;, &quot;#39355c&quot;)
+
+
+bind_rows(circle_1, circle_2, circle_3) %&gt;%
+  ggplot(.) + 
+  geom_segment(aes(x = x, 
+                   y = y,
+                   xend = xend, 
+                   yend = yend,
+                   color = type),
+               show.legend = F) +
+  scale_color_manual(values = palette_values) +
+  labs(caption = my_caption) +
+  coord_polar() +
+  theme_void() +
+    theme(
+      # plot.background = element_rect(fill = &quot;#565254&quot;,
+      #                                  color = NA,
+      #                                  size = 0),
+      #   panel.background = element_rect(fill = &quot;#565254&quot;,
+      #                                   color = NA,
+      #                                   size = 0),
+        plot.caption = element_text(family = &quot;Nunito Light&quot;,
+                                    color = &quot;black&quot;,
+                                    hjust = 1,
+                                    size = 14),
+        plot.caption.position = &quot;plot&quot;,
+        plot.margin = unit(c(.5, .5, .5, .5), &quot;cm&quot;)
+  )
+</code></pre>
+<p><img src="lizroten.com/blog/rtistry-with-contour/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre><code class="language-r">increment = .05
+
+circle_1 = tibble(
+  x = seq(from = 0, to = 5, by = increment),
+  xend = seq(from = 0, to = 5, by = increment),
+  y = 0, 
+  yend = 1.5,
+  type = LETTERS[1])
+
+circle_2 = tibble(
+  x = seq(from = 0, to = 5, by = increment),
+  xend = seq(from = 0, to = 5, by = increment),
+  y = 1.5,
+  yend = 3,
+  type = LETTERS[2])
+
+circle_3 = tibble(
+  x = seq(from = 0, to = 5, by = increment ),
+  xend = seq(from = 0, to = 5, by = increment  ),
+  y = 3,
+  yend = 4.5,
+  type = LETTERS[3])
+
+palette_values = c(&quot;#7A443E&quot;,
+                   colorspace::lighten(&quot;#7A443E&quot;, 0.5),
+                   colorspace::lighten(&quot;#7A443E&quot;, 0.8))
+
+bind_rows(circle_1, circle_2, circle_3) %&gt;%
+  ggplot(.) + 
+  geom_segment(aes(x = x, 
+                   y = y,
+                   xend = xend, 
+                   yend = yend,
+                   color = type),
+               show.legend = F) +
+  scale_color_manual(values = palette_values) +
+  labs(caption = my_caption) +
+  coord_polar() +
+  theme_void() +
+    theme(
+      # plot.background = element_rect(fill = &quot;#565254&quot;,
+      #                                  color = NA,
+      #                                  size = 0),
+      #   panel.background = element_rect(fill = &quot;#565254&quot;,
+      #                                   color = NA,
+      #                                   size = 0),
+        plot.caption = element_text(family = &quot;Nunito Light&quot;,
+                                    color = &quot;black&quot;,
+                                    hjust = 1,
+                                    size = 14),
+        plot.caption.position = &quot;plot&quot;,
+        plot.margin = unit(c(.5, .5, .5, .5), &quot;cm&quot;)
+  )
+</code></pre>
 <p><img src="lizroten.com/blog/rtistry-with-contour/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<h2 id="florals">Florals</h2>
 <p>I fell in love with the opening slide in Ijeamaka Anyene&rsquo;s talk at <a href="https://github.com/Ijeamakaanyene/aRt_ggplot" target="_blank" rel="noopener">RLadies Johannesburg</a>, so I wanted to give it a try!</p>
 <pre><code class="language-r">set.seed(246153)
 
