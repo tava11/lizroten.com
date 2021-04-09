@@ -17,7 +17,7 @@ summary: ''
 toc: true
 authors: []
 lastmod: '2021-01-24T15:19:50-06:00'
-featured: no
+featured: yes
 image:
   caption: ''
   focal_point: Top
@@ -275,7 +275,7 @@ Next, we can look at “zoning\_ztype.”
 head(unique(austin$zoning_ztype))
 ```
 
-    ## [1] "IP-NP"   "MF-2-NP" "CS-NP"   "SF-2-CO" "SF-2"    "GR-NP"
+    ## [1] "SF-2-NP"  "SF-3-NP"  "CS-MU-NP" "MF-2-NP"  "CS"       "CS-NP"
 
 YIKES. Looks like we need a data dictionary.
 

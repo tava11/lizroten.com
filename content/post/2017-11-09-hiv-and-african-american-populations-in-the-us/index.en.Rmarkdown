@@ -18,7 +18,7 @@ subtitle: 'A value-by-alpha map showing the intersection of African American pop
 summary: ''
 authors: []
 lastmod: '2021-01-24T14:59:25-06:00'
-featured: no
+featured: yes
 toc: true
 image:
   caption: ''

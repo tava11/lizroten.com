@@ -37,6 +37,8 @@ url_video: ""
 #   E.g. `slides = "example-slides"` references `content/slides/example-slides.md`.
 #   Otherwise, set `slides = ""`.
 # slides: example
+featured: true
+
 ---
 
 In early 2020, the transportation and modeling team at the Metropolitan Council began using traffic data from the Minnesota Department of Transportation (MnDOT) to evaluate the impact of recent physical distancing efforts on regional and statewide travel. I developed an accompanying R Shiny app  with sections for visualizing the model results, downloading tabular data, and explaining the model. Individual items include an interactive plot showing the percent difference from expected traffic levels and an interactive map displaying the change in expected traffic at individual traffic sensors across the Twin Cities metro area and Rochester area. 

@@ -14,7 +14,7 @@ toc: true
 summary: "Using Ravelry's API to find just the right sock pattern"
 authors: []
 lastmod: '2020-10-30T17:47:26-05:00'
-featured: no
+featured: yes
 image:
   caption: ''
   focal_point: Top
@@ -72,14 +72,14 @@ search_result <- search_patterns(
 
 head(search_result)
 #> # A tibble: 6 x 7
-#>   free       id name      permalink    designer.id designer.name pattern_sources
-#>   <lgl>   <int> <chr>     <chr>              <int> <chr>         <list>         
-#> 1 FALSE 1121082 Senbonza~ senbonzakura       31024 Natalia Vasi~ <df[,60] [2 x ~
-#> 2 FALSE 1105021 Curling ~ curling-mis~       32124 Helen Stewart <df[,60] [2 x ~
-#> 3 FALSE 1109817 Pink Lem~ pink-lemona~       72078 Amy Rapp      <df[,60] [2 x ~
-#> 4 TRUE   891114 Rye Light rye-light          45502 tincanknits   <df[,60] [3 x ~
-#> 5 FALSE 1120396 Picnic B~ picnic-blan~       32124 Helen Stewart <df[,60] [2 x ~
-#> 6 TRUE   130787 Hermione~ hermiones-e~       14789 Erica Lueder  <df[,60] [2 x ~
+#>   free       id name      permalink   designer.id designer.name  pattern_sources
+#>   <lgl>   <int> <chr>     <chr>             <int> <chr>          <list>         
+#> 1 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ <df[,60] [2 x ~
+#> 2 FALSE 1126458 Ebil Cho~ ebil-choic~      123378 Sabrina Nessl~ <df[,60] [2 x ~
+#> 3 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  <df[,60] [2 x ~
+#> 4 FALSE 1120396 Picnic B~ picnic-bla~       32124 Helen Stewart  <df[,60] [2 x ~
+#> 5 TRUE   891114 Rye Light rye-light         45502 tincanknits    <df[,60] [3 x ~
+#> 6 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       <df[,60] [2 x ~
 ```
 
 The fourth result is even my old friend, "Hermione's Everyday Socks!"
@@ -88,9 +88,9 @@ The fourth result is even my old friend, "Hermione's Everyday Socks!"
 ```r
 search_result[4, ] # get the fourth row in the table
 #> # A tibble: 1 x 7
-#>   free      id name      permalink designer.id designer.name pattern_sources   
-#>   <lgl>  <int> <chr>     <chr>           <int> <chr>         <list>            
-#> 1 TRUE  891114 Rye Light rye-light       45502 tincanknits   <df[,60] [3 x 60]>
+#>   free       id name      permalink    designer.id designer.name pattern_sources
+#>   <lgl>   <int> <chr>     <chr>              <int> <chr>         <list>         
+#> 1 FALSE 1120396 Picnic B~ picnic-blan~       32124 Helen Stewart <df[,60] [2 x ~
 ```
 
 Lets take a look at the actual pattern from the search results using `get_patterns()`.  
@@ -100,47 +100,47 @@ Lets take a look at the actual pattern from the search results using `get_patter
 hermione <- get_patterns(ids = search_result[4, ]$id)
 str(hermione, max.level = 2)
 #> tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
-#>  $ comments_count         : int 55
-#>  $ created_at             : chr "2019/01/01 08:11:00 -0500"
+#>  $ comments_count         : int 4
+#>  $ created_at             : chr "2021/03/04 04:28:53 -0500"
 #>  $ currency               : chr ""
-#>  $ difficulty_average     : num 2.42
-#>  $ difficulty_count       : int 786
-#>  $ downloadable           : logi TRUE
-#>  $ favorites_count        : int 15196
-#>  $ free                   : logi TRUE
+#>  $ difficulty_average     : num 2.23
+#>  $ difficulty_count       : int 121
+#>  $ downloadable           : logi FALSE
+#>  $ favorites_count        : int 361
+#>  $ free                   : logi FALSE
 #>  $ gauge                  : num 32
 #>  $ gauge_divisor          : int 4
-#>  $ gauge_pattern          : chr "stockinette stitch with larger needles"
-#>  $ generally_available    : chr "2018/12/01 00:00:00 -0500"
-#>  $ id                     : int 891114
-#>  $ name                   : chr "Rye Light"
+#>  $ gauge_pattern          : chr "Stockinette"
+#>  $ generally_available    : chr "2021/03/01 00:00:00 -0500"
+#>  $ id                     : int 1120396
+#>  $ name                   : chr "Picnic Blanket Socks"
 #>  $ pdf_url                : chr ""
-#>  $ permalink              : chr "rye-light"
+#>  $ permalink              : chr "picnic-blanket-socks"
 #>  $ price                  : chr ""
-#>  $ projects_count         : int 3631
-#>  $ published              : chr "2018/12/01"
-#>  $ queued_projects_count  : int 2148
-#>  $ rating_average         : num 4.81
-#>  $ rating_count           : int 812
+#>  $ projects_count         : int 471
+#>  $ published              : chr "2021/03/01"
+#>  $ queued_projects_count  : int 81
+#>  $ rating_average         : num 4.75
+#>  $ rating_count           : int 126
 #>  $ row_gauge              : num 46
-#>  $ updated_at             : chr "2020/08/18 17:29:12 -0400"
-#>  $ url                    : chr "http://tincanknits.com/pattern-SC-ryelight.html"
-#>  $ yardage                : int 120
-#>  $ yardage_max            : int 480
+#>  $ updated_at             : chr "2021/03/04 04:28:53 -0500"
+#>  $ url                    : chr ""
+#>  $ yardage                : int 465
+#>  $ yardage_max            : int 558
 #>  $ personal_attributes    : chr ""
-#>  $ sizes_available        : chr "Baby (Toddler, Child, Adult S, M, L)"
-#>  $ product_id             : int 504649
+#>  $ sizes_available        : chr "Small, Medium, Large"
+#>  $ product_id             : chr ""
 #>  $ currency_symbol        : chr ""
-#>  $ ravelry_download       : logi TRUE
-#>  $ download_location      :List of 1
+#>  $ ravelry_download       : logi FALSE
+#>  $ download_location      : chr ""
 #>  $ pdf_in_library         : logi FALSE
 #>  $ volumes_in_library     : chr ""
-#>  $ gauge_description      : chr "32 stitches and 46 rows = 4 inches in stockinette stitch with larger needles"
+#>  $ gauge_description      : chr "32 stitches and 46 rows = 4 inches in Stockinette"
 #>  $ yarn_weight_description: chr "Fingering (14 wpi)"
-#>  $ yardage_description    : chr "120 - 480 yards"
+#>  $ yardage_description    : chr "465 - 558 yards"
 #>  $ pattern_needle_sizes   :List of 1
-#>  $ notes_html             : chr "<hr /><hr />\n<h1 id=\"rye_light__by_tin_can_knits\"><strong>Rye Light</strong> - by Tin Can Knits</h1>\n<hr />"| __truncated__
-#>  $ notes                  : chr "--------------------------------------------------------\r\n---------------------------------------------------"| __truncated__
+#>  $ notes_html             : chr "\n<blockquote>\n<p>The Picnic Blanket Socks are the 2nd design in The Handmade Sock Society 4: <a href=\"https:"| __truncated__
+#>  $ notes                  : chr "> The Picnic Blanket Socks are the 2nd\r\n> design in The Handmade Sock Society 4:\r\n> [purchase the collectio"| __truncated__
 #>  $ packs                  :List of 1
 #>  $ printings              :List of 1
 #>  $ yarn_weight            :List of 1
@@ -152,9 +152,9 @@ str(hermione, max.level = 2)
 #>  $ pattern_type           :List of 1
 str(hermione$pattern_attributes)
 #> List of 1
-#>  $ : tibble [16 x 2] (S3: tbl_df/tbl/data.frame)
-#>   ..$ id       : int [1:16] 3 4 7 8 9 10 23 26 64 70 ...
-#>   ..$ permalink: chr [1:16] "unisex" "baby" "toddler" "child" ...
+#>  $ : tibble [12 x 2] (S3: tbl_df/tbl/data.frame)
+#>   ..$ id       : int [1:12] 1 2 3 9 10 12 18 23 26 211 ...
+#>   ..$ permalink: chr [1:12] "male" "female" "unisex" "teen" ...
 ```
 
 I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?  
@@ -162,9 +162,9 @@ I thought the Hermione sock was fairly straightforward. What is the average diff
 
 ```r
 hermione$difficulty_count # how many reviews rated a difficulty?
-#> [1] 786
+#> [1] 121
 hermione$difficulty_average # what is the average difficulty?
-#> [1] 2.422392
+#> [1] 2.231405
 ```
 
 Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.
@@ -188,7 +188,7 @@ What is our difficulty?
 slip_it$difficulty_count
 #> [1] 74
 slip_it$difficulty_average
-#> [1] 2.148649
+#> [1] 2.108108
 ```
 There are fewer reviews, but the difficulty is super low.  
 
@@ -214,10 +214,10 @@ head(search_patterns(
 #>   free       id name      permalink   designer.id designer.name  pattern_sources
 #>   <lgl>   <int> <chr>     <chr>             <int> <chr>          <list>         
 #> 1 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ <df[,60] [2 x ~
-#> 2 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  <df[,60] [2 x ~
-#> 3 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       <df[,60] [2 x ~
-#> 4 TRUE   891114 Rye Light rye-light         45502 tincanknits    <df[,60] [3 x ~
-#> 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   <df[,60] [2 x ~
+#> 2 FALSE 1126458 Ebil Cho~ ebil-choic~      123378 Sabrina Nessl~ <df[,60] [2 x ~
+#> 3 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  <df[,60] [2 x ~
+#> 4 FALSE 1120396 Picnic B~ picnic-bla~       32124 Helen Stewart  <df[,60] [2 x ~
+#> 5 TRUE   891114 Rye Light rye-light         45502 tincanknits    <df[,60] [3 x ~
 ...
 ```
 

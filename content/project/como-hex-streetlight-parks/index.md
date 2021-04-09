@@ -35,6 +35,7 @@ url_video: ""
 #   E.g. `slides = "example-slides"` references `content/slides/example-slides.md`.
 #   Otherwise, set `slides = "2020.10.AMPO.StreetlightGHG"`.
 slides: "slides/tcrg-streetlight-parks"
+featured: true
 
 ---
 

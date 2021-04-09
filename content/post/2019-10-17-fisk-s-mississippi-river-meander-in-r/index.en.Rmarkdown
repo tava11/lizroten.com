@@ -13,7 +13,7 @@ subtitle: A few maps inspired by Harold Fisk's 1944 geological investigation
 summary: ''
 authors: []
 lastmod: '2021-01-25T10:13:25-06:00'
-featured: no
+featured: yes
 toc: true
 image:
   caption: ''

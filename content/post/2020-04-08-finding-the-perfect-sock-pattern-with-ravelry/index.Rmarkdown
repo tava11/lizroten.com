@@ -14,7 +14,7 @@ toc: true
 summary: "Using Ravelry's API to find just the right sock pattern"
 authors: []
 lastmod: '2020-10-30T17:47:26-05:00'
-featured: no
+featured: yes
 image:
   caption: ''
   focal_point: Top

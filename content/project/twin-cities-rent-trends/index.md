@@ -14,6 +14,7 @@ date: "2020-10-23T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
+featured: true
 
 image:
   caption: Liz Roten for Metropolitan Council, 2020

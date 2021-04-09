@@ -27,6 +27,8 @@ url_code: "https://github.com/Metropolitan-Council/regionalparks.acs"
 url_pdf: ""
 url_slides: ""
 url_video: ""
+featured: true
+
 ---
 
 ## Background

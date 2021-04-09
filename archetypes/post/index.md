@@ -10,7 +10,7 @@ categories: []
 toc: true
 date: {{ .Date }}
 lastmod: {{ .Date }}
-featured: false
+featured: true
 draft: false
 
 # Featured image
