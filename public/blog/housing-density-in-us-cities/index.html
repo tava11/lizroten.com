@@ -290,7 +290,7 @@
     
       <meta property="article:published_time" content="2020-02-15T00:00:00&#43;00:00">
     
-    <meta property="article:modified_time" content="2021-03-27T16:49:46-05:00">
+    <meta property="article:modified_time" content="2021-04-08T22:09:18-05:00">
   
 
   
@@ -323,7 +323,7 @@
   ],
   
   "datePublished": "2020-02-15T00:00:00Z",
-  "dateModified": "2021-03-27T16:49:46-05:00",
+  "dateModified": "2021-04-08T22:09:18-05:00",
   
   "author": {
     "@type": "Person",
@@ -685,7 +685,7 @@
           Last updated on
       
     
-    2021-03-27
+    2021-04-08
   </span>
   
 
@@ -945,7 +945,7 @@ pitt_water &lt;- read_sf(&quot;http://openac-alcogis.opendata.arcgis.com/dataset
 <p>Next, we can look at “zoning_ztype.”</p>
 <pre><code class="language-r">head(unique(austin$zoning_ztype))
 </code></pre>
-<pre><code>## [1] &quot;IP-NP&quot;   &quot;MF-2-NP&quot; &quot;CS-NP&quot;   &quot;SF-2-CO&quot; &quot;SF-2&quot;    &quot;GR-NP&quot;
+<pre><code>## [1] &quot;SF-2-NP&quot;  &quot;SF-3-NP&quot;  &quot;CS-MU-NP&quot; &quot;MF-2-NP&quot;  &quot;CS&quot;       &quot;CS-NP&quot;
 </code></pre>
 <p>YIKES. Looks like we need a data dictionary.</p>
 <p>I would love to say that I elegantly extracted the zoning codes from the <a href="http://www.austintexas.gov/page/zoning-districts" target="_blank" rel="noopener">city’s website</a>, but I ended up copying the HTML table to Excel and manipulating the columns from there. The text-to-columns tool is very useful fo instances like this. I also added codes “SF-4” and “MF,” which weren’t explicitly provided.</p>

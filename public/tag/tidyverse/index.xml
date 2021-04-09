@@ -148,67 +148,67 @@ ravelRy::ravelry_auth(key = &amp;quot;password&amp;quot;)
 
 head(search_result)
 #&amp;gt; # A tibble: 6 x 7
-#&amp;gt;   free       id name      permalink    designer.id designer.name pattern_sources
-#&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;              &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;list&amp;gt;         
-#&amp;gt; 1 FALSE 1121082 Senbonza~ senbonzakura       31024 Natalia Vasi~ &amp;lt;df[,60] [2 x ~
-#&amp;gt; 2 FALSE 1105021 Curling ~ curling-mis~       32124 Helen Stewart &amp;lt;df[,60] [2 x ~
-#&amp;gt; 3 FALSE 1109817 Pink Lem~ pink-lemona~       72078 Amy Rapp      &amp;lt;df[,60] [2 x ~
-#&amp;gt; 4 TRUE   891114 Rye Light rye-light          45502 tincanknits   &amp;lt;df[,60] [3 x ~
-#&amp;gt; 5 FALSE 1120396 Picnic B~ picnic-blan~       32124 Helen Stewart &amp;lt;df[,60] [2 x ~
-#&amp;gt; 6 TRUE   130787 Hermione~ hermiones-e~       14789 Erica Lueder  &amp;lt;df[,60] [2 x ~
+#&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
+#&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
+#&amp;gt; 1 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ &amp;lt;df[,60] [2 x ~
+#&amp;gt; 2 FALSE 1126458 Ebil Cho~ ebil-choic~      123378 Sabrina Nessl~ &amp;lt;df[,60] [2 x ~
+#&amp;gt; 3 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  &amp;lt;df[,60] [2 x ~
+#&amp;gt; 4 FALSE 1120396 Picnic B~ picnic-bla~       32124 Helen Stewart  &amp;lt;df[,60] [2 x ~
+#&amp;gt; 5 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,60] [3 x ~
+#&amp;gt; 6 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       &amp;lt;df[,60] [2 x ~
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The fourth result is even my old friend, &amp;ldquo;Hermione&amp;rsquo;s Everyday Socks!&amp;rdquo;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;search_result[4, ] # get the fourth row in the table
 #&amp;gt; # A tibble: 1 x 7
-#&amp;gt;   free      id name      permalink designer.id designer.name pattern_sources   
-#&amp;gt;   &amp;lt;lgl&amp;gt;  &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;           &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;list&amp;gt;            
-#&amp;gt; 1 TRUE  891114 Rye Light rye-light       45502 tincanknits   &amp;lt;df[,60] [3 x 60]&amp;gt;
+#&amp;gt;   free       id name      permalink    designer.id designer.name pattern_sources
+#&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;              &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;list&amp;gt;         
+#&amp;gt; 1 FALSE 1120396 Picnic B~ picnic-blan~       32124 Helen Stewart &amp;lt;df[,60] [2 x ~
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets take a look at the actual pattern from the search results using &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hermione &amp;lt;- get_patterns(ids = search_result[4, ]$id)
 str(hermione, max.level = 2)
 #&amp;gt; tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
-#&amp;gt;  $ comments_count         : int 55
-#&amp;gt;  $ created_at             : chr &amp;quot;2019/01/01 08:11:00 -0500&amp;quot;
+#&amp;gt;  $ comments_count         : int 4
+#&amp;gt;  $ created_at             : chr &amp;quot;2021/03/04 04:28:53 -0500&amp;quot;
 #&amp;gt;  $ currency               : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ difficulty_average     : num 2.42
-#&amp;gt;  $ difficulty_count       : int 786
-#&amp;gt;  $ downloadable           : logi TRUE
-#&amp;gt;  $ favorites_count        : int 15196
-#&amp;gt;  $ free                   : logi TRUE
+#&amp;gt;  $ difficulty_average     : num 2.23
+#&amp;gt;  $ difficulty_count       : int 121
+#&amp;gt;  $ downloadable           : logi FALSE
+#&amp;gt;  $ favorites_count        : int 361
+#&amp;gt;  $ free                   : logi FALSE
 #&amp;gt;  $ gauge                  : num 32
 #&amp;gt;  $ gauge_divisor          : int 4
-#&amp;gt;  $ gauge_pattern          : chr &amp;quot;stockinette stitch with larger needles&amp;quot;
-#&amp;gt;  $ generally_available    : chr &amp;quot;2018/12/01 00:00:00 -0500&amp;quot;
-#&amp;gt;  $ id                     : int 891114
-#&amp;gt;  $ name                   : chr &amp;quot;Rye Light&amp;quot;
+#&amp;gt;  $ gauge_pattern          : chr &amp;quot;Stockinette&amp;quot;
+#&amp;gt;  $ generally_available    : chr &amp;quot;2021/03/01 00:00:00 -0500&amp;quot;
+#&amp;gt;  $ id                     : int 1120396
+#&amp;gt;  $ name                   : chr &amp;quot;Picnic Blanket Socks&amp;quot;
 #&amp;gt;  $ pdf_url                : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ permalink              : chr &amp;quot;rye-light&amp;quot;
+#&amp;gt;  $ permalink              : chr &amp;quot;picnic-blanket-socks&amp;quot;
 #&amp;gt;  $ price                  : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ projects_count         : int 3631
-#&amp;gt;  $ published              : chr &amp;quot;2018/12/01&amp;quot;
-#&amp;gt;  $ queued_projects_count  : int 2148
-#&amp;gt;  $ rating_average         : num 4.81
-#&amp;gt;  $ rating_count           : int 812
+#&amp;gt;  $ projects_count         : int 471
+#&amp;gt;  $ published              : chr &amp;quot;2021/03/01&amp;quot;
+#&amp;gt;  $ queued_projects_count  : int 81
+#&amp;gt;  $ rating_average         : num 4.75
+#&amp;gt;  $ rating_count           : int 126
 #&amp;gt;  $ row_gauge              : num 46
-#&amp;gt;  $ updated_at             : chr &amp;quot;2020/08/18 17:29:12 -0400&amp;quot;
-#&amp;gt;  $ url                    : chr &amp;quot;http://tincanknits.com/pattern-SC-ryelight.html&amp;quot;
-#&amp;gt;  $ yardage                : int 120
-#&amp;gt;  $ yardage_max            : int 480
+#&amp;gt;  $ updated_at             : chr &amp;quot;2021/03/04 04:28:53 -0500&amp;quot;
+#&amp;gt;  $ url                    : chr &amp;quot;&amp;quot;
+#&amp;gt;  $ yardage                : int 465
+#&amp;gt;  $ yardage_max            : int 558
 #&amp;gt;  $ personal_attributes    : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ sizes_available        : chr &amp;quot;Baby (Toddler, Child, Adult S, M, L)&amp;quot;
-#&amp;gt;  $ product_id             : int 504649
+#&amp;gt;  $ sizes_available        : chr &amp;quot;Small, Medium, Large&amp;quot;
+#&amp;gt;  $ product_id             : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ currency_symbol        : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ ravelry_download       : logi TRUE
-#&amp;gt;  $ download_location      :List of 1
+#&amp;gt;  $ ravelry_download       : logi FALSE
+#&amp;gt;  $ download_location      : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ pdf_in_library         : logi FALSE
 #&amp;gt;  $ volumes_in_library     : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ gauge_description      : chr &amp;quot;32 stitches and 46 rows = 4 inches in stockinette stitch with larger needles&amp;quot;
+#&amp;gt;  $ gauge_description      : chr &amp;quot;32 stitches and 46 rows = 4 inches in Stockinette&amp;quot;
 #&amp;gt;  $ yarn_weight_description: chr &amp;quot;Fingering (14 wpi)&amp;quot;
-#&amp;gt;  $ yardage_description    : chr &amp;quot;120 - 480 yards&amp;quot;
+#&amp;gt;  $ yardage_description    : chr &amp;quot;465 - 558 yards&amp;quot;
 #&amp;gt;  $ pattern_needle_sizes   :List of 1
-#&amp;gt;  $ notes_html             : chr &amp;quot;&amp;lt;hr /&amp;gt;&amp;lt;hr /&amp;gt;\n&amp;lt;h1 id=\&amp;quot;rye_light__by_tin_can_knits\&amp;quot;&amp;gt;&amp;lt;strong&amp;gt;Rye Light&amp;lt;/strong&amp;gt; - by Tin Can Knits&amp;lt;/h1&amp;gt;\n&amp;lt;hr /&amp;gt;&amp;quot;| __truncated__
-#&amp;gt;  $ notes                  : chr &amp;quot;--------------------------------------------------------\r\n---------------------------------------------------&amp;quot;| __truncated__
+#&amp;gt;  $ notes_html             : chr &amp;quot;\n&amp;lt;blockquote&amp;gt;\n&amp;lt;p&amp;gt;The Picnic Blanket Socks are the 2nd design in The Handmade Sock Society 4: &amp;lt;a href=\&amp;quot;https:&amp;quot;| __truncated__
+#&amp;gt;  $ notes                  : chr &amp;quot;&amp;gt; The Picnic Blanket Socks are the 2nd\r\n&amp;gt; design in The Handmade Sock Society 4:\r\n&amp;gt; [purchase the collectio&amp;quot;| __truncated__
 #&amp;gt;  $ packs                  :List of 1
 #&amp;gt;  $ printings              :List of 1
 #&amp;gt;  $ yarn_weight            :List of 1
@@ -220,15 +220,15 @@ str(hermione, max.level = 2)
 #&amp;gt;  $ pattern_type           :List of 1
 str(hermione$pattern_attributes)
 #&amp;gt; List of 1
-#&amp;gt;  $ : tibble [16 x 2] (S3: tbl_df/tbl/data.frame)
-#&amp;gt;   ..$ id       : int [1:16] 3 4 7 8 9 10 23 26 64 70 ...
-#&amp;gt;   ..$ permalink: chr [1:16] &amp;quot;unisex&amp;quot; &amp;quot;baby&amp;quot; &amp;quot;toddler&amp;quot; &amp;quot;child&amp;quot; ...
+#&amp;gt;  $ : tibble [12 x 2] (S3: tbl_df/tbl/data.frame)
+#&amp;gt;   ..$ id       : int [1:12] 1 2 3 9 10 12 18 23 26 211 ...
+#&amp;gt;   ..$ permalink: chr [1:12] &amp;quot;male&amp;quot; &amp;quot;female&amp;quot; &amp;quot;unisex&amp;quot; &amp;quot;teen&amp;quot; ...
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hermione$difficulty_count # how many reviews rated a difficulty?
-#&amp;gt; [1] 786
+#&amp;gt; [1] 121
 hermione$difficulty_average # what is the average difficulty?
-#&amp;gt; [1] 2.422392
+#&amp;gt; [1] 2.231405
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;slip_it_search &amp;lt;- search_patterns(query = &amp;quot;slip it simple sock&amp;quot;)
@@ -240,7 +240,7 @@ hermione$difficulty_average # what is the average difficulty?
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;slip_it$difficulty_count
 #&amp;gt; [1] 74
 slip_it$difficulty_average
-#&amp;gt; [1] 2.148649
+#&amp;gt; [1] 2.108108
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;There are fewer reviews, but the difficulty is super low.&lt;/p&gt;
 &lt;h2 id=&#34;refining-our-search&#34;&gt;Refining our search&lt;/h2&gt;
@@ -261,10 +261,10 @@ slip_it$difficulty_average
 #&amp;gt;   free       id name      permalink   designer.id designer.name  pattern_sources
 #&amp;gt;   &amp;lt;lgl&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;          &amp;lt;list&amp;gt;         
 #&amp;gt; 1 FALSE 1121082 Senbonza~ senbonzaku~       31024 Natalia Vasil~ &amp;lt;df[,60] [2 x ~
-#&amp;gt; 2 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  &amp;lt;df[,60] [2 x ~
-#&amp;gt; 3 FALSE 1109817 Pink Lem~ pink-lemon~       72078 Amy Rapp       &amp;lt;df[,60] [2 x ~
-#&amp;gt; 4 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,60] [3 x ~
-#&amp;gt; 5 TRUE   130787 Hermione~ hermiones-~       14789 Erica Lueder   &amp;lt;df[,60] [2 x ~
+#&amp;gt; 2 FALSE 1126458 Ebil Cho~ ebil-choic~      123378 Sabrina Nessl~ &amp;lt;df[,60] [2 x ~
+#&amp;gt; 3 FALSE 1105021 Curling ~ curling-mi~       32124 Helen Stewart  &amp;lt;df[,60] [2 x ~
+#&amp;gt; 4 FALSE 1120396 Picnic B~ picnic-bla~       32124 Helen Stewart  &amp;lt;df[,60] [2 x ~
+#&amp;gt; 5 TRUE   891114 Rye Light rye-light         45502 tincanknits    &amp;lt;df[,60] [3 x ~
 ...
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Another trick is to go look at the URL when I am searching on Ravelry itself. This gives me an idea of what search terms I can add to &lt;code&gt;search_patterns()&lt;/code&gt;.&lt;/p&gt;

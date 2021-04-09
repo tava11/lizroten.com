@@ -223,7 +223,7 @@ pitt_water &amp;lt;- read_sf(&amp;quot;http://openac-alcogis.opendata.arcgis.com
 &lt;p&gt;Next, we can look at “zoning_ztype.”&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(unique(austin$zoning_ztype))
 &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;IP-NP&amp;quot;   &amp;quot;MF-2-NP&amp;quot; &amp;quot;CS-NP&amp;quot;   &amp;quot;SF-2-CO&amp;quot; &amp;quot;SF-2&amp;quot;    &amp;quot;GR-NP&amp;quot;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;SF-2-NP&amp;quot;  &amp;quot;SF-3-NP&amp;quot;  &amp;quot;CS-MU-NP&amp;quot; &amp;quot;MF-2-NP&amp;quot;  &amp;quot;CS&amp;quot;       &amp;quot;CS-NP&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;YIKES. Looks like we need a data dictionary.&lt;/p&gt;
 &lt;p&gt;I would love to say that I elegantly extracted the zoning codes from the &lt;a href=&#34;http://www.austintexas.gov/page/zoning-districts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;city’s website&lt;/a&gt;, but I ended up copying the HTML table to Excel and manipulating the columns from there. The text-to-columns tool is very useful fo instances like this. I also added codes “SF-4” and “MF,” which weren’t explicitly provided.&lt;/p&gt;

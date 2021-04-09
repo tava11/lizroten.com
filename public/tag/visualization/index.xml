@@ -167,12 +167,6 @@ bind_rows(circle_1, circle_2, circle_3) %&amp;gt;%
   coord_polar() +
   theme_void() +
     theme(
-      # plot.background = element_rect(fill = &amp;quot;#565254&amp;quot;,
-      #                                  color = NA,
-      #                                  size = 0),
-      #   panel.background = element_rect(fill = &amp;quot;#565254&amp;quot;,
-      #                                   color = NA,
-      #                                   size = 0),
         plot.caption = element_text(family = &amp;quot;Nunito Light&amp;quot;,
                                     color = &amp;quot;black&amp;quot;,
                                     hjust = 1,
@@ -204,7 +198,6 @@ plot_burst &amp;lt;- ggplot() +
                    xend = xend,
                    yend = yend_jitt),
                color = &amp;quot;#F4AC32&amp;quot;,
-               # alpha = 1,
                lwd = 0.5) +
   geom_point(data = burst, 
              aes(x = x,
