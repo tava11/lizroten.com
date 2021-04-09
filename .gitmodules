@@ -1,0 +1,3 @@
+[submodule "themes/github.com/eroten"]
+	path = themes/github.com/eroten
+	url = https://github.com/eroten/wowchemy-widget-grid.git
