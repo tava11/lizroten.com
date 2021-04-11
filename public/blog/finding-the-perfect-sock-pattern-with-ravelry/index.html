@@ -356,6 +356,11 @@
 
 
 
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="/lizroten.com/css/codefolding.css" />
+
+
+
   <title>Finding the perfect sock pattern with {ravelRy} | Liz Roten</title>
 
 </head>
@@ -672,6 +677,9 @@
   
 
 
+  
+
+
 <div class="article-metadata">
 
   
@@ -784,14 +792,14 @@ head(search_result)
 <p>Lets take a look at the actual pattern from the search results using <code>get_patterns()</code>.</p>
 <pre><code class="language-r">hermione &lt;- get_patterns(ids = search_result[4, ]$id)
 str(hermione, max.level = 2)
-#&gt; tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
+#&gt; tibble[,50] [1 x 50] (S3: tbl_df/tbl/data.frame)
 #&gt;  $ comments_count         : int 4
 #&gt;  $ created_at             : chr &quot;2021/03/04 04:28:53 -0500&quot;
 #&gt;  $ currency               : chr &quot;&quot;
 #&gt;  $ difficulty_average     : num 2.23
-#&gt;  $ difficulty_count       : int 121
+#&gt;  $ difficulty_count       : int 123
 #&gt;  $ downloadable           : logi FALSE
-#&gt;  $ favorites_count        : int 361
+#&gt;  $ favorites_count        : int 370
 #&gt;  $ free                   : logi FALSE
 #&gt;  $ gauge                  : num 32
 #&gt;  $ gauge_divisor          : int 4
@@ -802,11 +810,11 @@ str(hermione, max.level = 2)
 #&gt;  $ pdf_url                : chr &quot;&quot;
 #&gt;  $ permalink              : chr &quot;picnic-blanket-socks&quot;
 #&gt;  $ price                  : chr &quot;&quot;
-#&gt;  $ projects_count         : int 471
+#&gt;  $ projects_count         : int 476
 #&gt;  $ published              : chr &quot;2021/03/01&quot;
-#&gt;  $ queued_projects_count  : int 81
-#&gt;  $ rating_average         : num 4.75
-#&gt;  $ rating_count           : int 126
+#&gt;  $ queued_projects_count  : int 82
+#&gt;  $ rating_average         : num 4.76
+#&gt;  $ rating_count           : int 128
 #&gt;  $ row_gauge              : num 46
 #&gt;  $ updated_at             : chr &quot;2021/03/04 04:28:53 -0500&quot;
 #&gt;  $ url                    : chr &quot;&quot;
@@ -837,15 +845,15 @@ str(hermione, max.level = 2)
 #&gt;  $ pattern_type           :List of 1
 str(hermione$pattern_attributes)
 #&gt; List of 1
-#&gt;  $ : tibble [12 x 2] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ : tibble[,2] [12 x 2] (S3: tbl_df/tbl/data.frame)
 #&gt;   ..$ id       : int [1:12] 1 2 3 9 10 12 18 23 26 211 ...
 #&gt;   ..$ permalink: chr [1:12] &quot;male&quot; &quot;female&quot; &quot;unisex&quot; &quot;teen&quot; ...
 </code></pre>
 <p>I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?</p>
 <pre><code class="language-r">hermione$difficulty_count # how many reviews rated a difficulty?
-#&gt; [1] 121
+#&gt; [1] 123
 hermione$difficulty_average # what is the average difficulty?
-#&gt; [1] 2.231405
+#&gt; [1] 2.227642
 </code></pre>
 <p>Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.</p>
 <pre><code class="language-r">slip_it_search &lt;- search_patterns(query = &quot;slip it simple sock&quot;)
@@ -1509,6 +1517,11 @@ map(photo_links$photos_medium_url, load.image) %&gt;%
     <a href="lizroten.com/license/">LICENSE: CC-BY-SA <br> <i class="fab fa-creative-commons fa-2x"></i><i class="fab fa-creative-commons-by fa-2x"></i><i class="fab fa-creative-commons-sa fa-2x"></i> </a><br>
   </p>
   
+
+  
+
+
+
 
 
   <p class="powered-by">

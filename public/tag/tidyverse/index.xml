@@ -167,14 +167,14 @@ head(search_result)
 &lt;p&gt;Lets take a look at the actual pattern from the search results using &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hermione &amp;lt;- get_patterns(ids = search_result[4, ]$id)
 str(hermione, max.level = 2)
-#&amp;gt; tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
+#&amp;gt; tibble[,50] [1 x 50] (S3: tbl_df/tbl/data.frame)
 #&amp;gt;  $ comments_count         : int 4
 #&amp;gt;  $ created_at             : chr &amp;quot;2021/03/04 04:28:53 -0500&amp;quot;
 #&amp;gt;  $ currency               : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ difficulty_average     : num 2.23
-#&amp;gt;  $ difficulty_count       : int 121
+#&amp;gt;  $ difficulty_count       : int 123
 #&amp;gt;  $ downloadable           : logi FALSE
-#&amp;gt;  $ favorites_count        : int 361
+#&amp;gt;  $ favorites_count        : int 370
 #&amp;gt;  $ free                   : logi FALSE
 #&amp;gt;  $ gauge                  : num 32
 #&amp;gt;  $ gauge_divisor          : int 4
@@ -185,11 +185,11 @@ str(hermione, max.level = 2)
 #&amp;gt;  $ pdf_url                : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ permalink              : chr &amp;quot;picnic-blanket-socks&amp;quot;
 #&amp;gt;  $ price                  : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ projects_count         : int 471
+#&amp;gt;  $ projects_count         : int 476
 #&amp;gt;  $ published              : chr &amp;quot;2021/03/01&amp;quot;
-#&amp;gt;  $ queued_projects_count  : int 81
-#&amp;gt;  $ rating_average         : num 4.75
-#&amp;gt;  $ rating_count           : int 126
+#&amp;gt;  $ queued_projects_count  : int 82
+#&amp;gt;  $ rating_average         : num 4.76
+#&amp;gt;  $ rating_count           : int 128
 #&amp;gt;  $ row_gauge              : num 46
 #&amp;gt;  $ updated_at             : chr &amp;quot;2021/03/04 04:28:53 -0500&amp;quot;
 #&amp;gt;  $ url                    : chr &amp;quot;&amp;quot;
@@ -220,15 +220,15 @@ str(hermione, max.level = 2)
 #&amp;gt;  $ pattern_type           :List of 1
 str(hermione$pattern_attributes)
 #&amp;gt; List of 1
-#&amp;gt;  $ : tibble [12 x 2] (S3: tbl_df/tbl/data.frame)
+#&amp;gt;  $ : tibble[,2] [12 x 2] (S3: tbl_df/tbl/data.frame)
 #&amp;gt;   ..$ id       : int [1:12] 1 2 3 9 10 12 18 23 26 211 ...
 #&amp;gt;   ..$ permalink: chr [1:12] &amp;quot;male&amp;quot; &amp;quot;female&amp;quot; &amp;quot;unisex&amp;quot; &amp;quot;teen&amp;quot; ...
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hermione$difficulty_count # how many reviews rated a difficulty?
-#&amp;gt; [1] 121
+#&amp;gt; [1] 123
 hermione$difficulty_average # what is the average difficulty?
-#&amp;gt; [1] 2.231405
+#&amp;gt; [1] 2.227642
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;slip_it_search &amp;lt;- search_patterns(query = &amp;quot;slip it simple sock&amp;quot;)

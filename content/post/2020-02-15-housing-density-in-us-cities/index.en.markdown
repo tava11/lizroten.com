@@ -14,6 +14,7 @@ tags:
   - R Markdown
 subtitle: ''
 summary: ''
+disable_codefolding: true
 toc: true
 authors: []
 lastmod: '2021-01-24T15:19:50-06:00'
@@ -275,7 +276,7 @@ Next, we can look at “zoning\_ztype.”
 head(unique(austin$zoning_ztype))
 ```
 
-    ## [1] "SF-2-NP"  "SF-3-NP"  "CS-MU-NP" "MF-2-NP"  "CS"       "CS-NP"
+    ## [1] "SF-2-CO"  "SF-3-NP"  "MF-2-NP"  "PUD"      "GR"       "CS-MU-NP"
 
 YIKES. Looks like we need a data dictionary.
 

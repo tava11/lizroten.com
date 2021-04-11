@@ -18,8 +18,9 @@
       <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
       <guid>lizroten.com/blog/rtistry-with-contour/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been obsessed with &lt;a href=&#34;https://twitter.com/ijeamaka_a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ijeamaka Anyene&amp;rsquo;s&lt;/a&gt; art for months now. Her &lt;a href=&#34;https://ijeamaka-anyene.netlify.app/posts/2021-01-04-radial-patterns-in-ggplot2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;zine&lt;/a&gt; is gorgeous, and I&amp;rsquo;ve been antsy to try some of the techniques out.&lt;/p&gt;
-&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
+&lt;h2 id=&#34;spokes-pattern-01-variants&#34;&gt;Spokes: Pattern 01 Variants&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# setup 
+library(tidyverse)
 library(colorspace)
 set.seed(246153)
 
@@ -32,7 +33,6 @@ font_add(&amp;quot;Cormorant Garamond&amp;quot;, &amp;quot;CormorantGaramond-Reg
 
 my_caption &amp;lt;- &amp;quot;Liz Roten | @LizRoten&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;spokes-pattern-01-variants&#34;&gt;Spokes: Pattern 01 Variants&lt;/h2&gt;
 &lt;p&gt;See original &lt;a href=&#34;https://ijeamakaanyene.github.io/patterns/zine/zine_radial_patterns.html#4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;lines &amp;lt;- tibble(
   x = seq(0, 29, by = 0.2),
@@ -518,14 +518,14 @@ head(search_result)
 &lt;p&gt;Lets take a look at the actual pattern from the search results using &lt;code&gt;get_patterns()&lt;/code&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hermione &amp;lt;- get_patterns(ids = search_result[4, ]$id)
 str(hermione, max.level = 2)
-#&amp;gt; tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
+#&amp;gt; tibble[,50] [1 x 50] (S3: tbl_df/tbl/data.frame)
 #&amp;gt;  $ comments_count         : int 4
 #&amp;gt;  $ created_at             : chr &amp;quot;2021/03/04 04:28:53 -0500&amp;quot;
 #&amp;gt;  $ currency               : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ difficulty_average     : num 2.23
-#&amp;gt;  $ difficulty_count       : int 121
+#&amp;gt;  $ difficulty_count       : int 123
 #&amp;gt;  $ downloadable           : logi FALSE
-#&amp;gt;  $ favorites_count        : int 361
+#&amp;gt;  $ favorites_count        : int 370
 #&amp;gt;  $ free                   : logi FALSE
 #&amp;gt;  $ gauge                  : num 32
 #&amp;gt;  $ gauge_divisor          : int 4
@@ -536,11 +536,11 @@ str(hermione, max.level = 2)
 #&amp;gt;  $ pdf_url                : chr &amp;quot;&amp;quot;
 #&amp;gt;  $ permalink              : chr &amp;quot;picnic-blanket-socks&amp;quot;
 #&amp;gt;  $ price                  : chr &amp;quot;&amp;quot;
-#&amp;gt;  $ projects_count         : int 471
+#&amp;gt;  $ projects_count         : int 476
 #&amp;gt;  $ published              : chr &amp;quot;2021/03/01&amp;quot;
-#&amp;gt;  $ queued_projects_count  : int 81
-#&amp;gt;  $ rating_average         : num 4.75
-#&amp;gt;  $ rating_count           : int 126
+#&amp;gt;  $ queued_projects_count  : int 82
+#&amp;gt;  $ rating_average         : num 4.76
+#&amp;gt;  $ rating_count           : int 128
 #&amp;gt;  $ row_gauge              : num 46
 #&amp;gt;  $ updated_at             : chr &amp;quot;2021/03/04 04:28:53 -0500&amp;quot;
 #&amp;gt;  $ url                    : chr &amp;quot;&amp;quot;
@@ -571,15 +571,15 @@ str(hermione, max.level = 2)
 #&amp;gt;  $ pattern_type           :List of 1
 str(hermione$pattern_attributes)
 #&amp;gt; List of 1
-#&amp;gt;  $ : tibble [12 x 2] (S3: tbl_df/tbl/data.frame)
+#&amp;gt;  $ : tibble[,2] [12 x 2] (S3: tbl_df/tbl/data.frame)
 #&amp;gt;   ..$ id       : int [1:12] 1 2 3 9 10 12 18 23 26 211 ...
 #&amp;gt;   ..$ permalink: chr [1:12] &amp;quot;male&amp;quot; &amp;quot;female&amp;quot; &amp;quot;unisex&amp;quot; &amp;quot;teen&amp;quot; ...
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I thought the Hermione sock was fairly straightforward. What is the average difficulty, on a scale of 1 to 10?&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hermione$difficulty_count # how many reviews rated a difficulty?
-#&amp;gt; [1] 121
+#&amp;gt; [1] 123
 hermione$difficulty_average # what is the average difficulty?
-#&amp;gt; [1] 2.231405
+#&amp;gt; [1] 2.227642
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;slip_it_search &amp;lt;- search_patterns(query = &amp;quot;slip it simple sock&amp;quot;)
@@ -1069,7 +1069,7 @@ pitt_water &amp;lt;- read_sf(&amp;quot;http://openac-alcogis.opendata.arcgis.com
 &lt;p&gt;Next, we can look at “zoning_ztype.”&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(unique(austin$zoning_ztype))
 &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;SF-2-NP&amp;quot;  &amp;quot;SF-3-NP&amp;quot;  &amp;quot;CS-MU-NP&amp;quot; &amp;quot;MF-2-NP&amp;quot;  &amp;quot;CS&amp;quot;       &amp;quot;CS-NP&amp;quot;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;SF-2-CO&amp;quot;  &amp;quot;SF-3-NP&amp;quot;  &amp;quot;MF-2-NP&amp;quot;  &amp;quot;PUD&amp;quot;      &amp;quot;GR&amp;quot;       &amp;quot;CS-MU-NP&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;YIKES. Looks like we need a data dictionary.&lt;/p&gt;
 &lt;p&gt;I would love to say that I elegantly extracted the zoning codes from the &lt;a href=&#34;http://www.austintexas.gov/page/zoning-districts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;city’s website&lt;/a&gt;, but I ended up copying the HTML table to Excel and manipulating the columns from there. The text-to-columns tool is very useful fo instances like this. I also added codes “SF-4” and “MF,” which weren’t explicitly provided.&lt;/p&gt;

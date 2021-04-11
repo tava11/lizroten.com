@@ -14,7 +14,8 @@ summary: 'Not all magnetic resistance systems are created the same'
 authors: []
 toc: true
 lastmod: '2021-01-26T19:48:04-06:00'
-featured: no
+featured: yes
+disable_codefolding: true
 image:
   caption: ''
   focal_point: Top

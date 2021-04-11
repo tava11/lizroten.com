@@ -16,6 +16,7 @@ authors: []
 toc: true
 lastmod: '2020-12-19T13:53:43-06:00'
 featured: yes
+disable_codefolding: true
 image:
   caption: ''
   focal_point: Top

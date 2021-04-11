@@ -18,8 +18,9 @@
       <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
       <guid>lizroten.com/blog/rtistry-with-contour/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve been obsessed with &lt;a href=&#34;https://twitter.com/ijeamaka_a&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ijeamaka Anyene&amp;rsquo;s&lt;/a&gt; art for months now. Her &lt;a href=&#34;https://ijeamaka-anyene.netlify.app/posts/2021-01-04-radial-patterns-in-ggplot2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;zine&lt;/a&gt; is gorgeous, and I&amp;rsquo;ve been antsy to try some of the techniques out.&lt;/p&gt;
-&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
+&lt;h2 id=&#34;spokes-pattern-01-variants&#34;&gt;Spokes: Pattern 01 Variants&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# setup 
+library(tidyverse)
 library(colorspace)
 set.seed(246153)
 
@@ -32,7 +33,6 @@ font_add(&amp;quot;Cormorant Garamond&amp;quot;, &amp;quot;CormorantGaramond-Reg
 
 my_caption &amp;lt;- &amp;quot;Liz Roten | @LizRoten&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;spokes-pattern-01-variants&#34;&gt;Spokes: Pattern 01 Variants&lt;/h2&gt;
 &lt;p&gt;See original &lt;a href=&#34;https://ijeamakaanyene.github.io/patterns/zine/zine_radial_patterns.html#4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;lines &amp;lt;- tibble(
   x = seq(0, 29, by = 0.2),

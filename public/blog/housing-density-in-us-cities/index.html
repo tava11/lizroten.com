@@ -356,6 +356,11 @@
 
 
 
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="/lizroten.com/css/codefolding.css" />
+
+
+
   <title>Housing Density in US Cities | Liz Roten</title>
 
 </head>
@@ -672,6 +677,9 @@
   
 
 
+  
+
+
 <div class="article-metadata">
 
   
@@ -945,7 +953,7 @@ pitt_water &lt;- read_sf(&quot;http://openac-alcogis.opendata.arcgis.com/dataset
 <p>Next, we can look at “zoning_ztype.”</p>
 <pre><code class="language-r">head(unique(austin$zoning_ztype))
 </code></pre>
-<pre><code>## [1] &quot;SF-2-NP&quot;  &quot;SF-3-NP&quot;  &quot;CS-MU-NP&quot; &quot;MF-2-NP&quot;  &quot;CS&quot;       &quot;CS-NP&quot;
+<pre><code>## [1] &quot;SF-2-CO&quot;  &quot;SF-3-NP&quot;  &quot;MF-2-NP&quot;  &quot;PUD&quot;      &quot;GR&quot;       &quot;CS-MU-NP&quot;
 </code></pre>
 <p>YIKES. Looks like we need a data dictionary.</p>
 <p>I would love to say that I elegantly extracted the zoning codes from the <a href="http://www.austintexas.gov/page/zoning-districts" target="_blank" rel="noopener">city’s website</a>, but I ended up copying the HTML table to Excel and manipulating the columns from there. The text-to-columns tool is very useful fo instances like this. I also added codes “SF-4” and “MF,” which weren’t explicitly provided.</p>
@@ -1440,6 +1448,11 @@ boston_all &lt;- rbind(boston_res, boston_non_res)
     <a href="lizroten.com/license/">LICENSE: CC-BY-SA <br> <i class="fab fa-creative-commons fa-2x"></i><i class="fab fa-creative-commons-by fa-2x"></i><i class="fab fa-creative-commons-sa fa-2x"></i> </a><br>
   </p>
   
+
+  
+
+
+
 
 
   <p class="powered-by">

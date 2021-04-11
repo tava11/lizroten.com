@@ -1,0 +1,9 @@
+{{/* Do not directly modify this file! */}}
+{{/* Instead, create a `layouts/partials/custom_head.html` file in your site and add your code to it. */}}
+
+{{/* This partial is included in `themes/academic/layouts/partials/site_head.html`. */}}
+
+{{ if not site.Params.disable_codefolding }}
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="{{ "css/codefolding.css" | relURL }}" />
+{{ end }}

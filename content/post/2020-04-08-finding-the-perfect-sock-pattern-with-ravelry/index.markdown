@@ -15,6 +15,7 @@ summary: "Using Ravelry's API to find just the right sock pattern"
 authors: []
 lastmod: '2020-10-30T17:47:26-05:00'
 featured: yes
+disable_codefolding: true
 image:
   caption: ''
   focal_point: Top
@@ -99,14 +100,14 @@ Lets take a look at the actual pattern from the search results using `get_patter
 ```r
 hermione <- get_patterns(ids = search_result[4, ]$id)
 str(hermione, max.level = 2)
-#> tibble [1 x 50] (S3: tbl_df/tbl/data.frame)
+#> tibble[,50] [1 x 50] (S3: tbl_df/tbl/data.frame)
 #>  $ comments_count         : int 4
 #>  $ created_at             : chr "2021/03/04 04:28:53 -0500"
 #>  $ currency               : chr ""
 #>  $ difficulty_average     : num 2.23
-#>  $ difficulty_count       : int 121
+#>  $ difficulty_count       : int 123
 #>  $ downloadable           : logi FALSE
-#>  $ favorites_count        : int 361
+#>  $ favorites_count        : int 370
 #>  $ free                   : logi FALSE
 #>  $ gauge                  : num 32
 #>  $ gauge_divisor          : int 4
@@ -117,11 +118,11 @@ str(hermione, max.level = 2)
 #>  $ pdf_url                : chr ""
 #>  $ permalink              : chr "picnic-blanket-socks"
 #>  $ price                  : chr ""
-#>  $ projects_count         : int 471
+#>  $ projects_count         : int 476
 #>  $ published              : chr "2021/03/01"
-#>  $ queued_projects_count  : int 81
-#>  $ rating_average         : num 4.75
-#>  $ rating_count           : int 126
+#>  $ queued_projects_count  : int 82
+#>  $ rating_average         : num 4.76
+#>  $ rating_count           : int 128
 #>  $ row_gauge              : num 46
 #>  $ updated_at             : chr "2021/03/04 04:28:53 -0500"
 #>  $ url                    : chr ""
@@ -152,7 +153,7 @@ str(hermione, max.level = 2)
 #>  $ pattern_type           :List of 1
 str(hermione$pattern_attributes)
 #> List of 1
-#>  $ : tibble [12 x 2] (S3: tbl_df/tbl/data.frame)
+#>  $ : tibble[,2] [12 x 2] (S3: tbl_df/tbl/data.frame)
 #>   ..$ id       : int [1:12] 1 2 3 9 10 12 18 23 26 211 ...
 #>   ..$ permalink: chr [1:12] "male" "female" "unisex" "teen" ...
 ```
@@ -162,9 +163,9 @@ I thought the Hermione sock was fairly straightforward. What is the average diff
 
 ```r
 hermione$difficulty_count # how many reviews rated a difficulty?
-#> [1] 121
+#> [1] 123
 hermione$difficulty_average # what is the average difficulty?
-#> [1] 2.231405
+#> [1] 2.227642
 ```
 
 Lets find my other sock pattern, Slip It Simple, and see what the difficulty rating is.

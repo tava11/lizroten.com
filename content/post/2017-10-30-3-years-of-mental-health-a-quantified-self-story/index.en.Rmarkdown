@@ -18,6 +18,7 @@ authors: []
 toc: true
 lastmod: '2021-01-24T15:10:18-06:00'
 featured: yes
+disable_codefolding: true
 image:
   caption: ''
   focal_point: Top
