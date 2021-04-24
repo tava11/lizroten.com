@@ -5,12 +5,78 @@
     <link>lizroten.com/category/cartography/</link>
       <atom:link href="lizroten.com/category/cartography/index.xml" rel="self" type="application/rss+xml" />
     <description>cartography</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Sat, 19 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Sat, 13 Mar 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/lizroten.com/images/icon_hu9684a0c7728a1791553eb63a20e70951_11434_512x512_fill_lanczos_center_2.png</url>
       <title>cartography</title>
       <link>lizroten.com/category/cartography/</link>
     </image>
+    
+    <item>
+      <title>Make a neat header image</title>
+      <link>lizroten.com/blog/make-a-neat-header/</link>
+      <pubDate>Sat, 13 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/blog/make-a-neat-header/</guid>
+      <description>&lt;p&gt;I made a pretty neat header image for this site using raster data from my &lt;a href=&#34;lizroten.com/project/square-lake-master-plan/&#34;&gt;Square Lake Master Plan Update&lt;/a&gt; project.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(sf)
+library(ggplot2)
+library(dplyr)
+library(Cairo)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Download regional park geography from &lt;a href=&#34;https://gisdata.mn.gov/dataset/us-mn-state-metc-plan-parks-regional&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Minnesota Geospatial Commons&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## base geometries -------------------------------------------------------------
+temp &amp;lt;- tempfile()
+download.file(&amp;quot;ftp://ftp.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_metc/plan_parks_regional/gpkg_plan_parks_regional.zip&amp;quot;,
+  destfile = temp
+)
+
+square_lake &amp;lt;- sf::read_sf(unzip(temp, &amp;quot;plan_parks_regional.gpkg&amp;quot;)) %&amp;gt;%
+  filter(STATUS == &amp;quot;Existing&amp;quot;) %&amp;gt;%
+  filter(PARKNAME == &amp;quot;Square Lake&amp;quot;) %&amp;gt;%
+  group_by(PARKNAME, AGENCY) %&amp;gt;%
+  sf::st_union() %&amp;gt;%
+  st_as_sf() %&amp;gt;%
+  st_transform(4326)
+
+fs::file_delete(&amp;quot;plan_parks_regional.gpkg&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I refined &lt;code&gt;contours.RDS&lt;/code&gt; in my previous project. The data come from &lt;a href=&#34;https://www.dnr.state.mn.us/maps/mntopo/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MnTOPO&lt;/a&gt;, a web application for viewing, printing and downloading high-resolution elevation data for the State of Minnesota that was collected using LiDAR technology. I only needed data from a small area, so I drew a polygon over my study area using MnTOPO.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# load 3 meter contours over the Square Lake area
+
+contour &amp;lt;- readRDS(&amp;quot;contours.RDS&amp;quot;) %&amp;gt;%
+  st_transform(4326) %&amp;gt;%
+  sf::st_crop(xmin = -92.7854633,
+              ymin = 45.1497518,
+              xmax = -92.8007197,
+              ymax = 45.1568488)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Generate plot with &lt;code&gt;{ggplot2}&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot() +
+  geom_sf(
+      data = contour,
+      color = &amp;quot;gray75&amp;quot;,
+      lwd = 0.2
+    ) +
+  theme_void()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;lizroten.com/blog/make-a-neat-header/index_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Finally, save the plot as a PDF and open it in Adobe Illustrator for modifications.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;Cairo::CairoPDF(file = &amp;quot;contours.pdf&amp;quot;, 
+                onefile = TRUE, width = 12, height = 10, bg = &amp;quot;transparent&amp;quot;)
+ggplot() +
+  geom_sf(
+      data = contour,
+      color = &amp;quot;gray75&amp;quot;,
+      lwd = 0.2
+    ) +
+  theme_void()
+dev.off()
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I adjusted the background and finessed the positioning so it would display like I wanted it to on my home page. Here is the final product.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;contours.png&#34; alt=&#34;Header image&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Maps with {edgebundle}</title>

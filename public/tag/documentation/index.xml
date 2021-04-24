@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>documentation | Liz Roten</title>
+    <link>lizroten.com/tag/documentation/</link>
+      <atom:link href="lizroten.com/tag/documentation/index.xml" rel="self" type="application/rss+xml" />
+    <description>documentation</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Liz Roten 2021</copyright><lastBuildDate>Mon, 01 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/lizroten.com/images/icon_hu9684a0c7728a1791553eb63a20e70951_11434_512x512_fill_lanczos_center_2.png</url>
+      <title>documentation</title>
+      <link>lizroten.com/tag/documentation/</link>
+    </image>
+    
+    <item>
+      <title>{use.estimates}</title>
+      <link>lizroten.com/project/regional-parks-use-estimates/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/regional-parks-use-estimates/</guid>
+      <description>&lt;p&gt;Prior to 2019, regional parks use estimates were completed using a series of Excel workbooks, originally written in the 1990s. A colleague re-wrote the procedure in a single RMarkdown document for the 2018 estimates. Later, I developed &lt;code&gt;{use.estimates}&lt;/code&gt;, which spread the calculation process over multiple vignettes. Each vignette produces a report for each step in the process, which allowed our parks researcher to review results quickly. All package data is also documented for future data scientists.&lt;/p&gt;
+&lt;p&gt;This package is managed via GitHub such that new Issues and pull requests are integrated into project management. The package is regularly tested using &lt;a href=&#34;https://github.com/features/actions&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Actions&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can see the published use estimate reports &lt;a href=&#34;https://metrocouncil.org/Parks/Research/Annual-Use-Estimates.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

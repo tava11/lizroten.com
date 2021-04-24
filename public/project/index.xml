@@ -80,7 +80,9 @@
       <link>lizroten.com/project/councilr-package/</link>
       <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
       <guid>lizroten.com/project/councilr-package/</guid>
-      <description></description>
+      <description>&lt;p&gt;&lt;code&gt;{councilR}&lt;/code&gt; is the Metropolitan Council&amp;rsquo;s custom R package. Features include corporate color codes, &lt;code&gt;{ggplot2}&lt;/code&gt; themes, functions for accessing local and remote GIS data, and a set of RStudio snippets. The package is open-source and used by myself and my colleagues daily.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;{councilR}&lt;/code&gt; is managed via &lt;a href=&#34;https://github.com/features/actions&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Actions&lt;/a&gt;, ensuring functionality on multiple operating systems and neatly evaluating new features.&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -89,6 +91,71 @@
       <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
       <guid>lizroten.com/project/tc-sensors/</guid>
       <description>&lt;p&gt;An R package for pulling data for Minnesota Department of Transportation (MnDOT) loop detectors installed on the Minnesota Freeway system in 30-second interval measurements of occupancy and volume, data which are pushed daily to a public JSON feed.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;{tc.sensors}&lt;/code&gt; is managed via &lt;a href=&#34;https://github.com/features/actions&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Actions&lt;/a&gt;, ensuring functionality on multiple operating systems and neatly evaluating new features.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Square Lake Park Master Plan</title>
+      <link>lizroten.com/project/square-lake-master-plan/</link>
+      <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>lizroten.com/project/square-lake-master-plan/</guid>
+      <description>&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;Square Lake Park Special Recreation Feature recently underwent a master plan update. I served on the technical advisory committee (TAC) and conducted a focused analysis estimating annual visitation and visitor activity within the park. I presented findings to Washington County staff and the entire TAC.&lt;/p&gt;
+&lt;h3 id=&#34;overall-visitation&#34;&gt;Overall visitation&lt;/h3&gt;
+&lt;p&gt;Square Lake Park has just one entrance and is surrounded by relatively low-traffic roads. I drew a gate over the park entrance and estimated the number of vehicles that pass through the gate using &lt;a href=&#34;https://www.streetlightdata.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;StreetLight Volume&lt;/a&gt;. Then, I applied a persons-per-vehicle multiplier to estimate the number of visitors. I also used &lt;a href=&#34;https://www.streetlightdata.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;StreetLight&amp;rsquo;s&lt;/a&gt; visitor home location metrics to estimate the spatial distribution of visitors.&lt;/p&gt;
+
+
+
+
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-liz-roten-for-metropolitan-council-2021&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;lizroten.com/lizroten.com/project/square-lake-master-plan/visitor_home_metrics_hubd6411e6b27e792e6bf68170c827eb86_154764_2000x2000_fit_lanczos_2.PNG&#34; data-caption=&#34;Liz Roten for Metropolitan Council, 2021&#34;&gt;
+
+
+  &lt;img data-src=&#34;lizroten.com/lizroten.com/project/square-lake-master-plan/visitor_home_metrics_hubd6411e6b27e792e6bf68170c827eb86_154764_2000x2000_fit_lanczos_2.PNG&#34; class=&#34;lazyload&#34; alt=&#34;&#34; width=&#34;676&#34; height=&#34;606&#34;&gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Liz Roten for Metropolitan Council, 2021
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;activity-within-the-park&#34;&gt;Activity within the park&lt;/h3&gt;
+&lt;p&gt;To visualize visitor activity within the park, I generated a hexagon grid and ran &lt;a href=&#34;https://www.streetlightdata.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;StreetLight&lt;/a&gt; analyses for different trip intersection types.&lt;/p&gt;
+&lt;p&gt;These maps visualize the activity within Square Lake Park on an average day during operating hours (6am - 10pm) in Summer 2019. Each map shows a grid of hexagons covering Square Lake Park. The hexagons are colored such that darker shades indicate greater activity, and lighter shades indicate lower activity. Each trip intersection type highlights the ways in which visitors enjoy the park. However, activity on Square Lake, such as paddling, boating, or using the fishing pier, is not detected.&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    View a higher resolution of this viz &lt;a href=&#34;lizroten.com/lizroten.com/docs/Hex%20map%20series.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;streetlight-data&#34;&gt;StreetLight Data&lt;/h3&gt;
+&lt;p&gt;Data in this data visualization comes from &lt;a href=&#34;https://www.streetlightdata.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;StreetLight Data&lt;/a&gt;, an independent data provider which cleans, processes and assimilates millions of spatial data points from a combination of mobile phone Location-Based Services (LBS) data and GPS data. The data is anonymized, aggregated, and accessed only through specific analyses.&lt;/p&gt;
 </description>
     </item>
     
@@ -349,8 +416,9 @@
       <link>lizroten.com/project/regional-parks-use-estimates/</link>
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
       <guid>lizroten.com/project/regional-parks-use-estimates/</guid>
-      <description>&lt;p&gt;You can see the published reports &lt;a href=&#34;https://metrocouncil.org/Parks/Research/Annual-Use-Estimates.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+      <description>&lt;p&gt;Prior to 2019, regional parks use estimates were completed using a series of Excel workbooks, originally written in the 1990s. A colleague re-wrote the procedure in a single RMarkdown document for the 2018 estimates. Later, I developed &lt;code&gt;{use.estimates}&lt;/code&gt;, which spread the calculation process over multiple vignettes. Each vignette produces a report for each step in the process, which allowed our parks researcher to review results quickly. All package data is also documented for future data scientists.&lt;/p&gt;
+&lt;p&gt;This package is managed via GitHub such that new Issues and pull requests are integrated into project management. The package is regularly tested using &lt;a href=&#34;https://github.com/features/actions&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Actions&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can see the published use estimate reports &lt;a href=&#34;https://metrocouncil.org/Parks/Research/Annual-Use-Estimates.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
