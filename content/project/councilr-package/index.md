@@ -6,6 +6,7 @@ tags:
 - packages
 - github
 - pkgdown
+- GitHub Actions
 date: "2021-02-05T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
@@ -33,8 +34,9 @@ featured: true
 
 ---
 
+`{councilR}` is the Metropolitan Council's custom R package. Features include corporate color codes, `{ggplot2}` themes, functions for accessing local and remote GIS data, and a set of RStudio snippets. The package is open-source and used by myself and my colleagues daily.    
 
-
+`{councilR}` is managed via [GitHub Actions](https://github.com/features/actions), ensuring functionality on multiple operating systems and neatly evaluating new features.  
 
 
 

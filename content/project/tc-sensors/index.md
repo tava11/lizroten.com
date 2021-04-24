@@ -7,6 +7,7 @@ tags:
 - github
 - pkgdown
 - transportation
+- GitHub Actions
 date: "2021-02-05T00:00:00Z"
 
 # Optional external URL for project (replaces project detail page).
@@ -35,7 +36,9 @@ featured: true
 ---
 
 
-An R package for pulling data for Minnesota Department of Transportation (MnDOT) loop detectors installed on the Minnesota Freeway system in 30-second interval measurements of occupancy and volume, data which are pushed daily to a public JSON feed.  
+An R package for pulling data for Minnesota Department of Transportation (MnDOT) loop detectors installed on the Minnesota Freeway system in 30-second interval measurements of occupancy and volume, data which are pushed daily to a public JSON feed. 
+
+`{tc.sensors}` is managed via [GitHub Actions](https://github.com/features/actions), ensuring functionality on multiple operating systems and neatly evaluating new features.  
 
 
 
