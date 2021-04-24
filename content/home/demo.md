@@ -18,7 +18,7 @@ subtitle:
 design:
   columns: "1"
   background:
-    image: headers/countoursArtboard 1.png
+    image: headers/contours.png
     image_darken: 0
     image_parallax: true
     image_position: top
